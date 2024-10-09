@@ -1,0 +1,2 @@
+# TimeSeriesA
+Primer repositorio curso
