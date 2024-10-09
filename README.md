@@ -1,7 +1,7 @@
 # TimeSeriesA
 ## Primer repositorio curso
 ## Materia: series de tiempo
-## Estudiantes: Diana Aguirre, Edgard, Gabriel
+## Estudiantes: Diana Marcel Aguirre León, Edgard Antonio Camacho, Gabriel Orozco Castaño
 ## Pontifica Universidad Javeriana
 ### Tema: Population, total - Colombia
 ### link: https://data.worldbank.org/indicator/SP.POP.TOTL?locations=CO
