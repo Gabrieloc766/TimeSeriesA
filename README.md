@@ -29,4 +29,4 @@ Los datos utilizados en este análisis provienen del Banco Mundial, específicam
 **•	Permisos de Uso:** La información del Banco Mundial está sujeta a una licencia de uso abierto, generalmente la Licencia de Gobierno Abierto (Open Data License), que permite a los usuarios acceder, descargar y reutilizar los datos para fines de análisis y publicación, siempre que se reconozca al Banco Mundial como la fuente original de los datos. 
 
 
-![image](https://github.com/user-attachments/assets/1b5733b9-1d4e-4ddc-906c-5b2e931946ba)
+![image](https://github.com/user-attachments/assets/667dc097-27e1-419c-bc2f-a5bf9dd030d6)
