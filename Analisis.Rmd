@@ -1,0 +1,9 @@
+---
+title: "Analisis Tasa de Intervencion"
+author: "Gabriel Orozco Castaño"
+date: "2024-10-15"
+output: html_document
+---
+
+
+
