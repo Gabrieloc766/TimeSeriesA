@@ -5,5 +5,250 @@ date: "2024-10-15"
 output: html_document
 ---
 
+#1 Enunciado:
+
+En este momento deberemos retomar la Unidad 1 en la cual se creó un minilibro que contiene el entregable de dicha unidad. Este documento tiene como repositorio GitHub (elaborado desde Markdown). Ahora, en esta Unidad 2, se debe continuar con los datos presentados en dicho entregable y se debe evidenciar, en una de las variables en el tiempo, la aproximación en promedio móvil, en rezagos y en estacionalidad. Todo lo anterior, a través de funciones y gráficas que permitan detectar patrones y ciclos de la variable.
+
+# 2 Análisis exploratorio:
+
+```{r}
+#install.packages("readxl")
+#install.packages("forecast")
+#install.packages("timsac")
+#install.packages("changepoint")
+#install.packages("kableExtra")
+
+
+library(readxl)
+library(forecast) # Recomendada profesora
+library(ggplot2)
+library(tseries) # Recomendada profesora
+library(timsac)
+library(changepoint)
+library(dplyr)
+library(lubridate)
+library(tidyr)
+library(kableExtra)
+library(knitr)
+library(zoo)
+library(scales)
+
+
+```
+
+```{r}
+data <- read_excel("1.2.TIP_Serie historica diaria.xlsx")
+```
+
+```{r}
+summary(data)
+```
+
+```{r}
+head(data)
+```
+```{r}
+str(data)
+```
+
+```{r}
+n_nas_por_columna <- colSums(is.na(data))
+print(n_nas_por_columna)
+```
+Se realiza una copia del dataset:
+
+```{r}
+data2 <- data
+```
+
+
+
+```{r}
+# Identificar filas con al menos un valor NA
+filas_con_na <- which(rowSums(is.na(data2)) > 0)
+
+# Ver las filas con datos faltantes
+data2[filas_con_na, ]
+```
+```{r}
+# Identificar filas con al menos un valor NA
+filas_con_na <- which(rowSums(is.na(data2)) > 0)
+
+# Ver el número de filas con datos faltantes
+num_filas_con_na <- length(filas_con_na)
+cat("Número de filas con NA:", num_filas_con_na, "\n")
+
+# Mostrar las filas con datos faltantes
+if (num_filas_con_na > 0) {
+  print(data2[filas_con_na, ])
+} else {
+  cat("No hay filas con valores NA.\n")
+}
+
+```
+
+
+
+
+
+
+
+```{r}
+head(data2)
+```
+Teniendo en cuenta el resultado anterior, se eliminan los registros de julio y agosto para tener correctamente el promedio movil.
+
+
+
+```{r}
+
+# Primer y último registro del dataset
+
+resultado <- rbind(head(data2, 1), tail(data2, 1))
+
+print(resultado)
+
+
+```
+
+El código anterior nos permite evidenciar el primer y último registro del data set. En donde se concluye que tiene información desde el 1 de enero de 1999 hasta el 6 de octubre del 2024.
+
+
+```{r}
+# Se agregan dos columnas, correspondiente a año y mes
+
+data2 <- data2 %>%
+  mutate(Fecha = as.Date(Fecha), Año = year(Fecha), Mes = month(Fecha, label = TRUE, abbr = TRUE)) %>%
+  select(Año, Mes, everything())
+
+head(data2)
+
+```
+
+Con el código anterior, se agregaron dos columnas adicionales, llamadas Año y Mes, lo anterior para poder tener una mejor visual de los datos, teniendo en cuenta el gran número de registros que tiene el dataset.
+
+# 3. Gráficos de visualización:
+
+```{r}
+ggplot(data2, aes(x = Fecha, y = Tasa)) +
+  geom_point(color = "blue", size = 2) + 
+  geom_smooth(method = "loess", color = "red", se = FALSE) +  
+  labs(title = "Tasa a lo largo del tiempo",
+       x = "Tiempo",
+       y = "Tasa") +
+  scale_x_date(date_labels = "%Y-%m", date_breaks = "1 month") +
+  theme_minimal(base_size = 15) +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold"),
+    axis.title = element_text(face = "bold"),
+    panel.grid.major = element_line(color = "lightgrey"),
+    panel.grid.minor = element_blank()
+  )
+
+```
+
+
+```{r}
+data2 <- data2 %>%
+  mutate(Fecha = as.Date(Fecha))
+
+ggplot(data2, aes(x = Año, y = Tasa)) +
+  geom_point(color = "blue", size = 2) +  # Puntos en azul
+  geom_line(color = "blue", size = 1) +  # Línea azul
+  geom_smooth(method = "loess", color = "red", se = FALSE) +  # Tendencia en rojo
+  labs(title = "Tasa a lo largo del tiempo",
+       x = "Año",
+       y = "Tasa") +
+  scale_x_continuous(breaks = seq(min(data2$Año), max(data2$Año), by = 2)) +  # Eje X de 2 en 2
+  scale_y_continuous(breaks = seq(min(data2$Tasa, na.rm = TRUE), max(data2$Tasa, na.rm = TRUE), by = 2)) +  # Eje Y de 2 en 2
+  theme_minimal(base_size = 15) +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold"),
+    axis.title = element_text(face = "bold"),
+    panel.grid.major = element_line(color = "lightgrey")
+  )
+
+```
+
+Con las gráficas anteriores, es posible ver la evolución de las tasas de tiempo a lo largo de los años, así como su tendencia.
+
+
+```{r}
+
+data2 <- data2 %>%
+  mutate(Fecha = as.Date(Fecha)) 
+
+# Agregar las columnas Año y Mes
+data2 <- data2 %>%
+  mutate(
+    Año = year(Fecha),
+    Mes = month(Fecha, label = TRUE, abbr = TRUE)  
+  )
+
+# Crear la tabla de tasas por Año y Mes
+tabla_tasas <- data2 %>%
+  group_by(Año, Mes) %>%
+  summarise(TasaPromedio = round(mean(Tasa, na.rm = TRUE), 1)) %>%  
+  pivot_wider(names_from = Mes, values_from = TasaPromedio)  
+
+# Mostrar la tabla en cuadrícula
+kable(tabla_tasas, format = "html") %>%
+  kable_styling(full_width = F, position = "left")
+
+```
+
+
+
+# 4. Análisis de serie de tiempo:
+
+
+## 3.1. Promedio o media móvil
+
+Permite analizar el mercado a través de las tendencias. La media móvil es una técnica estadística que se utiliza para analizar datos a lo largo del tiempo. Permite calcular  la media de un conjunto de valores en un intervalo específico y luego desplazar ese intervalo a lo largo de la serie de datos para obtener una nueva serie de medias; lo que permite suavizar flutuaciones en los datos así como resaltar tendencias.
+
+Se conoce como media móvil ya que el valor se calcula constantemente a medida que pasa el tiempo; de esta forma, la media cambia cada vez que los valores cambian.
+
+```{r}
+# Calcular el promedio móvil
+data2$PromedioMovil <- rollmean(data2$Tasa, k = 3, fill = NA, align = "right")
+
+# Visualizar la tasa original y el promedio móvil
+ggplot(data2) +
+  geom_line(aes(x = Fecha, y = Tasa), color = "blue", size = 1, group = 1) +  # Tasa original
+  geom_line(aes(x = Fecha, y = PromedioMovil), color = "red", size = 1, group = 1) +  # Promedio móvil
+  labs(title = "Tasa y Promedio Móvil a lo largo del tiempo",
+       x = "Fecha",
+       y = "Tasa") +
+  scale_x_date(date_labels = "%Y", date_breaks = "2 years") +  # Eje X de 2 en 2 años
+  scale_y_continuous(breaks = seq(0, max(data2$Tasa, na.rm = TRUE), by = 2)) +  # Eje Y de 2 en 2
+  theme_minimal(base_size = 15) +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold"),
+    axis.title = element_text(face = "bold"),
+    panel.grid.major = element_line(color = "lightgrey"),
+    panel.grid.minor = element_blank()
+  )
+
+
+```
+
+
+
+
+## 3.2. Rezago (operador backshift) y estanacionalidad
+
+El operador rezago actúa sobre una serie de tiempo
+
+
+```{r}
+
+#if (!is.ts(data2)) {
+#  data2 <- ts(data2)
+#}
+
+
+#lag.plot(data2, 2, do.lines = FALSE)
+```
+
 
 
