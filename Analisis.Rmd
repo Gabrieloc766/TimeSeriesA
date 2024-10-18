@@ -11,7 +11,7 @@ En este momento deberemos retomar la Unidad 1 en la cual se creó un minilibro q
 
 # 2 Análisis exploratorio:
 
-```{r}
+```{r echo=FALSE, message=FALSE}
 #install.packages("readxl")
 #install.packages("forecast")
 #install.packages("timsac")
@@ -36,41 +36,41 @@ library(scales)
 
 ```
 
-```{r}
+```{r echo=FALSE}
 data <- read_excel("1.2.TIP_Serie historica diaria.xlsx")
 ```
 
-```{r}
+```{r echo=FALSE}
 summary(data)
 ```
 
-```{r}
+```{r echo=FALSE}
 head(data)
 ```
-```{r}
+```{r echo=FALSE}
 str(data)
 ```
 
-```{r}
+```{r echo=FALSE}
 n_nas_por_columna <- colSums(is.na(data))
 print(n_nas_por_columna)
 ```
 Se realiza una copia del dataset:
 
-```{r}
+```{r echo=FALSE}
 data2 <- data
 ```
 
 
 
-```{r}
+```{r echo=FALSE}
 # Identificar filas con al menos un valor NA
 filas_con_na <- which(rowSums(is.na(data2)) > 0)
 
 # Ver las filas con datos faltantes
 data2[filas_con_na, ]
 ```
-```{r}
+```{r echo=FALSE}
 # Identificar filas con al menos un valor NA
 filas_con_na <- which(rowSums(is.na(data2)) > 0)
 
@@ -93,14 +93,14 @@ if (num_filas_con_na > 0) {
 
 
 
-```{r}
+```{r echo=FALSE}
 head(data2)
 ```
 Teniendo en cuenta el resultado anterior, se eliminan los registros de julio y agosto para tener correctamente el promedio movil.
 
 
 
-```{r}
+```{r echo=FALSE}
 
 # Primer y último registro del dataset
 
@@ -114,7 +114,7 @@ print(resultado)
 El código anterior nos permite evidenciar el primer y último registro del data set. En donde se concluye que tiene información desde el 1 de enero de 1999 hasta el 6 de octubre del 2024.
 
 
-```{r}
+```{r echo=FALSE}
 # Se agregan dos columnas, correspondiente a año y mes
 
 data2 <- data2 %>%
@@ -129,7 +129,7 @@ Con el código anterior, se agregaron dos columnas adicionales, llamadas Año y 
 
 # 3. Gráficos de visualización:
 
-```{r}
+```{r echo=FALSE}
 ggplot(data2, aes(x = Fecha, y = Tasa)) +
   geom_point(color = "blue", size = 2) + 
   geom_smooth(method = "loess", color = "red", se = FALSE) +  
@@ -148,7 +148,7 @@ ggplot(data2, aes(x = Fecha, y = Tasa)) +
 ```
 
 
-```{r}
+```{r echo=FALSE}
 data2 <- data2 %>%
   mutate(Fecha = as.Date(Fecha))
 
@@ -173,7 +173,7 @@ ggplot(data2, aes(x = Año, y = Tasa)) +
 Con las gráficas anteriores, es posible ver la evolución de las tasas de tiempo a lo largo de los años, así como su tendencia.
 
 
-```{r}
+```{r echo=FALSE}
 
 data2 <- data2 %>%
   mutate(Fecha = as.Date(Fecha)) 
@@ -202,13 +202,13 @@ kable(tabla_tasas, format = "html") %>%
 # 4. Análisis de serie de tiempo:
 
 
-## 3.1. Promedio o media móvil
+## 4.1. Promedio o media móvil
 
 Permite analizar el mercado a través de las tendencias. La media móvil es una técnica estadística que se utiliza para analizar datos a lo largo del tiempo. Permite calcular  la media de un conjunto de valores en un intervalo específico y luego desplazar ese intervalo a lo largo de la serie de datos para obtener una nueva serie de medias; lo que permite suavizar flutuaciones en los datos así como resaltar tendencias.
 
 Se conoce como media móvil ya que el valor se calcula constantemente a medida que pasa el tiempo; de esta forma, la media cambia cada vez que los valores cambian.
 
-```{r}
+```{r echo=FALSE}
 # Calcular el promedio móvil
 data2$PromedioMovil <- rollmean(data2$Tasa, k = 3, fill = NA, align = "right")
 
@@ -235,19 +235,24 @@ ggplot(data2) +
 
 
 
-## 3.2. Rezago (operador backshift) y estanacionalidad
+## 4.2. Rezago (operador backshift) y estanacionalidad
 
 El operador rezago actúa sobre una serie de tiempo
 
+```{r echo=FALSE}
+if (!is.ts(data2)) {
+  data2 <- ts(data2)
+}
 
-```{r}
+# Verificar si hay valores NA o infinitos
+if (any(is.na(data2)) || any(!is.finite(data2))) {
+  # Eliminar valores NA
+  data2 <- na.omit(data2)
+}
 
-#if (!is.ts(data2)) {
-#  data2 <- ts(data2)
-#}
+# Generar el gráfico de rezago
+lag.plot(data2, lags = 3, do.lines = FALSE, main = "Gráfico de Rezago")
 
-
-#lag.plot(data2, 2, do.lines = FALSE)
 ```
 
 
