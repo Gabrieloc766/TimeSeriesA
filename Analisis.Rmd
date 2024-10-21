@@ -53,7 +53,7 @@ resultado <- rbind(head(data, 1), tail(data, 1))
 print(resultado)
 
 ```
-Al consultar el primer y último registro del dataset, se identifica que la observación más reciente corresponde al mes de octubre de 2024 con una tasa de 10.25%, mientras que el registro más antiguo es de enero de 1999, con una tasa de 26%. Estos datos indican que el dataset abarca un periodo de aproximadamente 25 años (310 meses), desde finales del siglo XX hasta la fecha actual, reflejando un amplio intervalo temporal que podría incluir distintas tendencias o cambios económicos en la variable Tasa.
+Al consultar el primer y último registro del dataset, se identifica que la observación más reciente corresponde al mes de octubre de 2024 con una tasa de 10.25%, mientras que el registro más antiguo es de enero de 1999, con una tasa de 26%. Estos datos indican que el dataset abarca un período de aproximadamente 25 años (310 meses), desde finales del siglo XX hasta la fecha actual, reflejando un amplio intervalo temporal que podría incluir distintas tendencias o cambios económicos en la variable Tasa.
 
 ```{r echo=FALSE, warning=FALSE}
 summary(data)
@@ -78,7 +78,7 @@ data2 <- data
 
 ```
 
-Con el código siguiente, se agregan dos columnas adicionales, llamadas **Año** y **Mes**, lo anterior para poder tener una mejor visual de los datos, teniendo en cuenta el gran número de registros que tiene el dataset.
+Con el código siguiente, se agregan dos columnas adicionales, llamadas **Anio** y **Mes**, lo anterior para poder tener una mejor visual de los datos, teniendo en cuenta el gran número de registros que tiene el dataset.
 
 
 ```{r echo=FALSE, warning=FALSE}
@@ -117,7 +117,7 @@ ggplot(data2, aes(x = Fecha, y = Tasa)) +
 
 * **Puntos Azules:** Los puntos azules indican los valores de "Tasa" en momentos específicos. Hay una dispersión considerable, sugiriendo que la tasa ha experimentado fluctuaciones a lo largo del tiempo.
 
-* **Línea Roja:** Esta línea es el resultado de un ajuste de suavización (usando el método LOESS, como se especificó en tu código). La línea roja ilustra la tendencia general de la "Tasa" a lo largo del tiempo. A partir de la línea, se puede observar que, aunque hay variaciones, existe una tendencia que se puede analizar para hacer predicciones o entender mejor el comportamiento de la variable.
+* **Línea Roja:** Esta línea es el resultado de un ajuste de suavización (usando el método LOESS). La línea roja ilustra la tendencia general de la "Tasa" a lo largo del tiempo. A partir de la línea, se puede observar que, aunque hay variaciones, existe una tendencia que se puede analizar para hacer predicciones o entender mejor el comportamiento de la variable.
 
 * **Variaciones:** La gráfica muestra que la Tasa ha tenido picos y valles, lo que podría indicar variaciones estacionales o influencias externas que afectan la variable a lo largo del tiempo. A partir de la línea de suavización, parece que la Tasa ha ido disminuyendo o estabilizándose en ciertos períodos, teniendo una caída significativa desde 1999 hasta 2003,  y un aumento importante de 2021 a 2024.
 
@@ -156,7 +156,7 @@ Esta gráfica permite ver con más detalle los cambios de tendencia:
 
 * Eentre 2010 y 2020, la tasa se mantiene más estable, con algunas oscilaciones en torno a los 5-10 puntos.
 
-* A partir de 2021, hay una tendencia de aumento, que se hace más pronunciada hacia los años más recientes.  Esto podría ser consecuencia de algún cambio en las políticas o factores externos como la pandemia de COVID-19.
+* A partir de 2021, hay una tendencia de aumento, que se hace más pronunciada hacia los años más recientes. Esto podría ser consecuencia de algún cambio en las políticas o factores externos como la pandemia de COVID-19.
 
 * La línea de tendencia suavizada indica una caída rápida, seguida de un periodo de estabilización, y finalmente una tendencia de aumento en los años recientes, semejando una forma de "U" suavizada.
 
@@ -198,7 +198,7 @@ kable(tabla_tasas, format = "html") %>%
 
 Permite analizar el mercado a través de las tendencias. La media móvil es una técnica estadística que se utiliza para analizar datos a lo largo del tiempo. Permite calcular la media de un conjunto de valores en un intervalo específico y luego desplazar ese intervalo a lo largo de la serie de datos para obtener una nueva serie de medias; lo que permite suavizar fluctuaciones en los datos así como resaltar tendencias.
 
-Se conoce como media móvil ya que el valor se calcula constantemente a medida que pasa el tiempo; de esta forma, la media cambia cada vez que los valores cambian.
+Se conoce como media móvil ya que el valor se calcula constantemente a medida que pasa el tiempo; de esta forma, la media cambia cada vez que los valores presentan alguna modificación.
 
 
 ```{r echo=FALSE, warning=FALSE}
@@ -229,7 +229,11 @@ ggplot(data2) +
 ## 4.2. Rezago (operador backshift) y estacionalidad
 
 
-El operador rezago actúa sobre una serie de tiempo
+El rezago es una herramienta estadística para el análisis de series temporales, que permite observar el valor de una variable en un momento anterior, facilitando la identificación de patrones y tendencias a lo largo del tiempo.
+
+En cuanto a la estacionalidad, hace referencia a las variaciones periódicas y predecibles en los datos que ocurren en intervalos regulares.
+
+Con la incorporación de ambas herramientas es posible modelar y prever comportamientos futuros de las series temporales.
 
 
 
