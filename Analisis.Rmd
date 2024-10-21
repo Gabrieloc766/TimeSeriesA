@@ -1,7 +1,7 @@
 ---
 title: "Analisis Tasa de Intervencion"
-author: "Gabriel Orozco Castaño"
-date: "2024-10-15"
+author: "Gabriel Orozco/Diana Aguirre/Edgard Camacho"
+date: "2024-10-21"
 output: html_document
 ---
 
@@ -40,15 +40,14 @@ library(scales)
 data <- read_excel("1.2.TIP_Serie historica diaria.xlsx")
 ```
 
-
-```{r echo=FALSE}
+```{r echo=FALSE, warning=FALSE}
 str(data)
 ```
 
 Los datos representan una serie de tiempo de 310 filas y 2 columnas, correspondientes a la fecha y a la tasa. Se observa que la fecha realmente corresponde a un dato mensual por tanto conviene ajustar el formato.
 
 
-```{r echo=FALSE}
+```{r echo=FALSE, warning=FALSE}
 # Primer y último registro del dataset
 resultado <- rbind(head(data, 1), tail(data, 1))
 print(resultado)
@@ -56,30 +55,33 @@ print(resultado)
 ```
 Al consultar el primer y último registro del dataset, se identifica que la observación más reciente corresponde al mes de octubre de 2024 con una tasa de 10.25%, mientras que el registro más antiguo es de enero de 1999, con una tasa de 26%. Estos datos indican que el dataset abarca un periodo de aproximadamente 25 años (310 meses), desde finales del siglo XX hasta la fecha actual, reflejando un amplio intervalo temporal que podría incluir distintas tendencias o cambios económicos en la variable Tasa.
 
-```{r echo=FALSE}
+```{r echo=FALSE, warning=FALSE}
 summary(data)
 ```
 
 * La serie cubre un rango de 25 años, con la mediana alrededor de 2011, lo que sugiere que los datos están relativamente bien distribuidos a lo largo del tiempo.
 *  La tasa tiene una amplia variabilidad, con un valor mínimo de 1.75 y un máximo de 26. La mayor parte de los valores se concentran entre 4.25 y 9.25 (entre el primer y tercer cuartil). 
 
-```{r echo=TRUE}
+No se identifican datos ausentes:
+
+```{r echo=FALSE, warning=FALSE}
 n_nas_por_columna <- colSums(is.na(data))
 print(n_nas_por_columna)
 ```
-No se identifican datos ausentes.
 
 
 
-```{r echo=FALSE}
+
+```{r echo=FALSE, warning=FALSE}
+#Se realiza una copia del dataset por seguridad.
 data2 <- data
 
 ```
 
-Con el código siguiente, se agregan dos columnas adicionales, llamadas Año y Mes, lo anterior para poder tener una mejor visual de los datos, teniendo en cuenta el gran número de registros que tiene el dataset.
+Con el código siguiente, se agregan dos columnas adicionales, llamadas **Año** y **Mes**, lo anterior para poder tener una mejor visual de los datos, teniendo en cuenta el gran número de registros que tiene el dataset.
 
 
-```{r echo=FALSE}
+```{r echo=FALSE, warning=FALSE}
 
 
 data2 <- data2 %>%
@@ -89,12 +91,13 @@ data2 <- data2 %>%
 head(data2)
 
 
+
 ```
 
 # 3. Gráficos de visualización:
 
 
-```{r echo=FALSE}
+```{r echo=FALSE, warning=FALSE}
 ggplot(data2, aes(x = Fecha, y = Tasa)) +
   geom_point(color = "blue", size = 2) + 
   geom_smooth(method = "loess", color = "red", se = FALSE) +  
@@ -119,7 +122,8 @@ ggplot(data2, aes(x = Fecha, y = Tasa)) +
 * **Variaciones:** La gráfica muestra que la Tasa ha tenido picos y valles, lo que podría indicar variaciones estacionales o influencias externas que afectan la variable a lo largo del tiempo. A partir de la línea de suavización, parece que la Tasa ha ido disminuyendo o estabilizándose en ciertos períodos, teniendo una caída significativa desde 1999 hasta 2003,  y un aumento importante de 2021 a 2024.
 
 
-```{r echo=FALSE}
+
+```{r echo=FALSE, warning=FALSE}
 
 
 data2 <- data2 %>%
@@ -158,7 +162,7 @@ Esta gráfica permite ver con más detalle los cambios de tendencia:
 
 
 
-```{r echo=FALSE}
+```{r echo=FALSE, warning=FALSE}
 
 data2 <- data2 %>%
   mutate(Fecha = as.Date(Fecha)) 
@@ -183,8 +187,10 @@ kable(tabla_tasas, format = "html") %>%
 
 ```
 
+ A partir de la tabla se pueden confirmar las tendencias mencionadas anteriormente, con un comportamiento descendente en los 12 primeros años (1999 a 2010), una estabilización en los 5 años siguientes (2011-2015) y un incremento significativo en años recientes (2021 en adelante).
 
 
+  
 
 # 4. Análisis de serie de tiempo:
 
@@ -195,7 +201,7 @@ Permite analizar el mercado a través de las tendencias. La media móvil es una 
 Se conoce como media móvil ya que el valor se calcula constantemente a medida que pasa el tiempo; de esta forma, la media cambia cada vez que los valores cambian.
 
 
-```{r echo=FALSE}
+```{r echo=FALSE, warning=FALSE}
 # Calcular el promedio móvil
 data2$PromedioMovil <- rollmean(data2$Tasa, k = 3, fill = NA, align = "right")
 
@@ -227,17 +233,14 @@ El operador rezago actúa sobre una serie de tiempo
 
 
 
-```{r echo=FALSE}
-
+```{r echo=FALSE, warning=FALSE}
 
 # Aplicar rezago de 1 período 
 data2$Tasa_lag1 <- dplyr::lag(data2$Tasa, n = 1)
 head(data2)
 
 ```  
-
-
-```{r echo=FALSE}
+```{r echo=FALSE, warning=FALSE}
 
 if (!is.ts(data2)) {
   data2 <- ts(data2)
@@ -245,13 +248,61 @@ if (!is.ts(data2)) {
 
 # Verificar si hay valores NA o infinitos
 if (any(is.na(data2)) || any(!is.finite(data2))) {
-  # Eliminar valores NA
-  data2 <- na.omit(data2)
+  data2 <- na.omit(data2)  # Eliminar valores NA
 }
 
 # Generar el gráfico de rezago
 lag.plot(data2, lags = 3, do.lines = FALSE, main = "Grafico de Rezago")
+
 ```
+
+La gráfica visualiza la correlación entre una variable y sus valores rezagados (delayed values). Este gráfico es útil para detectar patrones en series temporales y evaluar la autocorrelación en los datos.
+
+
+* **1. Año vs Rezagos (lag 1, 2, 3)**
+
+Las gráficas entre Año y sus diferentes rezagos muestran una relación lineal perfecta, lo que era de esperarse, ya que el valor de un año en un rezago anterior está directamente relacionado con los años consecutivos. Esto sugiere que el "Año" no aporta una variabilidad significativa en términos de cambios bruscos, es decir, la serie avanza sin saltos.
+
+
+* **2. Mes vs Rezagos (lag 1, 2, 3)**
+
+Las gráficas entre Mes y sus rezagos muestran una estructura cíclica, con puntos que siguen un patrón predecible. Esto tiene sentido, ya que los meses siguen un ciclo repetitivo de 12 unidades (de enero a diciembre).
+
+los meses correlacionan bien con sus rezagos inmediatos, pero a medida que aumenta el número de rezagos (lag 2, lag 3), el ciclo es más visible, lo que indica que la periodicidad estacional en los datos está bien representada.
+
+
+* **3. Fecha vs Rezagos (lag 1, 2, 3)**
+
+Similar al año, la relación entre Fecha y sus rezagos también muestra una estructura lineal. Esto era previsible, ya que las fechas están organizadas de manera continua. No se observan cambios abruptos o interrupciones que puedan señalar eventos singulares en la serie temporal.
+
+* **4. Tasa vs Rezagos (lag 1, 2, 3)**
+
+En las gráficas entre Tasa y sus rezagos, especialmente en el rezago 1 (lag 1), se aprecia una clara correlación positiva, lo que significa que la tasa en un mes está fuertemente relacionada con la tasa del mes anterior. Esta relación indica una persistencia en la tasa, es decir, no hay cambios abruptos entre periodos consecutivos.
+
+A medida que el rezago aumenta (lag 2 y lag 3), la relación sigue siendo positiva pero disminuye levemente, lo cual es normal: los valores más distantes en el tiempo tienen menos influencia directa entre sí, aunque todavía se observa cierta correlación.
+
+Esto sugiere que la serie de tasas no presenta grandes fluctuaciones a corto plazo y que los valores siguen un comportamiento más estable, lo que puede indicar una tendencia suave sin variaciones abruptas.
+
+
+* **5. Promedio Movil vs Rezagos (lag 1, 2, 3)**
+
+Similar a la "Tasa", las gráficas entre el Promedio Móvil y sus rezagos muestran una alta correlación, especialmente para lag 1. Esto sugiere que los promedios móviles no cambian drásticamente de un mes a otro, y los valores del promedio móvil están fuertemente ligados a los meses anteriores.
+A medida que aumenta el rezago (lag 2, lag 3), la correlación disminuye ligeramente, lo que indica que los valores anteriores siguen teniendo una influencia pero con una menor magnitud.
+
+
+* **6. Tasa Lag1 vs Rezagos**
+
+Las gráficas entre Tasa_lag1 y sus rezagos también muestran una alta correlación. Esto es de esperar, ya que los valores rezagados de una variable tienden a mostrar correlación fuerte con rezagos cercanos.
+
+
+**CONCLUSIÓN GENERAL:**
+
+Los gráficos de rezago muestran una clara autocorrelación tanto en las variables de Tasa como en el Promedio Móvil, lo que sugiere que los valores actuales están muy influenciados por sus valores anteriores.
+
+No se observan grandes fluctuaciones o cambios abruptos en la serie temporal, lo que implica que los datos de tasa y promedio móvil siguen una evolución suave a lo largo del tiempo.
+
+La estructura cíclica en los meses sugiere que existe un patrón estacional predecible, lo cual es clave para definir modelos de predicción de series temporales con componentes estacionales, como modelos ARIMA/SARIMA o de descomposición estacional.
+
 
 
 
