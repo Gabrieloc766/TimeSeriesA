@@ -17,6 +17,8 @@ En este momento deberemos retomar la Unidad 1 en la cual se creó un minilibro q
 #install.packages("timsac")
 #install.packages("changepoint")
 #install.packages("kableExtra")
+#install.packages("bookdown")
+#install.packages("xfun")
 
 
 library(readxl)
@@ -34,7 +36,16 @@ library(zoo)
 library(scales)
 
 
+
+
+
 ```
+
+```{r}
+#remove.packages("xfun")
+```
+
+
 
 ```{r echo=FALSE}
 data <- read_excel("1.2.TIP_Serie historica diaria.xlsx")
@@ -53,6 +64,8 @@ resultado <- rbind(head(data, 1), tail(data, 1))
 print(resultado)
 
 ```
+
+
 Al consultar el primer y último registro del dataset, se identifica que la observación más reciente corresponde al mes de octubre de 2024 con una tasa de 10.25%, mientras que el registro más antiguo es de enero de 1999, con una tasa de 26%. Estos datos indican que el dataset abarca un período de aproximadamente 25 años (310 meses), desde finales del siglo XX hasta la fecha actual, reflejando un amplio intervalo temporal que podría incluir distintas tendencias o cambios económicos en la variable Tasa.
 
 ```{r echo=FALSE, warning=FALSE}
@@ -244,6 +257,8 @@ data2$Tasa_lag1 <- dplyr::lag(data2$Tasa, n = 1)
 head(data2)
 
 ```  
+
+
 ```{r echo=FALSE, warning=FALSE}
 
 if (!is.ts(data2)) {
@@ -275,11 +290,11 @@ Las gráficas entre Mes y sus rezagos muestran una estructura cíclica, con punt
 los meses correlacionan bien con sus rezagos inmediatos, pero a medida que aumenta el número de rezagos (lag 2, lag 3), el ciclo es más visible, lo que indica que la periodicidad estacional en los datos está bien representada.
 
 
-* **3. Fecha vs Rezagos (lag 1, 2, 3)**
+# **3. Fecha vs Rezagos (lag 1, 2, 3)**
 
 Similar al año, la relación entre Fecha y sus rezagos también muestra una estructura lineal. Esto era previsible, ya que las fechas están organizadas de manera continua. No se observan cambios abruptos o interrupciones que puedan señalar eventos singulares en la serie temporal.
 
-* **4. Tasa vs Rezagos (lag 1, 2, 3)**
+# **4. Tasa vs Rezagos (lag 1, 2, 3)**
 
 En las gráficas entre Tasa y sus rezagos, especialmente en el rezago 1 (lag 1), se aprecia una clara correlación positiva, lo que significa que la tasa en un mes está fuertemente relacionada con la tasa del mes anterior. Esta relación indica una persistencia en la tasa, es decir, no hay cambios abruptos entre periodos consecutivos.
 
@@ -288,10 +303,11 @@ A medida que el rezago aumenta (lag 2 y lag 3), la relación sigue siendo positi
 Esto sugiere que la serie de tasas no presenta grandes fluctuaciones a corto plazo y que los valores siguen un comportamiento más estable, lo que puede indicar una tendencia suave sin variaciones abruptas.
 
 
-* **5. Promedio Movil vs Rezagos (lag 1, 2, 3)**
+# **5. Promedio Movil vs Rezagos (lag 1, 2, 3)**
 
 Similar a la "Tasa", las gráficas entre el Promedio Móvil y sus rezagos muestran una alta correlación, especialmente para lag 1. Esto sugiere que los promedios móviles no cambian drásticamente de un mes a otro, y los valores del promedio móvil están fuertemente ligados a los meses anteriores.
 A medida que aumenta el rezago (lag 2, lag 3), la correlación disminuye ligeramente, lo que indica que los valores anteriores siguen teniendo una influencia pero con una menor magnitud.
+
 
 
 * **6. Tasa Lag1 vs Rezagos**
@@ -299,7 +315,6 @@ A medida que aumenta el rezago (lag 2, lag 3), la correlación disminuye ligeram
 Las gráficas entre Tasa_lag1 y sus rezagos también muestran una alta correlación. Esto es de esperar, ya que los valores rezagados de una variable tienden a mostrar correlación fuerte con rezagos cercanos.
 
 
-**CONCLUSIÓN GENERAL:**
 
 Los gráficos de rezago muestran una clara autocorrelación tanto en las variables de Tasa como en el Promedio Móvil, lo que sugiere que los valores actuales están muy influenciados por sus valores anteriores.
 
@@ -307,6 +322,256 @@ No se observan grandes fluctuaciones o cambios abruptos en la serie temporal, lo
 
 La estructura cíclica en los meses sugiere que existe un patrón estacional predecible, lo cual es clave para definir modelos de predicción de series temporales con componentes estacionales, como modelos ARIMA/SARIMA o de descomposición estacional.
 
+-------------
+
+Descomposición: Con la función stl(), se descompone la serie en tendencia, estacionalidad y componente residual.
+
+Estacionariedad: La prueba ADF indica si la serie tiene una raíz unitaria (es decir, si no es estacionaria).
+
+Diferenciación: Si la serie no es estacionaria, la diferenciación la ayuda a volverse estacionaria.
 
 
+## 4.3. descomposición
+
+
+
+```{r echo=FALSE, warning=FALSE}
+
+data2 <- as.data.frame(data2)
+
+# Convertir los datos a un objeto ts, usando frecuencia mensual
+ts_data <- ts(data2[["Tasa"]], start = c(2024, 5), frequency = 12)
+
+# Descomposición de la serie de tiempo
+descomposicion <- stl(ts_data, s.window = "periodic")
+
+# Graficar la descomposición
+plot(descomposicion, main = "Descomposicion de la Serie de Tiempo")
+
+```
+
+## 4.4. estacionariedad
+
+```{r echo=FALSE, warning=FALSE}
+
+# Prueba de Dickey-Fuller aumentada
+adf_test <- tseries::adf.test(ts_data, alternative = "stationary")
+
+# Mostrar resultado de la prueba ADF
+print(adf_test)
+
+```
+
+## 4.5. diferenciación
+
+```{r echo=FALSE, warning=FALSE}
+# Diferenciación de la serie
+differenced_data <- diff(ts_data)
+
+# Graficar la serie diferenciada
+plot(differenced_data, main = "Serie Diferenciada", ylab = "Diferencia de Tasa", xlab = "Tiempo")
+
+```
+
+## 4.6. Autocorrelación (ACF) y Parcial (PACF)
+
+```{r echo=FALSE, warning=FALSE}
+
+# Cargar las bibliotecas necesarias
+library(readxl)   # Para leer archivos Excel
+
+# Establecer el directorio de trabajo
+print(colnames(data2)) 
+
+
+
+# Verifica los nombres de las columnas para asegurarte de que "Tasa" existe
+print(colnames(data))  # Esto te mostrará los nombres de las columnas
+
+# Convertir los datos a un objeto ts, usando frecuencia mensual
+ts_data <- ts(data[["Tasa"]], start = c(2024, 5), frequency = 12)
+
+# Graficar ACF y PACF directamente en la ventana gráfica
+par(mfrow = c(1, 2))  # Dos gráficos en una fila
+
+# Graficar ACF
+acf(ts_data, main = "ACF de la Serie Original")
+
+# Graficar PACF
+pacf(ts_data, main = "PACF de la Serie Original")
+
+
+
+```
+
+## 4.7. Volver a verificar la Estacionariedad tras la Diferenciación
+```{r echo=FALSE, warning=FALSE}
+
+# Prueba de Dickey-Fuller aumentada en la serie diferenciada
+adf_test_diff <- tseries::adf.test(differenced_data, alternative = "stationary")
+
+# Mostrar resultado
+print(adf_test_diff)
+
+
+```
+
+```{r}
+
+library(forecast) # Para el modelado ARIMA
+
+print(colnames(data2))  
+
+ts_data <- ts(data2[["Tasa"]], start = c(1999, 1), frequency = 12)
+
+# Graficar ACF y PACF
+par(mfrow = c(1, 2))
+
+# Graficar ACF
+#acf(ts_data, main = "ACF de la Serie Original")
+
+# Graficar PACF
+#pacf(ts_data, main = "PACF de la Serie Original")
+
+# Ajustar el modelo ARIMA(0,0,3)(0,0,1)[12]
+modelo_arima <- Arima(ts_data, order = c(0, 0, 3), seasonal = c(0, 0, 1))
+
+# Resumen del modelo ajustado
+summary(modelo_arima)
+
+# Graficar los residuos
+checkresiduals(modelo_arima)
+
+# Pronosticar 12 períodos (ajustado para cubrir hasta 2030)
+pronostico <- forecast(modelo_arima, h = 72)  # 72 meses = 6 años
+
+# Graficar el pronóstico con el eje x correcto
+plot(pronostico, xlab = "Año", ylab = "Tasa", main = "Pronóstico de Tasa")
+
+```
+
+```{r}
+
+
+
+print(colnames(data2))
+
+
+ts_data <- ts(data2[["Tasa"]], start = c(1999, 1), frequency = 12)
+
+
+# Normal QQ Plot de los residuos
+#residuos_diff <- residuals(modelo_arima_diff)
+#par(mfrow = c(1, 1)) 
+#qqnorm(residuos_diff, main = "Normal QQ Plot de Residuos")
+#qqline(residuos_diff, col = "red")
+
+# Pronosticar 72 períodos (6 años)
+#n_periods <- 72
+#pronostico_diff <- forecast(modelo_arima_diff, h = n_periods)
+
+# Graficar el pronóstico
+#plot(pronostico_diff, main = "Pronóstico de Tasa")
+
+
+```
+
+```{r}
+# Cargar las bibliotecas necesarias
+library(forecast)  # Para el modelado ARIMA
+library(tseries)   # Para funciones adicionales
+library(ggplot2)   # Para gráficos
+
+# Verificar los nombres de las columnas en data2
+print(colnames(data2))
+
+# Convertir los datos a un objeto ts, usando frecuencia mensual
+ts_data <- ts(data2[["Tasa"]], start = c(1999, 1), frequency = 12)
+
+# Probar la estacionariedad de la serie original
+adf_test <- adf.test(ts_data, alternative = "stationary")
+print(adf_test)
+
+# Diferenciar la serie si no es estacionaria
+differenced_data <- diff(ts_data)
+
+# Probar la estacionariedad de la serie diferenciada
+adf_test_diff <- adf.test(differenced_data, alternative = "stationary")
+print(adf_test_diff)
+
+# Ajustar el modelo ARIMA(0,1,3)(0,1,1)[12] si es necesario
+modelo_arima_diff <- Arima(ts_data, order = c(0, 1, 3), seasonal = c(0, 1, 1))
+
+# Resumen del modelo ajustado
+summary(modelo_arima_diff)
+
+# Graficar los residuos
+checkresiduals(modelo_arima_diff)
+
+# Normal QQ Plot de los residuos
+residuos_diff <- residuals(modelo_arima_diff)
+par(mfrow = c(1, 1))  # Asegúrate de que solo hay un gráfico en la ventana
+qqnorm(residuos_diff, main = "Normal QQ Plot de Residuos")
+qqline(residuos_diff, col = "red")
+
+# Realizar el test de normalidad de Shapiro-Wilk
+shapiro_test <- shapiro.test(residuos_diff)
+print(shapiro_test)
+
+# Pronosticar 72 períodos (6 años)
+n_periods <- 72
+pronostico_diff <- forecast(modelo_arima_diff, h = n_periods)
+
+# Graficar el pronóstico
+plot(pronostico_diff, main = "Pronóstico de Tasa")
+
+```
+
+```{r}
+#install.packages("fGarch", repos = "http://cran.us.r-project.org")
+
+
+ts_data <- ts(data2[["Tasa"]], start = c(1999, 1), frequency = 12)
+
+adf_test <- adf.test(ts_data, alternative = "stationary")
+print(adf_test)
+
+differenced_data <- diff(ts_data)
+
+
+adf_test_diff <- adf.test(differenced_data, alternative = "stationary")
+print(adf_test_diff)
+
+# Ajustar el modelo ARIMA(0,1,3)(0,1,1)[12]
+modelo_arima_diff <- Arima(ts_data, order = c(0, 1, 3), seasonal = c(0, 1, 1))
+
+# Resumen del modelo ajustado
+summary(modelo_arima_diff)
+
+# Graficar los residuos
+checkresiduals(modelo_arima_diff)
+
+# Normal QQ Plot de los residuos
+residuos_diff <- residuals(modelo_arima_diff)
+par(mfrow = c(1, 1))  
+qqnorm(residuos_diff, main = "Normal QQ Plot de Residuos")
+qqline(residuos_diff, col = "red")
+
+# Realizar el test de normalidad de Shapiro-Wilk
+shapiro_test <- shapiro.test(residuos_diff)
+print(shapiro_test)
+
+# Análisis de volatilidad utilizando fGarch
+garch_model <- garch(residuos_diff, order = c(1, 1))
+summary(garch_model)
+
+# Resumen de los residuos
+residuos_summary <- summary(residuos_diff)
+print(residuos_summary)
+
+
+
+
+
+```
 
