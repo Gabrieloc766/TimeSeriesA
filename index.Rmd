@@ -9,7 +9,7 @@ output: html_document
 
 En este momento deberemos retomar la Unidad 1 en la cual se creó un minilibro que contiene el entregable de dicha unidad. Este documento tiene como repositorio GitHub (elaborado desde Markdown). Ahora, en esta Unidad 2, se debe continuar con los datos presentados en dicho entregable y se debe evidenciar, en una de las variables en el tiempo, la aproximación en promedio móvil, en rezagos y en estacionalidad. Todo lo anterior, a través de funciones y gráficas que permitan detectar patrones y ciclos de la variable.
 
-# **Análisis exploratorio:**
+## **Análisis exploratorio:**
 
 ```{r echo=FALSE, message=FALSE}
 #install.packages("readxl")
@@ -98,7 +98,7 @@ head(data2)
 
 ```
 
-# **Gráficos de visualización:**
+## **Gráficos de visualización:**
 
 ```{r echo=FALSE, warning=FALSE}
 ggplot(data2, aes(x = Fecha, y = Tasa)) +
@@ -187,9 +187,9 @@ kable(tabla_tasas, format = "html") %>%
 
 A partir de la tabla se pueden confirmar las tendencias mencionadas anteriormente, con un comportamiento descendente en los 12 primeros años (1999 a 2010), una estabilización en los 5 años siguientes (2011-2015) y un incremento significativo en años recientes (2021 en adelante).
 
-# **Análisis de serie de tiempo:**
+## **Análisis de serie de tiempo:**
 
-## Promedio o media móvil
+### Promedio o media móvil
 
 Permite analizar el mercado a través de las tendencias. La media móvil es una técnica estadística que se utiliza para analizar datos a lo largo del tiempo. Permite calcular la media de un conjunto de valores en un intervalo específico y luego desplazar ese intervalo a lo largo de la serie de datos para obtener una nueva serie de medias; lo que permite suavizar fluctuaciones en los datos así como resaltar tendencias.
 
@@ -219,7 +219,7 @@ ggplot(data2) +
 
 ```
 
-## Rezago (operador backshift) y estacionalidad
+### Rezago (operador backshift) y estacionalidad
 
 El rezago es una herramienta estadística para el análisis de series temporales, que permite observar el valor de una variable en un momento anterior, facilitando la identificación de patrones y tendencias a lo largo del tiempo.
 
@@ -263,11 +263,11 @@ Las gráficas entre Mes y sus rezagos muestran una estructura cíclica, con punt
 
 los meses correlacionan bien con sus rezagos inmediatos, pero a medida que aumenta el número de rezagos (lag 2, lag 3), el ciclo es más visible, lo que indica que la periodicidad estacional en los datos está bien representada.
 
-# **Fecha vs Rezagos (lag 1, 2, 3):**
+## **Fecha vs Rezagos (lag 1, 2, 3):**
 
 Similar al año, la relación entre Fecha y sus rezagos también muestra una estructura lineal. Esto era previsible, ya que las fechas están organizadas de manera continua. No se observan cambios abruptos o interrupciones que puedan señalar eventos singulares en la serie temporal.
 
-# **Tasa vs Rezagos (lag 1, 2, 3):**
+## **Tasa vs Rezagos (lag 1, 2, 3):**
 
 En las gráficas entre Tasa y sus rezagos, especialmente en el rezago 1 (lag 1), se aprecia una clara correlación positiva, lo que significa que la tasa en un mes está fuertemente relacionada con la tasa del mes anterior. Esta relación indica una persistencia en la tasa, es decir, no hay cambios abruptos entre periodos consecutivos.
 
@@ -275,11 +275,11 @@ A medida que el rezago aumenta (lag 2 y lag 3), la relación sigue siendo positi
 
 Esto sugiere que la serie de tasas no presenta grandes fluctuaciones a corto plazo y que los valores siguen un comportamiento más estable, lo que puede indicar una tendencia suave sin variaciones abruptas.
 
-# **Promedio Movil vs Rezagos (lag 1, 2, 3):**
+## **Promedio Movil vs Rezagos (lag 1, 2, 3):**
 
 Similar a la "Tasa", las gráficas entre el Promedio Móvil y sus rezagos muestran una alta correlación, especialmente para lag 1. Esto sugiere que los promedios móviles no cambian drásticamente de un mes a otro, y los valores del promedio móvil están fuertemente ligados a los meses anteriores. A medida que aumenta el rezago (lag 2, lag 3), la correlación disminuye ligeramente, lo que indica que los valores anteriores siguen teniendo una influencia pero con una menor magnitud.
 
-#  **6. Tasa Lag1 vs Rezagos**
+##  **6. Tasa Lag1 vs Rezagos**
 
 Las gráficas entre Tasa_lag1 y sus rezagos también muestran una alta correlación. Esto es de esperar, ya que los valores rezagados de una variable tienden a mostrar correlación fuerte con rezagos cercanos.
 
@@ -297,7 +297,7 @@ Estacionariedad: La prueba ADF indica si la serie tiene una raíz unitaria (es d
 
 Diferenciación: Si la serie no es estacionaria, la diferenciación la ayuda a volverse estacionaria.
 
-## Descomposición
+### Descomposición
 
 ```{r echo=FALSE, warning=FALSE}
 
@@ -314,7 +314,7 @@ plot(descomposicion, main = "Descomposicion de la Serie de Tiempo")
 
 ```
 
-## Estacionariedad
+### Estacionariedad
 
 ```{r echo=FALSE, warning=FALSE}
 
@@ -326,7 +326,7 @@ print(adf_test)
 
 ```
 
-## Diferenciación
+### Diferenciación
 
 ```{r echo=FALSE, warning=FALSE}
 # Diferenciación de la serie
@@ -337,7 +337,7 @@ plot(differenced_data, main = "Serie Diferenciada", ylab = "Diferencia de Tasa",
 
 ```
 
-## Autocorrelación (ACF) y Parcial (PACF)
+### Autocorrelación (ACF) y Parcial (PACF)
 
 ```{r echo=FALSE, warning=FALSE}
 
@@ -368,7 +368,7 @@ pacf(ts_data, main = "PACF de la Serie Original")
 
 ```
 
-## Volver a verificar la Estacionariedad tras la Diferenciación
+### Volver a verificar la Estacionariedad tras la Diferenciación
 
 ```{r echo=FALSE, warning=FALSE}
 
