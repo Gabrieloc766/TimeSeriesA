@@ -80,20 +80,16 @@
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path=""><a href="#enunciado"><i class="fa fa-check"></i><b>1</b> <strong>Enunciado</strong></a>
 <ul>
-<li class="chapter" data-level="1.1" data-path=""><a href="#análisis-exploratorio"><i class="fa fa-check"></i><b>1.1</b> Análisis exploratorio</a>
-<ul>
-<li class="chapter" data-level="1.1.1" data-path=""><a href="#gráficos-de-visualización"><i class="fa fa-check"></i><b>1.1.1</b> Gráficos de visualización</a></li>
-</ul></li>
-<li class="chapter" data-level="1.2" data-path=""><a href="#análisis-de-serie-de-tiempo"><i class="fa fa-check"></i><b>1.2</b> Análisis de serie de tiempo</a>
-<ul>
-<li class="chapter" data-level="1.2.1" data-path=""><a href="#promedio-o-media-móvil"><i class="fa fa-check"></i><b>1.2.1</b> Promedio o media móvil</a></li>
-<li class="chapter" data-level="1.2.2" data-path=""><a href="#rezago-operador-backshift-y-estacionalidad"><i class="fa fa-check"></i><b>1.2.2</b> Rezago (operador backshift) y estacionalidad</a></li>
-<li class="chapter" data-level="1.2.3" data-path=""><a href="#descomposición"><i class="fa fa-check"></i><b>1.2.3</b> Descomposición</a></li>
-<li class="chapter" data-level="1.2.4" data-path=""><a href="#estacionariedad"><i class="fa fa-check"></i><b>1.2.4</b> Estacionariedad</a></li>
-<li class="chapter" data-level="1.2.5" data-path=""><a href="#diferenciación"><i class="fa fa-check"></i><b>1.2.5</b> Diferenciación</a></li>
-<li class="chapter" data-level="1.2.6" data-path=""><a href="#volver-a-verificar-la-estacionariedad-tras-la-diferenciación"><i class="fa fa-check"></i><b>1.2.6</b> Volver a verificar la Estacionariedad tras la Diferenciación</a></li>
-<li class="chapter" data-level="1.2.7" data-path=""><a href="#autocorrelación-acf-y-parcial-pacf"><i class="fa fa-check"></i><b>1.2.7</b> Autocorrelación (ACF) y Parcial (PACF)</a></li>
-</ul></li>
+<li class="chapter" data-level="1.1" data-path=""><a href="#análisis-exploratorio"><i class="fa fa-check"></i><b>1.1</b> Análisis exploratorio</a></li>
+<li class="chapter" data-level="1.2" data-path=""><a href="#gráficos-de-visualización"><i class="fa fa-check"></i><b>1.2</b> Gráficos de visualización</a></li>
+<li class="chapter" data-level="1.3" data-path=""><a href="#análisis-de-serie-de-tiempo"><i class="fa fa-check"></i><b>1.3</b> Análisis de serie de tiempo</a></li>
+<li class="chapter" data-level="1.4" data-path=""><a href="#promedio-o-media-móvil"><i class="fa fa-check"></i><b>1.4</b> Promedio o media móvil</a></li>
+<li class="chapter" data-level="1.5" data-path=""><a href="#rezago-operador-backshift-y-estacionalidad"><i class="fa fa-check"></i><b>1.5</b> Rezago (operador backshift) y estacionalidad</a></li>
+<li class="chapter" data-level="1.6" data-path=""><a href="#descomposición"><i class="fa fa-check"></i><b>1.6</b> Descomposición</a></li>
+<li class="chapter" data-level="1.7" data-path=""><a href="#estacionariedad"><i class="fa fa-check"></i><b>1.7</b> Estacionariedad</a></li>
+<li class="chapter" data-level="1.8" data-path=""><a href="#diferenciación"><i class="fa fa-check"></i><b>1.8</b> Diferenciación</a></li>
+<li class="chapter" data-level="1.9" data-path=""><a href="#volver-a-verificar-la-estacionariedad-tras-la-diferenciación"><i class="fa fa-check"></i><b>1.9</b> Volver a verificar la Estacionariedad tras la Diferenciación</a></li>
+<li class="chapter" data-level="1.10" data-path=""><a href="#autocorrelación-acf-y-parcial-pacf"><i class="fa fa-check"></i><b>1.10</b> Autocorrelación (ACF) y Parcial (PACF)</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Publicado con bookdown</a></li>
@@ -159,8 +155,9 @@
 ## 4  2024 jul   2024-07-01  11.8
 ## 5  2024 jun   2024-06-01  11.8
 ## 6  2024 may   2024-05-01  12.2</code></pre>
-<div id="gráficos-de-visualización" class="section level3 hasAnchor" number="1.1.1">
-<h3><span class="header-section-number">1.1.1</span> Gráficos de visualización<a href="#gráficos-de-visualización" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="gráficos-de-visualización" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> Gráficos de visualización<a href="#gráficos-de-visualización" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
 <p><img src="index_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 <ul>
@@ -1295,17 +1292,17 @@ NA
 </table>
 <p>A partir de la tabla se pueden confirmar las tendencias mencionadas anteriormente, con un comportamiento descendente en los 12 primeros años (1999 a 2010), una estabilización en los 5 años siguientes (2011-2015) y un incremento significativo en años recientes (2021 en adelante).</p>
 </div>
+<div id="análisis-de-serie-de-tiempo" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> Análisis de serie de tiempo<a href="#análisis-de-serie-de-tiempo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 </div>
-<div id="análisis-de-serie-de-tiempo" class="section level2 hasAnchor" number="1.2">
-<h2><span class="header-section-number">1.2</span> Análisis de serie de tiempo<a href="#análisis-de-serie-de-tiempo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="promedio-o-media-móvil" class="section level3 hasAnchor" number="1.2.1">
-<h3><span class="header-section-number">1.2.1</span> Promedio o media móvil<a href="#promedio-o-media-móvil" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="promedio-o-media-móvil" class="section level2 hasAnchor" number="1.4">
+<h2><span class="header-section-number">1.4</span> Promedio o media móvil<a href="#promedio-o-media-móvil" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Permite analizar el mercado a través de las tendencias. La media móvil es una técnica estadística que se utiliza para analizar datos a lo largo del tiempo. Permite calcular la media de un conjunto de valores en un intervalo específico y luego desplazar ese intervalo a lo largo de la serie de datos para obtener una nueva serie de medias; lo que permite suavizar fluctuaciones en los datos así como resaltar tendencias.</p>
 <p>Se conoce como media móvil ya que el valor se calcula constantemente a medida que pasa el tiempo; de esta forma, la media cambia cada vez que los valores presentan alguna modificación.</p>
 <p><img src="index_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 </div>
-<div id="rezago-operador-backshift-y-estacionalidad" class="section level3 hasAnchor" number="1.2.2">
-<h3><span class="header-section-number">1.2.2</span> Rezago (operador backshift) y estacionalidad<a href="#rezago-operador-backshift-y-estacionalidad" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="rezago-operador-backshift-y-estacionalidad" class="section level2 hasAnchor" number="1.5">
+<h2><span class="header-section-number">1.5</span> Rezago (operador backshift) y estacionalidad<a href="#rezago-operador-backshift-y-estacionalidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>El rezago es una herramienta estadística para el análisis de series temporales, que permite observar el valor de una variable en un momento anterior, facilitando la identificación de patrones y tendencias a lo largo del tiempo.</p>
 <p>En cuanto a la estacionalidad, hace referencia a las variaciones periódicas y predecibles en los datos que ocurren en intervalos regulares.</p>
 <p>Con la incorporación de ambas herramientas es posible modelar y prever comportamientos futuros de las series temporales.</p>
@@ -1356,8 +1353,8 @@ A medida que aumenta el rezago (lag 2, lag 3), la correlación disminuye ligeram
 <p>Estacionariedad: La prueba ADF indica si la serie tiene una raíz unitaria (es decir, si no es estacionaria).</p>
 <p>Diferenciación: Si la serie no es estacionaria, la diferenciación la ayuda a volverse estacionaria.</p>
 </div>
-<div id="descomposición" class="section level3 hasAnchor" number="1.2.3">
-<h3><span class="header-section-number">1.2.3</span> Descomposición<a href="#descomposición" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="descomposición" class="section level2 hasAnchor" number="1.6">
+<h2><span class="header-section-number">1.6</span> Descomposición<a href="#descomposición" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><img src="index_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <p>Con el gráfico correcto de descomposición, evidenciamos:</p>
 <ul>
@@ -1387,8 +1384,8 @@ Se observan varios picos de volatilidad, como por ejemplo, alrededor del 2002, 2
 <li><p><strong>Impacto de choques económicos:</strong> El componente residual sugiere que eventos económicos inesperados han afectado la política monetaria, especialmente en periodos de crisis como 2008 y 2020. Estos choques pueden generar fluctuaciones a corto plazo que no son fácilmente predecibles.</p></li>
 </ul>
 </div>
-<div id="estacionariedad" class="section level3 hasAnchor" number="1.2.4">
-<h3><span class="header-section-number">1.2.4</span> Estacionariedad<a href="#estacionariedad" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="estacionariedad" class="section level2 hasAnchor" number="1.7">
+<h2><span class="header-section-number">1.7</span> Estacionariedad<a href="#estacionariedad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <pre><code>## 
 ##  Augmented Dickey-Fuller Test
 ## 
@@ -1397,13 +1394,13 @@ Se observan varios picos de volatilidad, como por ejemplo, alrededor del 2002, 2
 ## alternative hypothesis: stationary</code></pre>
 <p>El resultado del test muestra un valor de -1.15, con un p-valor de 0.9133. Dado que el p-valor es alto (mayor que un nivel de significancia común), sugiere que la serie temporal NO es estacionaria, por lo que podría requerir transformaciones adicionales, como la diferenciación, para hacerla estacionaria antes de modelarla.</p>
 </div>
-<div id="diferenciación" class="section level3 hasAnchor" number="1.2.5">
-<h3><span class="header-section-number">1.2.5</span> Diferenciación<a href="#diferenciación" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="diferenciación" class="section level2 hasAnchor" number="1.8">
+<h2><span class="header-section-number">1.8</span> Diferenciación<a href="#diferenciación" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><img src="index_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 <p>Al diferenciar la serie de tiempo, se observa en el gráfico una serie fluctuante en torno a cero. Esto es una señal de que la diferenciación ayudó a eliminar la tendencia de la serie original, haciendo que los valores oscilen alrededor de un valor medio estable, lo que suele indicar un proceso estacionario.</p>
 </div>
-<div id="volver-a-verificar-la-estacionariedad-tras-la-diferenciación" class="section level3 hasAnchor" number="1.2.6">
-<h3><span class="header-section-number">1.2.6</span> Volver a verificar la Estacionariedad tras la Diferenciación<a href="#volver-a-verificar-la-estacionariedad-tras-la-diferenciación" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="volver-a-verificar-la-estacionariedad-tras-la-diferenciación" class="section level2 hasAnchor" number="1.9">
+<h2><span class="header-section-number">1.9</span> Volver a verificar la Estacionariedad tras la Diferenciación<a href="#volver-a-verificar-la-estacionariedad-tras-la-diferenciación" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Realizar nuevamente el test de Dickey-Fuller sobre la serie diferenciada permite confirmar la estacionariedad alcanzad:</p>
 <pre><code>## 
 ##  Augmented Dickey-Fuller Test
@@ -1413,14 +1410,13 @@ Se observan varios picos de volatilidad, como por ejemplo, alrededor del 2002, 2
 ## alternative hypothesis: stationary</code></pre>
 <p>El resultado del test de Dickey-Fuller aplicado a la serie diferenciada muestra un valor de estadístico de -3.0792 y un valor p de 0.1214. Aunque el estadístico es más bajo que en la serie inicial, el valor p sigue siendo mayor a 0.05, lo que significa que la serie diferenciada podría no ser completamente estacionaria, y podría sea necesario un segundo nivel de diferenciación o explorar otras transformaciones.</p>
 </div>
-<div id="autocorrelación-acf-y-parcial-pacf" class="section level3 hasAnchor" number="1.2.7">
-<h3><span class="header-section-number">1.2.7</span> Autocorrelación (ACF) y Parcial (PACF)<a href="#autocorrelación-acf-y-parcial-pacf" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="autocorrelación-acf-y-parcial-pacf" class="section level2 hasAnchor" number="1.10">
+<h2><span class="header-section-number">1.10</span> Autocorrelación (ACF) y Parcial (PACF)<a href="#autocorrelación-acf-y-parcial-pacf" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><img src="index_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
 <ul>
 <li><p><strong>ACF:</strong> Las barras decrecientes sugieren una estructura de autocorrelación significativa, especialmente en los primeros rezagos, lo cual es típico en series con dependencia a corto plazo.</p></li>
 <li><p><strong>PACF:</strong> muestra una caída rápida después del primer rezago, lo cual sugiere que un modelo ARIMA de bajo orden podría ser adecuado para capturar la dinámica de la serie diferenciada.</p></li>
 </ul>
-</div>
 </div>
 </div>
             </section>

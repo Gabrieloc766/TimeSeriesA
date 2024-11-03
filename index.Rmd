@@ -103,7 +103,7 @@ head(data2)
 
 ```
 
-### Gráficos de visualización
+## Gráficos de visualización
 
 
 ```{r echo=FALSE, warning=FALSE}
@@ -203,7 +203,7 @@ kable(tabla_tasas, format = "html") %>%
 
 ## Análisis de serie de tiempo
 
-### Promedio o media móvil
+## Promedio o media móvil
 
 
 Permite analizar el mercado a través de las tendencias. La media móvil es una técnica estadística que se utiliza para analizar datos a lo largo del tiempo. Permite calcular la media de un conjunto de valores en un intervalo específico y luego desplazar ese intervalo a lo largo de la serie de datos para obtener una nueva serie de medias; lo que permite suavizar fluctuaciones en los datos así como resaltar tendencias.
@@ -236,7 +236,7 @@ ggplot(data2) +
 ```
 
 
-### Rezago (operador backshift) y estacionalidad
+## Rezago (operador backshift) y estacionalidad
 
 
 El rezago es una herramienta estadística para el análisis de series temporales, que permite observar el valor de una variable en un momento anterior, facilitando la identificación de patrones y tendencias a lo largo del tiempo.
@@ -325,7 +325,7 @@ Estacionariedad: La prueba ADF indica si la serie tiene una raíz unitaria (es d
 Diferenciación: Si la serie no es estacionaria, la diferenciación la ayuda a volverse estacionaria.
 
 
-### Descomposición
+## Descomposición
 
 
 
@@ -379,7 +379,7 @@ La volatilidad hacia el final del gráfico es más alta, lo que podría indicar 
 * **Impacto de choques económicos:** El componente residual sugiere que eventos económicos inesperados han afectado la política monetaria, especialmente en periodos de crisis como 2008 y 2020. Estos choques pueden generar fluctuaciones a corto plazo que no son fácilmente predecibles.
 
 
-### Estacionariedad
+## Estacionariedad
 
 ```{r echo=FALSE, warning=FALSE}
 
@@ -394,7 +394,7 @@ print(adf_test)
 El resultado del test muestra un valor de -1.15, con un p-valor de 0.9133. Dado que el p-valor es alto (mayor que un nivel de significancia común), sugiere que la serie temporal NO es estacionaria, por lo que podría requerir transformaciones adicionales, como la diferenciación, para hacerla estacionaria antes de modelarla.
 
 
-### Diferenciación
+## Diferenciación
 
 ```{r echo=FALSE, warning=FALSE}
 # Diferenciación de la serie
@@ -407,7 +407,7 @@ plot(differenced_data, main = "Serie Diferenciada", ylab = "Diferencia de Tasa",
 
 Al diferenciar la serie de tiempo, se observa en el gráfico  una serie fluctuante en torno a cero. Esto es una señal de que la diferenciación ayudó a eliminar la tendencia de la serie original, haciendo que los valores oscilen alrededor de un valor medio estable, lo que suele indicar un proceso estacionario.
 
-### Volver a verificar la Estacionariedad tras la Diferenciación
+## Volver a verificar la Estacionariedad tras la Diferenciación
 
 
 Realizar nuevamente el test de Dickey-Fuller sobre la serie diferenciada permite confirmar la estacionariedad alcanzad:
@@ -426,7 +426,7 @@ print(adf_test2)
 El resultado del test de Dickey-Fuller aplicado a la serie diferenciada muestra un valor de estadístico de -3.0792 y un valor p de 0.1214. Aunque el estadístico es más bajo que en la serie inicial, el valor p sigue siendo mayor a 0.05, lo que significa que la serie diferenciada podría no ser completamente estacionaria, y podría sea necesario un segundo nivel de diferenciación o explorar otras transformaciones.
 
 
-### Autocorrelación (ACF) y Parcial (PACF)
+## Autocorrelación (ACF) y Parcial (PACF)
 
 ```{r echo=FALSE, warning=FALSE}
 
