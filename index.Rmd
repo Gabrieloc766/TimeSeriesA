@@ -449,9 +449,9 @@ pacf(differenced_data, main = "PACF de la Serie Diferenciada")
 
 * **PACF:**  muestra una caída rápida después del primer rezago, lo cual sugiere que un modelo ARIMA de bajo orden podría ser adecuado para capturar la dinámica de la serie diferenciada.
 
-# DEFINICIÓN DEL MODELO
+# **Definición del Modelo ARIMA**
 
-**COMPOSICIÓN DEL MODELO ARIMA**
+*COMPOSICIÓN DEL MODELO ARIMA*
 
 * Diferenciación no estacional (d): Dado que ya se aplicó una primera diferenciación en los datos y todavía no es completamente estacionaria, es posible considerar incrementar el parámetro de a 2. 
 
@@ -694,7 +694,7 @@ plot(data2$Anio, log(data2$Tasa), type = "l",
      main = "Logaritmo de la Tasa a lo largo del Tiempo")
 ```
 
-## **Modelo Holt-Winter**
+## Modelo Holt-Winter
 
 ```{r}
 # modelo_HW = HoltWinters(log(airmiles), seasonal = "additive")
