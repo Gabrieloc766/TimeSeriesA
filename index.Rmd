@@ -448,3 +448,300 @@ pacf(differenced_data, main = "PACF de la Serie Diferenciada")
 * **ACF:** Las barras decrecientes sugieren una estructura de autocorrelación significativa, especialmente en los primeros rezagos, lo cual es típico en series con dependencia a corto plazo.
 
 * **PACF:**  muestra una caída rápida después del primer rezago, lo cual sugiere que un modelo ARIMA de bajo orden podría ser adecuado para capturar la dinámica de la serie diferenciada.
+
+# DEFINICIÓN DEL MODELO
+
+**COMPOSICIÓN DEL MODELO ARIMA**
+
+* Diferenciación no estacional (d): Dado que ya se aplicó una primera diferenciación en los datos y todavía no es completamente estacionaria, es posible considerar incrementar el parámetro de a 2. 
+
+* Estacionalidad (seasonal): Como existe un patrón estacional claro en la serie, conviene incluir una diferenciación estacional (D = 1) y ajustar los parámetros P y Q para capturar las dependencias estacionales. Se probará el modelo con un seasonal = c(1, 1, 1) para incluir un término autoregresivo y uno de promedio móvil estacional.
+
+* Componentes AR y MA (p y q): Dado que p y q determinan la cantidad de términos autoregresivos y de promedio móvil, se recomienda probar con valores más altos para q (como 3) y ajustar p a 1 o 2 si observas que hay correlación en los residuos. Esto puede ayudar a mejorar la precisión del modelo y su capacidad predictiva.
+
+
+
+```{r echo=FALSE, warning=FALSE}
+
+#par(mfrow = c(3, 3))
+
+# Ajuste del modelo ARIMA
+modelo_arima <- Arima(differenced_data, order = c(1, 2, 3), seasonal = c(1, 1, 1))
+
+# Resumen del modelo ajustado
+summary(modelo_arima)
+
+# Graficar los residuos para verificar la aleatoriedad
+checkresiduals(modelo_arima)
+
+# Pronosticar los próximos 72 períodos (6 años)
+pronostico <- forecast(modelo_arima, h = 72)
+
+# Graficar el pronóstico con el eje x adecuado
+plot(pronostico, xlab = "Año", ylab = "Tasa", main = "Pronóstico de Tasa")
+
+```
+
+* **Parámetros no estacionales**
+
+* p = 1 (un término autoregresivo),
+* d = 2 (diferenciación de segundo orden para hacer estacionaria la serie en términos de tendencia),
+* q = 3 (tres términos de promedio móvil).
+
+* **parámetros estacionales*, donde:**
+
+* P = 1 (un término autoregresivo estacional),
+* D = 1 (diferenciación estacional),
+* Q = 1 (un término de promedio móvil estacional),
+
+* Los coeficientes y sus errores estándar sugieren que la mayoría de los términos son significativos (coeficientes altos en relación con sus errores estándar).
+
+
+* El test de Ljung-Box evalúa si los residuos del modelo son independientes (no correlacionados). Con un p-valor de 0.1302, se sugiere que los residuos no tienen autocorrelación significativa. Esto indica que el modelo está capturando bien la estructura de la serie.
+
+* Los resultados muestran que el modelo ARIMA(1,2,3)(1,1,1)[12] es probablemente adecuado para la serie.
+
+* El p-valor del test de Ljung-Box mayor a 0.05 indica que el modelo ha eliminado la mayoría de la autocorrelación en los residuos, lo cual es positivo.
+
+
+```{r}
+
+# Análisis de Residuos
+
+# Normal QQ Plot de los residuos
+residuos_diff <- residuals(modelo_arima)
+par(mfrow = c(1, 1))  # Asegúrate de que solo hay un gráfico en la ventana
+qqnorm(residuos_diff, main = "Normal QQ Plot de Residuos")
+qqline(residuos_diff, col = "red")
+
+# Realizar el test de normalidad de Shapiro-Wilk
+shapiro_test <- shapiro.test(residuos_diff)
+print(shapiro_test)
+
+
+```
+
+Teniendo en cuenta la prueba de normalidad de Shapiro-Wilk, con un valor de 0.82525, siendo relativamente menor a 1, indica que los residuos no siguen una distribución normal.
+
+En cuanto a p-value < 2.2e-16, al ser una cifra tan pequeña, se confirma que los residuos no son normales.
+
+--------------------------------------------------------
+
+POSIBLE MODELO 2
+
+
+
+```{r}
+
+# Aplicar auto.arima para determinar los parámetros adecuados, incluyendo las diferenciaciones
+modelo_auto <- auto.arima(differenced_data)
+print(modelo_auto)
+
+```
+
+Teniendo en cuenta el anterior modelo, en donde se cuetan con los parámetros de autorregresivo, diferenciación y media móvil (1, 1, 2) respectivamente. Teniendo en cuenta los resultados en los coeficientes, se determina:
+
+*Autorregresivo:*
+ar1 = -0.5956: con un valor negativo, indica que hay una relación inversa entre el valor actual de la serie y su valor anterior.
+s.e. = 0.7747: al tener un resultado alto, se determina que la estimación es menos precisa.
+
+*Media Móvil:*
+ma1 = -0.1114: indica que la predicción fue más alta al valor real en el período inmediatamente anterior, es decir, cuando t=-1, arrojando de esta forma un residuo negativo. Este residuo corresponde a la media del resultado anterior.
+Lo anterior, relacionado con s.e.= 0.7650, indica que la estimación es relativamente imprecisa en comparación con el valor del coeficiente.
+
+
+ma2 = -0.4425: este resultado tiene un valor negativo, similar a ma1; sin embargo, este resultado ocurre en el segundo error pasado (dos períodos atrás), es decir cuando t=-2.
+Con s.e. = 0.5442, al ser menor que el de ma1, indica que ma2 es más precisa, aunque continúa teniendo una inexactitud sobre el valor.
+
+
+
+```{r}
+
+# Ajuste del modelo ARIMA
+modelo_arima2 <- Arima(differenced_data, order = c(1, 1, 2), seasonal = c(1, 1, 0))
+summary(modelo_arima2)
+checkresiduals(modelo_arima2)
+
+# Pronosticar los próximos 72 períodos (6 años)
+pronostico2 <- forecast(modelo_arima2, h = 72)
+
+# Graficar el pronóstico con el eje x adecuado
+plot(pronostico2, xlab = "Año", ylab = "Tasa", main = "Pronóstico de Tasa")
+
+```
+
+*Autorregresivo:*
+ar1 = 0.9274: Con un valor positivo, indica que existe una relación directa entre el valor actual de la serie y su valor anterior. Es decir, cuando el valor en el periodo t-1 aumenta, el valor en el periodo actual t tiende a aumentar también.
+
+s.e. = 0.0393: Dado que el error estándar es bajo, indica que la estimación de este coeficiente es muy precisa. Esto sugiere que el modelo tiene una gran confianza en la relación directa entre el valor actual y el valor anterior de la serie temporal.
+
+*Media Móvil:*
+ma1 = -1.6115: El coeficiente negativo para ma1 indica que hubo un error negativo en la predicción en el periodo inmediatamente anterior (t-1). Es decir, el modelo predijo un valor más alto que el valor real en el periodo t-1, lo que resultó en un residuo negativo. Este residuo se ajusta en el modelo a través del término de media móvil.
+s.e. = 0.0597: El error estándar para ma1 es relativamente bajo, lo que sugiere que esta estimación tiene alta precisión. En otras palabras, el ajuste de la predicción actual basado en el error de la predicción del periodo anterior es bastante confiable.
+
+ma2 = 0.6144: Este coeficiente positivo para ma2 indica que el error positivo en la predicción de dos periodos atrás (t-2) tiene una relación directa con el valor actual de la serie; es decir, el modelo sobreestimó el valor real dos periodos atrás, lo que resultó en un residuo positivo que ahora ajusta la predicción para el periodo actual.
+s.e. = 0.0583: Al igual que el error estándar de ma1, el error estándar de ma2 es bajo, lo que indica que esta estimación es también relativamente precisa.
+
+*Autorregresivo estacional (SAR1):*
+sar1 = -0.4744: El coeficiente negativo para sar1 sugiere que existe una relación inversa entre el valor actual de la serie y el valor de la serie con un rezago estacional de un periodo (es decir, el valor de la serie 12 periodos atrás). Si el valor de la serie en el periodo t-12 fue alto, el valor en el periodo actual t tenderá a ser más bajo. 
+s.e. = 0.0620: El error estándar para sar1 es relativamente bajo, lo que indica que esta estimación también es bastante precisa y que el modelo tiene una buena confianza en el impacto de la componente estacional.
+
+el modelo ARIMA(1,1,2)(1,1,0) tiene coeficientes precisos para los diferentes componentes (AR, MA y SAR), lo que sugiere que el modelo está bien ajustado y que las relaciones capturadas por los coeficientes son confiables.
+
+-------------------------------------------------------------------
+
+
+
+```{r}
+
+# Análisis de volatilidad utilizando fGarch
+garch_model <- garch(residuos_diff, order = c(1, 1))
+summary(garch_model)
+
+
+```
+
+*Coeficiente del modelo:*
+
+a0 = 0.013043: Este valor es significativo, lo que indica que existe una volatilidad base que es constante y no depende de los errores o la volatilidad pasada.
+
+a1 = 0.322559: Este coeficiente refleja el impacto de los errores pasados sobre la volatilidad actual. Un valor de a1 = 0.322559 indica que los errores pasados tienen una relación positiva moderada con la volatilidad actual. Además, este coeficiente es altamente significativo (p-value < 0.001), lo que sugiere que el impacto de los errores pasados son importantes en el modelo.
+
+b1 = 0.654236: Este coeficiente refleja el impacto de la volatilidad pasada sobre la volatilidad actual. Un valor de b1 = 0.654236 indica que la volatilidad pasada tiene una gran influencia en la volatilidad futura. Este coeficiente también es altamente significativo (p-value < 2e-16), lo que sugiere que la persistencia de la volatilidad es fuerte.
+
+*Error estándar y significancia:*
+Error estándar de a0 = 0.001689, a1 = 0.056827, b1 = 0.038567: Los errores estándar son relativamente bajos en comparación con los coeficientes estimados, lo que sugiere que las estimaciones de los parámetros del modelo son precisas.
+
+Los valores de t y los p-values asociados a los coeficientes (a0, a1, b1) muestran que todos los coeficientes son estadísticamente significativos. Esto indica que cada uno de estos parámetros tienen un impacto significativo en la volatilidad modelada.
+
+*Resultados de los tets diagnósticos:*
+
+Jarque-Bera Test: Este test evalúa la normalidad de los residuos. El valor de X-squared = 650.13 y el p-value < 2.2e-16 indican que los residuos no siguen una distribución normal.
+
+Box-Ljung Test (Squared Residuals): Este test evalúa la autocorrelación en los residuos al cuadrado, lo que en este caso indica si hay dependencias en la volatilidad. El valor X-squared = 0.024148 y p-value = 0.8765 sugieren que no hay autocorrelación significativa en los residuos al cuadrado, lo que implica que el modelo GARCH(1,1) ha capturado adecuadamente la dinámica de la volatilidad y no quedan patrones significativos en los residuos.
+
+---------------------------------------------------------------------
+
+
+## Algoritmo de Holt Winter 
+
+Puede manejar la estacionalidad en el conjunto de datos simplemente calculando el valor central y luego sumándolo o multiplicándolo por la pendiente y la estacionalidad. Solo tenemos que asegurarnos de ajustar el conjunto correcto de parámetros, y tenemos el mejor ajuste. 
+
+Recuerde siempre verificar la eficiencia del modelo utilizando el valor MAPE (error porcentual absoluto medio) o el valor RMSE (error cuadrático medio), y la precisión puede depender del problema comercial y el conjunto de datos disponible para entrenar y probar el modelo.
+
+
+
+Se observan la tendencia y los ciclos
+
+```{r}
+# Graficar solo líneas
+plot(data2$Anio, data2$Tasa, type = "l", main = "Grafico con Regresion", xlab = "Anio", ylab = "Tasa")
+
+# Ajustar el modelo de regresión lineal
+modelo <- lm(Tasa ~ Anio, data = data2)
+
+# Agregar la línea de regresión al gráfico
+abline(modelo, col = "red")
+
+
+```
+```{r}
+
+# Graficar
+ggplot(data2, aes(x = Mes, y = Anio, fill = Tasa)) +
+  geom_tile() +  # Usar geom_tile para crear un gráfico de calor
+  scale_fill_gradient(low = "white", high = "blue") +  # Colores del llenado
+  labs(title = "Tasa por Año y Mes", x = "Mes", y = "Año") +
+  theme_minimal()
+
+
+
+```
+
+
+
+```{r}
+
+# serie_temporal <- ts(data2[["Tasa"]], start = c(min(data2$Anio), 1), frequency = 12)
+
+# Extraer el ciclo de la serie temporal
+cicle <- cycle(ts_data)
+
+# Ver los ciclos
+print(cicle)
+
+```
+
+
+
+
+
+```{r}
+# boxplot(data2~cycle(data2))
+
+# Crear el boxplot por ciclo (mes) para observar la estacionalidad
+boxplot(ts_data ~ cycle(ts_data), 
+        xlab = "Mes", ylab = "Tasa", 
+        main = "Boxplot de Tasa por Mes")
+
+```
+
+```{r}
+# plot(log(airmiles), ylab='log(airmiles)', xlab='Anio', main='Logaritmo de la tasa')
+
+plot(data2$Anio, log(data2$Tasa), type = "l", 
+     ylab = "Log(Tasa)", xlab = "Año", 
+     main = "Logaritmo de la Tasa a lo largo del Tiempo")
+```
+
+## **Modelo Holt-Winter**
+
+```{r}
+# modelo_HW = HoltWinters(log(airmiles), seasonal = "additive")
+# plot(modelo_HW, main = 'Ajuste con Holt-Winters', xlab = 'Anio', ylab='log(airmiles)')
+
+
+# Aplicar el modelo Holt-Winters a la serie temporal
+modelo_HW <- HoltWinters(ts_data)
+print(modelo_HW)
+
+# Graficar el ajuste del modelo a los datos históricos
+plot(modelo_HW, main = "Ajuste del Modelo Holt-Winters")
+
+# Pronóstico con Holt-Winters para los próximos 12 meses
+pronostico_hw <- forecast(modelo_HW, h = 12)
+
+# Graficar el pronóstico
+plot(pronostico_hw, main = "Pronostico Holt-Winters para Tasa")
+
+
+```
+
+*Parámetro suavizado:*
+
+Alpha (α = 0.9409767): Este es el parámetro de suavizado para el componente de nivel. Un valor cercano a 1, como el que está arrojando el resultado, indica que el modelo le da gran peso a los datos recientes para estimar el nivel actual de la serie. Esto significa que las observaciones recientes tienen un impacto significativo en la estimación del nivel.
+
+Beta (β = 0.2941339): Este es el parámetro de suavizado para el componente de tendencia en el modelo de Holt-Winters. Un valor de β moderadamente bajo, como 0.2941339, sugiere que el modelo da un peso relativamente moderado a los cambios en la tendencia. Es decir, el modelo no es extremadamente sensible a las variaciones en la tendencia, pero sigue siendo capaz de capturarlas de manera significativa. Con este valor, el modelo ajusta la tendencia de forma más suave y gradual, lo que implica que no tiene una sobrereacción ante cambios recientes en la dirección de los datos.
+
+Gamma (γ = 1): Este es el parámetro de suavizado para el componente estacional. Un valor de γ = 1 sugiere que el modelo da completo peso a los componentes estacionales previos en la serie.
+
+```{r}
+plot(fitted(modelo_HW), main='Descomposicion con HW', xlab='Anio', ylab='log(airmiles)')
+```
+
+Se predice el método Holt Winters
+
+```{r}
+pred = predict(modelo_HW, 4, prediction.interval = TRUE)
+pred
+```
+
+```{r}
+plot(modelo_HW, pred)
+```
+
+
+
+
+```
+
