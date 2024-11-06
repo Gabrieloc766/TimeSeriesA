@@ -449,9 +449,9 @@ pacf(differenced_data, main = "PACF de la Serie Diferenciada")
 
 * **PACF:**  muestra una caída rápida después del primer rezago, lo cual sugiere que un modelo ARIMA de bajo orden podría ser adecuado para capturar la dinámica de la serie diferenciada.
 
-# **Definición del Modelo ARIMA**
+# **Definición de Modelos**
 
-*COMPOSICIÓN DEL MODELO ARIMA*
+## Modelo Arima
 
 * Diferenciación no estacional (d): Dado que ya se aplicó una primera diferenciación en los datos y todavía no es completamente estacionaria, es posible considerar incrementar el parámetro de a 2. 
 
@@ -504,7 +504,7 @@ plot(pronostico, xlab = "Año", ylab = "Tasa", main = "Pronóstico de Tasa")
 * El p-valor del test de Ljung-Box mayor a 0.05 indica que el modelo ha eliminado la mayoría de la autocorrelación en los residuos, lo cual es positivo.
 
 
-```{r}
+```{r echo=FALSE, warning=FALSE}
 
 # Análisis de Residuos
 
@@ -531,7 +531,7 @@ POSIBLE MODELO 2
 
 
 
-```{r}
+```{r echo=FALSE, warning=FALSE}
 
 # Aplicar auto.arima para determinar los parámetros adecuados, incluyendo las diferenciaciones
 modelo_auto <- auto.arima(differenced_data)
@@ -555,7 +555,7 @@ Con s.e. = 0.5442, al ser menor que el de ma1, indica que ma2 es más precisa, a
 
 
 
-```{r}
+```{r echo=FALSE, warning=FALSE}
 
 # Ajuste del modelo ARIMA
 modelo_arima2 <- Arima(differenced_data, order = c(1, 1, 2), seasonal = c(1, 1, 0))
@@ -592,7 +592,7 @@ el modelo ARIMA(1,1,2)(1,1,0) tiene coeficientes precisos para los diferentes co
 
 
 
-```{r}
+```{r echo=FALSE, warning=FALSE}
 
 # Análisis de volatilidad utilizando fGarch
 garch_model <- garch(residuos_diff, order = c(1, 1))
@@ -633,7 +633,7 @@ Recuerde siempre verificar la eficiencia del modelo utilizando el valor MAPE (er
 
 Se observan la tendencia y los ciclos
 
-```{r}
+```{r echo=FALSE, warning=FALSE}
 # Graficar solo líneas
 plot(data2$Anio, data2$Tasa, type = "l", main = "Grafico con Regresion", xlab = "Anio", ylab = "Tasa")
 
@@ -645,7 +645,7 @@ abline(modelo, col = "red")
 
 
 ```
-```{r}
+```{r echo=FALSE, warning=FALSE}
 
 # Graficar
 ggplot(data2, aes(x = Mes, y = Anio, fill = Tasa)) +
@@ -660,7 +660,7 @@ ggplot(data2, aes(x = Mes, y = Anio, fill = Tasa)) +
 
 
 
-```{r}
+```{r echo=FALSE, warning=FALSE}
 
 # serie_temporal <- ts(data2[["Tasa"]], start = c(min(data2$Anio), 1), frequency = 12)
 
@@ -676,7 +676,7 @@ print(cicle)
 
 
 
-```{r}
+```{r echo=FALSE, warning=FALSE}
 # boxplot(data2~cycle(data2))
 
 # Crear el boxplot por ciclo (mes) para observar la estacionalidad
@@ -686,7 +686,7 @@ boxplot(ts_data ~ cycle(ts_data),
 
 ```
 
-```{r}
+```{r echo=FALSE, warning=FALSE}
 # plot(log(airmiles), ylab='log(airmiles)', xlab='Anio', main='Logaritmo de la tasa')
 
 plot(data2$Anio, log(data2$Tasa), type = "l", 
@@ -696,7 +696,7 @@ plot(data2$Anio, log(data2$Tasa), type = "l",
 
 ## Modelo Holt-Winter
 
-```{r}
+```{r echo=FALSE, warning=FALSE}
 # modelo_HW = HoltWinters(log(airmiles), seasonal = "additive")
 # plot(modelo_HW, main = 'Ajuste con Holt-Winters', xlab = 'Anio', ylab='log(airmiles)')
 
@@ -725,18 +725,18 @@ Beta (β = 0.2941339): Este es el parámetro de suavizado para el componente de 
 
 Gamma (γ = 1): Este es el parámetro de suavizado para el componente estacional. Un valor de γ = 1 sugiere que el modelo da completo peso a los componentes estacionales previos en la serie.
 
-```{r}
+```{r echo=FALSE, warning=FALSE}
 plot(fitted(modelo_HW), main='Descomposicion con HW', xlab='Anio', ylab='log(airmiles)')
 ```
 
 Se predice el método Holt Winters
 
-```{r}
+```{r echo=FALSE, warning=FALSE}
 pred = predict(modelo_HW, 4, prediction.interval = TRUE)
 pred
 ```
 
-```{r}
+```{r echo=FALSE, warning=FALSE}
 plot(modelo_HW, pred)
 ```
 
