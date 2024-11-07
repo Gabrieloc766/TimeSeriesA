@@ -96,6 +96,7 @@
 <li class="chapter" data-level="2.1" data-path="definición-de-modelos.html"><a href="definición-de-modelos.html#modelo-arima"><i class="fa fa-check"></i><b>2.1</b> Modelo Arima</a></li>
 <li class="chapter" data-level="2.2" data-path="definición-de-modelos.html"><a href="definición-de-modelos.html#algoritmo-de-holt-winter"><i class="fa fa-check"></i><b>2.2</b> Algoritmo de Holt Winter</a></li>
 <li class="chapter" data-level="2.3" data-path="definición-de-modelos.html"><a href="definición-de-modelos.html#modelo-holt-winter"><i class="fa fa-check"></i><b>2.3</b> Modelo Holt-Winter</a></li>
+<li class="chapter" data-level="2.4" data-path="definición-de-modelos.html"><a href="definición-de-modelos.html#conclusión"><i class="fa fa-check"></i><b>2.4</b> Conclusión</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Publicado con bookdown</a></li>
@@ -1354,10 +1355,12 @@ A medida que aumenta el rezago (lag 2, lag 3), la correlación disminuye ligeram
 <p>Los gráficos de rezago muestran una clara autocorrelación tanto en las variables de Tasa como en el Promedio Móvil, lo que sugiere que los valores actuales están muy influenciados por sus valores anteriores.</p>
 <p>No se observan grandes fluctuaciones o cambios abruptos en la serie temporal, lo que implica que los datos de tasa y promedio móvil siguen una evolución suave a lo largo del tiempo.</p>
 <p>La estructura cíclica en los meses sugiere que existe un patrón estacional predecible, lo cual es clave para definir modelos de predicción de series temporales con componentes estacionales, como modelos ARIMA/SARIMA o de descomposición estacional.</p>
-<hr />
-<p>Descomposición: Con la función stl(), se descompone la serie en tendencia, estacionalidad y componente residual.</p>
-<p>Estacionariedad: La prueba ADF indica si la serie tiene una raíz unitaria (es decir, si no es estacionaria).</p>
-<p>Diferenciación: Si la serie no es estacionaria, la diferenciación la ayuda a volverse estacionaria.</p>
+<p><strong>Descomposición:</strong>
+Con la función stl(), se descompone la serie en tendencia, estacionalidad y componente residual.</p>
+<p><strong>Estacionariedad:</strong>
+La prueba ADF indica si la serie tiene una raíz unitaria (es decir, si no es estacionaria).</p>
+<p><strong>Diferenciación:</strong>
+Si la serie no es estacionaria, la diferenciación la ayuda a volverse estacionaria.</p>
 </div>
 <div id="descomposición" class="section level2 hasAnchor" number="1.6">
 <h2><span class="header-section-number">1.6</span> Descomposición<a href="enunciado.html#descomposición" class="anchor-section" aria-label="Anchor link to header"></a></h2>

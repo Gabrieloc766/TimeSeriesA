@@ -96,6 +96,7 @@
 <li class="chapter" data-level="2.1" data-path="definición-de-modelos.html"><a href="definición-de-modelos.html#modelo-arima"><i class="fa fa-check"></i><b>2.1</b> Modelo Arima</a></li>
 <li class="chapter" data-level="2.2" data-path="definición-de-modelos.html"><a href="definición-de-modelos.html#algoritmo-de-holt-winter"><i class="fa fa-check"></i><b>2.2</b> Algoritmo de Holt Winter</a></li>
 <li class="chapter" data-level="2.3" data-path="definición-de-modelos.html"><a href="definición-de-modelos.html#modelo-holt-winter"><i class="fa fa-check"></i><b>2.3</b> Modelo Holt-Winter</a></li>
+<li class="chapter" data-level="2.4" data-path="definición-de-modelos.html"><a href="definición-de-modelos.html#conclusión"><i class="fa fa-check"></i><b>2.4</b> Conclusión</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Publicado con bookdown</a></li>
@@ -126,6 +127,7 @@
 <li><p>Estacionalidad (seasonal): Como existe un patrón estacional claro en la serie, conviene incluir una diferenciación estacional (D = 1) y ajustar los parámetros P y Q para capturar las dependencias estacionales. Se probará el modelo con un seasonal = c(1, 1, 1) para incluir un término autoregresivo y uno de promedio móvil estacional.</p></li>
 <li><p>Componentes AR y MA (p y q): Dado que p y q determinan la cantidad de términos autoregresivos y de promedio móvil, se recomienda probar con valores más altos para q (como 3) y ajustar p a 1 o 2 si observas que hay correlación en los residuos. Esto puede ayudar a mejorar la precisión del modelo y su capacidad predictiva.</p></li>
 </ul>
+<p><strong>Modelo 1</strong></p>
 <pre><code>## Series: differenced_data 
 ## ARIMA(1,2,3)(1,1,1)[12] 
 ## 
@@ -154,7 +156,7 @@
 <li><p>p = 1 (un término autoregresivo),</p></li>
 <li><p>d = 2 (diferenciación de segundo orden para hacer estacionaria la serie en términos de tendencia),</p></li>
 <li><p>q = 3 (tres términos de promedio móvil).</p></li>
-<li><p>**parámetros estacionales*, donde:**</p></li>
+<li><p><strong>parámetros estacionales, donde:</strong></p></li>
 <li><p>P = 1 (un término autoregresivo estacional),</p></li>
 <li><p>D = 1 (diferenciación estacional),</p></li>
 <li><p>Q = 1 (un término de promedio móvil estacional),</p></li>
@@ -171,8 +173,7 @@
 ## W = 0.82525, p-value &lt; 2.2e-16</code></pre>
 <p>Teniendo en cuenta la prueba de normalidad de Shapiro-Wilk, con un valor de 0.82525, siendo relativamente menor a 1, indica que los residuos no siguen una distribución normal.</p>
 <p>En cuanto a p-value &lt; 2.2e-16, al ser una cifra tan pequeña, se confirma que los residuos no son normales.</p>
-<hr />
-<p>POSIBLE MODELO 2</p>
+<p><strong>Modelo 2</strong></p>
 <pre><code>## Series: differenced_data 
 ## ARIMA(1,1,2) 
 ## 
@@ -192,6 +193,7 @@ ma1 = -0.1114: indica que la predicción fue más alta al valor real en el perí
 Lo anterior, relacionado con s.e.= 0.7650, indica que la estimación es relativamente imprecisa en comparación con el valor del coeficiente.</p>
 <p>ma2 = -0.4425: este resultado tiene un valor negativo, similar a ma1; sin embargo, este resultado ocurre en el segundo error pasado (dos períodos atrás), es decir cuando t=-2.
 Con s.e. = 0.5442, al ser menor que el de ma1, indica que ma2 es más precisa, aunque continúa teniendo una inexactitud sobre el valor.</p>
+<p><strong>Modelo 3: modelo diferenciado</strong></p>
 <pre><code>## Series: differenced_data 
 ## ARIMA(1,1,2)(1,1,0)[12] 
 ## 
@@ -227,7 +229,7 @@ s.e. = 0.0583: Al igual que el error estándar de ma1, el error estándar de ma2
 sar1 = -0.4744: El coeficiente negativo para sar1 sugiere que existe una relación inversa entre el valor actual de la serie y el valor de la serie con un rezago estacional de un periodo (es decir, el valor de la serie 12 periodos atrás). Si el valor de la serie en el periodo t-12 fue alto, el valor en el periodo actual t tenderá a ser más bajo.
 s.e. = 0.0620: El error estándar para sar1 es relativamente bajo, lo que indica que esta estimación también es bastante precisa y que el modelo tiene una buena confianza en el impacto de la componente estacional.</p>
 <p>el modelo ARIMA(1,1,2)(1,1,0) tiene coeficientes precisos para los diferentes componentes (AR, MA y SAR), lo que sugiere que el modelo está bien ajustado y que las relaciones capturadas por los coeficientes son confiables.</p>
-<hr />
+<p><strong>Análisis de volatilidad utilizando Garch</strong></p>
 <pre><code>## 
 ##  ***** ESTIMATION WITH ANALYTICAL GRADIENT ***** 
 ## 
@@ -310,13 +312,11 @@ Error estándar de a0 = 0.001689, a1 = 0.056827, b1 = 0.038567: Los errores est�
 <p><em>Resultados de los tets diagnósticos:</em></p>
 <p>Jarque-Bera Test: Este test evalúa la normalidad de los residuos. El valor de X-squared = 650.13 y el p-value &lt; 2.2e-16 indican que los residuos no siguen una distribución normal.</p>
 <p>Box-Ljung Test (Squared Residuals): Este test evalúa la autocorrelación en los residuos al cuadrado, lo que en este caso indica si hay dependencias en la volatilidad. El valor X-squared = 0.024148 y p-value = 0.8765 sugieren que no hay autocorrelación significativa en los residuos al cuadrado, lo que implica que el modelo GARCH(1,1) ha capturado adecuadamente la dinámica de la volatilidad y no quedan patrones significativos en los residuos.</p>
-<hr />
 </div>
 <div id="algoritmo-de-holt-winter" class="section level2 hasAnchor" number="2.2">
 <h2><span class="header-section-number">2.2</span> Algoritmo de Holt Winter<a href="definición-de-modelos.html#algoritmo-de-holt-winter" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Puede manejar la estacionalidad en el conjunto de datos simplemente calculando el valor central y luego sumándolo o multiplicándolo por la pendiente y la estacionalidad. Solo tenemos que asegurarnos de ajustar el conjunto correcto de parámetros, y tenemos el mejor ajuste.</p>
 <p>Recuerde siempre verificar la eficiencia del modelo utilizando el valor MAPE (error porcentual absoluto medio) o el valor RMSE (error cuadrático medio), y la precisión puede depender del problema comercial y el conjunto de datos disponible para entrenar y probar el modelo.</p>
-<p>Se observan la tendencia y los ciclos</p>
 <p><img src="index_files/figure-html/unnamed-chunk-25-1.png" width="672" />
 <img src="index_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
 <pre><code>##      Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
@@ -390,7 +390,12 @@ Error estándar de a0 = 0.001689, a1 = 0.056827, b1 = 0.038567: Los errores est�
 ## Mar 2025 30.04718 31.76924 28.32513
 ## Apr 2025 31.36194 33.58414 29.13975</code></pre>
 <p><img src="index_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
-<p>```</p>
+</div>
+<div id="conclusión" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Conclusión<a href="definición-de-modelos.html#conclusión" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>El Modelo 1 tiene un ajuste adecuado, con coeficientes significativos y un p-valor del test de Ljung-Box de 0.1302, lo que indica que los residuos no presentan autocorrelación significativa. Sin embargo, los residuos no siguen una distribución normal, lo que podría ser un inconveniente. Este modelo captura bien la dinámica de la serie, pero la falta de normalidad en los residuos sugiere una ligera desviación en el ajuste.</p>
+<p>El Modelo 2, aunque tiene un ajuste aceptable, presenta estimaciones imprecisas, especialmente en el término autorregresivo (AR) y en los términos de media móvil (MA), como lo indican sus errores estándar relativamente altos. Este modelo, con un p-valor bajo en los coeficientes, puede no ser tan confiable debido a la imprecisión en algunas de las estimaciones, lo que puede generar predicciones menos robustas.</p>
+<p>Por otro lado, el Modelo 3 resulta ser el más adecuado, con coeficientes más precisos y errores estándar bajos en términos de AR y MA. La relación directa en el término autorregresivo (AR) y la buena precisión en los términos de media móvil (MA) sugieren que el modelo captura adecuadamente la dinámica de la serie temporal. Además, el término estacional SAR1 también tiene un ajuste adecuado, con un coeficiente significativo y un error estándar bajo, lo que implica que el modelo está considerando correctamente la estacionalidad de la serie. El p-valor de los residuos también es adecuado, indicando que el modelo ajusta bien la serie y presenta una buena generalización.</p>
 </div>
 </div>
             </section>

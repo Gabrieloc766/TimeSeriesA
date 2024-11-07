@@ -316,13 +316,14 @@ No se observan grandes fluctuaciones o cambios abruptos en la serie temporal, lo
 
 La estructura cíclica en los meses sugiere que existe un patrón estacional predecible, lo cual es clave para definir modelos de predicción de series temporales con componentes estacionales, como modelos ARIMA/SARIMA o de descomposición estacional.
 
------------------------------------------
+**Descomposición:** 
+Con la función stl(), se descompone la serie en tendencia, estacionalidad y componente residual.
 
-Descomposición: Con la función stl(), se descompone la serie en tendencia, estacionalidad y componente residual.
+**Estacionariedad:** 
+La prueba ADF indica si la serie tiene una raíz unitaria (es decir, si no es estacionaria).
 
-Estacionariedad: La prueba ADF indica si la serie tiene una raíz unitaria (es decir, si no es estacionaria).
-
-Diferenciación: Si la serie no es estacionaria, la diferenciación la ayuda a volverse estacionaria.
+**Diferenciación:** 
+Si la serie no es estacionaria, la diferenciación la ayuda a volverse estacionaria.
 
 
 ## Descomposición
@@ -459,7 +460,7 @@ pacf(differenced_data, main = "PACF de la Serie Diferenciada")
 
 * Componentes AR y MA (p y q): Dado que p y q determinan la cantidad de términos autoregresivos y de promedio móvil, se recomienda probar con valores más altos para q (como 3) y ajustar p a 1 o 2 si observas que hay correlación en los residuos. Esto puede ayudar a mejorar la precisión del modelo y su capacidad predictiva.
 
-
+**Modelo 1**
 
 ```{r echo=FALSE, warning=FALSE}
 
@@ -488,7 +489,7 @@ plot(pronostico, xlab = "Año", ylab = "Tasa", main = "Pronóstico de Tasa")
 * d = 2 (diferenciación de segundo orden para hacer estacionaria la serie en términos de tendencia),
 * q = 3 (tres términos de promedio móvil).
 
-* **parámetros estacionales*, donde:**
+* **parámetros estacionales, donde:**
 
 * P = 1 (un término autoregresivo estacional),
 * D = 1 (diferenciación estacional),
@@ -525,10 +526,7 @@ Teniendo en cuenta la prueba de normalidad de Shapiro-Wilk, con un valor de 0.82
 
 En cuanto a p-value < 2.2e-16, al ser una cifra tan pequeña, se confirma que los residuos no son normales.
 
---------------------------------------------------------
-
-POSIBLE MODELO 2
-
+**Modelo 2**
 
 
 ```{r echo=FALSE, warning=FALSE}
@@ -553,7 +551,7 @@ Lo anterior, relacionado con s.e.= 0.7650, indica que la estimación es relativa
 ma2 = -0.4425: este resultado tiene un valor negativo, similar a ma1; sin embargo, este resultado ocurre en el segundo error pasado (dos períodos atrás), es decir cuando t=-2.
 Con s.e. = 0.5442, al ser menor que el de ma1, indica que ma2 es más precisa, aunque continúa teniendo una inexactitud sobre el valor.
 
-
+**Modelo 3: modelo diferenciado**
 
 ```{r echo=FALSE, warning=FALSE}
 
@@ -588,9 +586,7 @@ s.e. = 0.0620: El error estándar para sar1 es relativamente bajo, lo que indica
 
 el modelo ARIMA(1,1,2)(1,1,0) tiene coeficientes precisos para los diferentes componentes (AR, MA y SAR), lo que sugiere que el modelo está bien ajustado y que las relaciones capturadas por los coeficientes son confiables.
 
--------------------------------------------------------------------
-
-
+**Análisis de volatilidad utilizando Garch**
 
 ```{r echo=FALSE, warning=FALSE}
 
@@ -620,9 +616,6 @@ Jarque-Bera Test: Este test evalúa la normalidad de los residuos. El valor de X
 
 Box-Ljung Test (Squared Residuals): Este test evalúa la autocorrelación en los residuos al cuadrado, lo que en este caso indica si hay dependencias en la volatilidad. El valor X-squared = 0.024148 y p-value = 0.8765 sugieren que no hay autocorrelación significativa en los residuos al cuadrado, lo que implica que el modelo GARCH(1,1) ha capturado adecuadamente la dinámica de la volatilidad y no quedan patrones significativos en los residuos.
 
----------------------------------------------------------------------
-
-
 ## Algoritmo de Holt Winter 
 
 Puede manejar la estacionalidad en el conjunto de datos simplemente calculando el valor central y luego sumándolo o multiplicándolo por la pendiente y la estacionalidad. Solo tenemos que asegurarnos de ajustar el conjunto correcto de parámetros, y tenemos el mejor ajuste. 
@@ -630,8 +623,6 @@ Puede manejar la estacionalidad en el conjunto de datos simplemente calculando e
 Recuerde siempre verificar la eficiencia del modelo utilizando el valor MAPE (error porcentual absoluto medio) o el valor RMSE (error cuadrático medio), y la precisión puede depender del problema comercial y el conjunto de datos disponible para entrenar y probar el modelo.
 
 
-
-Se observan la tendencia y los ciclos
 
 ```{r echo=FALSE, warning=FALSE}
 # Graficar solo líneas
@@ -740,8 +731,10 @@ pred
 plot(modelo_HW, pred)
 ```
 
+## Conclusión
 
+El Modelo 1 tiene un ajuste adecuado, con coeficientes significativos y un p-valor del test de Ljung-Box de 0.1302, lo que indica que los residuos no presentan autocorrelación significativa. Sin embargo, los residuos no siguen una distribución normal, lo que podría ser un inconveniente. Este modelo captura bien la dinámica de la serie, pero la falta de normalidad en los residuos sugiere una ligera desviación en el ajuste.
 
+El Modelo 2, aunque tiene un ajuste aceptable, presenta estimaciones imprecisas, especialmente en el término autorregresivo (AR) y en los términos de media móvil (MA), como lo indican sus errores estándar relativamente altos. Este modelo, con un p-valor bajo en los coeficientes, puede no ser tan confiable debido a la imprecisión en algunas de las estimaciones, lo que puede generar predicciones menos robustas.
 
-```
-
+Por otro lado, el Modelo 3 resulta ser el más adecuado, con coeficientes más precisos y errores estándar bajos en términos de AR y MA. La relación directa en el término autorregresivo (AR) y la buena precisión en los términos de media móvil (MA) sugieren que el modelo captura adecuadamente la dinámica de la serie temporal. Además, el término estacional SAR1 también tiene un ajuste adecuado, con un coeficiente significativo y un error estándar bajo, lo que implica que el modelo está considerando correctamente la estacionalidad de la serie. El p-valor de los residuos también es adecuado, indicando que el modelo ajusta bien la serie y presenta una buena generalización.
