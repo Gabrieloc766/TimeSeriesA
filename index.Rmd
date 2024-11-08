@@ -503,7 +503,7 @@ plot(pronostico, xlab = "Anio", ylab = "Tasa", main = "Pronostico de Tasa")
 * d = 2 (diferenciación de segundo orden para hacer estacionaria la serie en términos de tendencia),
 * q = 3 (tres términos de promedio móvil).
 
-* **parámetros estacionales*, donde:**
+* **parámetros estacionales, donde:**
 
 * P = 1 (un término autoregresivo estacional),
 * D = 1 (diferenciación estacional),
@@ -586,13 +586,15 @@ El modelo ARIMA(1,1,2) se seleccionó como el mejor ajuste para differenced_data
 # Ajuste del modelo ARIMA OPCIÓN 2
 modelo_arima2 <- Arima(differenced_data, order = c(1, 1, 2), seasonal = c(1, 1, 0))
 summary(modelo_arima2)
+
+
+```
+```{r}
 checkresiduals(modelo_arima2)
 
 # Pronosticar los próximos 72 períodos (6 años)
 pronostico2 <- forecast(modelo_arima2, h = 72)
 
-# Graficar el pronóstico con el eje x adecuado
-plot(pronostico2, xlab = "Anio", ylab = "Tasa", main = "Pronostico de Tasa")
 
 ```
 

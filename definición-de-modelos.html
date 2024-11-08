@@ -220,7 +220,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>p = 1 (un término autoregresivo),</p></li>
 <li><p>d = 2 (diferenciación de segundo orden para hacer estacionaria la serie en términos de tendencia),</p></li>
 <li><p>q = 3 (tres términos de promedio móvil).</p></li>
-<li><p>**parámetros estacionales*, donde:**</p></li>
+<li><p><strong>parámetros estacionales, donde:</strong></p></li>
 <li><p>P = 1 (un término autoregresivo estacional),</p></li>
 <li><p>D = 1 (diferenciación estacional),</p></li>
 <li><p>Q = 1 (un término de promedio móvil estacional),</p></li>
@@ -346,7 +346,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Training set error measures:
 ##                      ME      RMSE       MAE MPE MAPE      MASE        ACF1
 ## Training set 0.04515282 0.4485344 0.2876226 NaN  Inf 0.8277919 -0.08017884</code></pre>
-<p><img src="index_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="definición-de-modelos.html#cb21-1" tabindex="-1"></a><span class="fu">checkresiduals</span>(modelo_arima2)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
 <pre><code>## 
 ##  Ljung-Box test
 ## 
@@ -354,7 +355,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Q* = 62.201, df = 20, p-value = 3.233e-06
 ## 
 ## Model df: 4.   Total lags used: 24</code></pre>
-<p><img src="index_files/figure-html/unnamed-chunk-26-2.png" width="672" /></p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="definición-de-modelos.html#cb23-1" tabindex="-1"></a><span class="co"># Pronosticar los próximos 72 períodos (6 años)</span></span>
+<span id="cb23-2"><a href="definición-de-modelos.html#cb23-2" tabindex="-1"></a>pronostico2 <span class="ot">&lt;-</span> <span class="fu">forecast</span>(modelo_arima2, <span class="at">h =</span> <span class="dv">72</span>)</span></code></pre></div>
 <p><em>Autorregresivo:</em>
 ar1 = 0.9274: Con un valor positivo, indica que existe una relación directa entre el valor actual de la serie y su valor anterior. Es decir, cuando el valor en el periodo t-1 aumenta, el valor en el periodo actual t tiende a aumentar también.</p>
 <p>s.e. = 0.0393: Dado que el error estándar es bajo, indica que la estimación de este coeficiente es muy precisa. Esto sugiere que el modelo tiene una gran confianza en la relación directa entre el valor actual y el valor anterior de la serie temporal.</p>
@@ -368,7 +370,7 @@ sar1 = -0.4744: El coeficiente negativo para sar1 sugiere que existe una relaci�
 s.e. = 0.0620: El error estándar para sar1 es relativamente bajo, lo que indica que esta estimación también es bastante precisa y que el modelo tiene una buena confianza en el impacto de la componente estacional.</p>
 <p>el modelo ARIMA(1,1,2)(1,1,0) tiene coeficientes precisos para los diferentes componentes (AR, MA y SAR), lo que sugiere que el modelo está bien ajustado y que las relaciones capturadas por los coeficientes son confiables.</p>
 <p><strong>Alternativa 2 - Análisis de residuos</strong></p>
-<p><img src="index_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
@@ -377,8 +379,8 @@ s.e. = 0.0620: El error estándar para sar1 es relativamente bajo, lo que indica
 <p>Los resultados del test de Shapiro-Wilk indican que los residuos (residuos_diff) no siguen una distribución normal.</p>
 <p>En cuanto a la gráfica también refleja la No normalidad. La desviación de los puntos en los extremos sugiere que los residuos tienen colas más pesadas de lo que se esperaría bajo una distribución normal. Este resultado es coherente con el Shapiro-Wilk test.</p>
 <p><strong>Alternativa 2 - Análisis de volatilidad fGarch</strong></p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="definición-de-modelos.html#cb23-1" tabindex="-1"></a><span class="co"># Análisis de volatilidad utilizando fGarch</span></span>
-<span id="cb23-2"><a href="definición-de-modelos.html#cb23-2" tabindex="-1"></a>garch_model2 <span class="ot">&lt;-</span> <span class="fu">garch</span>(residuos_diff2, <span class="at">order =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="definición-de-modelos.html#cb25-1" tabindex="-1"></a><span class="co"># Análisis de volatilidad utilizando fGarch</span></span>
+<span id="cb25-2"><a href="definición-de-modelos.html#cb25-2" tabindex="-1"></a>garch_model2 <span class="ot">&lt;-</span> <span class="fu">garch</span>(residuos_diff2, <span class="at">order =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div>
 <pre><code>## 
 ##  ***** ESTIMATION WITH ANALYTICAL GRADIENT ***** 
 ## 
@@ -421,7 +423,7 @@ s.e. = 0.0620: El error estándar para sar1 es relativamente bajo, lo que indica
 ##      1    1.388353e-02     1.000e+00     6.749e+00
 ##      2    2.667688e-01     1.000e+00    -9.784e-04
 ##      3    7.154210e-01     1.000e+00    -7.331e-02</code></pre>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="definición-de-modelos.html#cb25-1" tabindex="-1"></a><span class="fu">summary</span>(garch_model2)</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="definición-de-modelos.html#cb27-1" tabindex="-1"></a><span class="fu">summary</span>(garch_model2)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## garch(x = residuos_diff2, order = c(1, 1))
@@ -504,7 +506,7 @@ s.e. = 0.0620: El error estándar para sar1 es relativamente bajo, lo que indica
 ## Modelo 2:</code></pre>
 <pre><code>##                      ME      RMSE       MAE MPE MAPE      MASE        ACF1
 ## Training set 0.04515282 0.4485344 0.2876226 NaN  Inf 0.8277919 -0.08017884</code></pre>
-<p><img src="index_files/figure-html/unnamed-chunk-29-1.png" width="672" /><img src="index_files/figure-html/unnamed-chunk-29-2.png" width="672" /><img src="index_files/figure-html/unnamed-chunk-29-3.png" width="672" /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-30-1.png" width="672" /><img src="index_files/figure-html/unnamed-chunk-30-2.png" width="672" /><img src="index_files/figure-html/unnamed-chunk-30-3.png" width="672" /></p>
 <p>A nivel general,</p>
 <ul>
 <li><p>ALTERNATIVA 1: muestra problemas de ajuste. Residuos no normales y autocorrelación presente. Aunque captura la tendencia, su precisión en los pronósticos parece más limitada.</p></li>
@@ -520,8 +522,8 @@ s.e. = 0.0620: El error estándar para sar1 es relativamente bajo, lo que indica
 <p>Puede manejar la estacionalidad en el conjunto de datos simplemente calculando el valor central y luego sumándolo o multiplicándolo por la pendiente y la estacionalidad. Solo tenemos que asegurarnos de ajustar el conjunto correcto de parámetros, y tenemos el mejor ajuste.</p>
 <p>Recuerde siempre verificar la eficiencia del modelo utilizando el valor MAPE (error porcentual absoluto medio) o el valor RMSE (error cuadrático medio), y la precisión puede depender del problema comercial y el conjunto de datos disponible para entrenar y probar el modelo.</p>
 <p>Se observan la tendencia y los ciclos:</p>
-<p><img src="index_files/figure-html/unnamed-chunk-30-1.png" width="672" />
-<img src="index_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-31-1.png" width="672" />
+<img src="index_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p>
 <p>La gráfica sugiere una disminución en la tasa a lo largo del tiempo, con una estabilización en niveles bajos en los años recientes. Esto podría indicar una mejora en el fenómeno que se está midiendo con la “Tasa”, aunque el contexto específico dependerá de qué represente exactamente esa variable en el análisis.</p>
 <pre><code>##      Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
 ## 1999                   5   6   7   8   9  10  11  12
@@ -550,9 +552,9 @@ s.e. = 0.0620: El error estándar para sar1 es relativamente bajo, lo que indica
 ## 2022   1   2   3   4   5   6   7   8   9  10  11  12
 ## 2023   1   2   3   4   5   6   7   8   9  10  11  12
 ## 2024   1   2   3   4   5   6   7   8   9  10  11  12</code></pre>
-<p><img src="index_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
-<p>Aunque hay consistencia en la mediana y el rango intercuartílico de la tasa a lo largo de los meses, existen valores atípicos en la segunda mitad del año. Esto sugiere que, aunque la tasa general se mantiene estable, en algunos meses específicos ocurren eventos o circunstancias que resultan en tasas inusualmente altas.</p>
 <p><img src="index_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
+<p>Aunque hay consistencia en la mediana y el rango intercuartílico de la tasa a lo largo de los meses, existen valores atípicos en la segunda mitad del año. Esto sugiere que, aunque la tasa general se mantiene estable, en algunos meses específicos ocurren eventos o circunstancias que resultan en tasas inusualmente altas.</p>
+<p><img src="index_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
 <p>La gráfica sugiere que la tasa ha sido volátil a lo largo de los años, con periodos de estabilidad relativa intercalados con cambios bruscos.</p>
 <p>La caída alrededor de 2020 y el rápido aumento posterior podrían reflejar eventos económicos o circunstancias externas que afectaron la tasa en ese periodo.</p>
 <p>Esto fue evidenciado en el ANÁLISIS EXPLORATORIO.</p>
@@ -585,12 +587,12 @@ s.e. = 0.0620: El error estándar para sar1 es relativamente bajo, lo que indica
 ## s10  0.501395118
 ## s11  0.266415988
 ## s12 -0.078382560</code></pre>
-<p><img src="index_files/figure-html/unnamed-chunk-35-1.png" width="672" /><img src="index_files/figure-html/unnamed-chunk-35-2.png" width="672" /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-36-1.png" width="672" /><img src="index_files/figure-html/unnamed-chunk-36-2.png" width="672" /></p>
 <p><em>Parámetro suavizado:</em></p>
 <p>Alpha (α = 0.9409767): Este es el parámetro de suavizado para el componente de nivel. Un valor cercano a 1, como el que está arrojando el resultado, indica que el modelo le da gran peso a los datos recientes para estimar el nivel actual de la serie. Esto significa que las observaciones recientes tienen un impacto significativo en la estimación del nivel.</p>
 <p>Beta (β = 0.2941339): Este es el parámetro de suavizado para el componente de tendencia en el modelo de Holt-Winters. Un valor de β moderadamente bajo, como 0.2941339, sugiere que el modelo da un peso relativamente moderado a los cambios en la tendencia. Es decir, el modelo no es extremadamente sensible a las variaciones en la tendencia, pero sigue siendo capaz de capturarlas de manera significativa. Con este valor, el modelo ajusta la tendencia de forma más suave y gradual, lo que implica que no tiene una sobrereacción ante cambios recientes en la dirección de los datos.</p>
 <p>Gamma (γ = 1): Este es el parámetro de suavizado para el componente estacional. Un valor de γ = 1 sugiere que el modelo da completo peso a los componentes estacionales previos en la serie.</p>
-<p><img src="index_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
 <p>La tendencia ascendente en el nivel y la tendencia hacia el final del período (2025) sugiere que LA TASA está experimentando un crecimiento continuo.</p>
 <p>La componente estacional muestra ciclos regulares bien definidos, lo que puede ser útil para predicciones estacionales precisas.</p>
 <p>El modelo Holt-Winters parece ajustarse adecuadamente a la serie, capturando tanto las fluctuaciones estacionales como la tendencia de largo plazo.</p>
@@ -600,7 +602,7 @@ s.e. = 0.0620: El error estándar para sar1 es relativamente bajo, lo que indica
 ## Feb 2025 28.82328 30.07272 27.57383
 ## Mar 2025 30.04718 31.76924 28.32513
 ## Apr 2025 31.36194 33.58414 29.13975</code></pre>
-<p><img src="index_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
 </div>
 </div>
             </section>
