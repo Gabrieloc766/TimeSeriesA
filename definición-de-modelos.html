@@ -56,6 +56,70 @@
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
 
 <style type="text/css">
   
@@ -81,8 +145,8 @@
 <li class="chapter" data-level="1" data-path="enunciado.html"><a href="enunciado.html"><i class="fa fa-check"></i><b>1</b> <strong>Enunciado</strong></a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="enunciado.html"><a href="enunciado.html#análisis-exploratorio"><i class="fa fa-check"></i><b>1.1</b> Análisis exploratorio</a></li>
-<li class="chapter" data-level="1.2" data-path="enunciado.html"><a href="enunciado.html#gráficos-de-visualización"><i class="fa fa-check"></i><b>1.2</b> Gráficos de visualización</a></li>
-<li class="chapter" data-level="1.3" data-path="enunciado.html"><a href="enunciado.html#análisis-de-serie-de-tiempo"><i class="fa fa-check"></i><b>1.3</b> Análisis de serie de tiempo</a></li>
+<li class="chapter" data-level="1.2" data-path="enunciado.html"><a href="enunciado.html#gráficos-de-visualización"><i class="fa fa-check"></i><b>1.2</b> Gráficos de visualización:</a></li>
+<li class="chapter" data-level="1.3" data-path="enunciado.html"><a href="enunciado.html#análisis-de-serie-de-tiempo"><i class="fa fa-check"></i><b>1.3</b> Análisis de serie de tiempo:</a></li>
 <li class="chapter" data-level="1.4" data-path="enunciado.html"><a href="enunciado.html#promedio-o-media-móvil"><i class="fa fa-check"></i><b>1.4</b> Promedio o media móvil</a></li>
 <li class="chapter" data-level="1.5" data-path="enunciado.html"><a href="enunciado.html#rezago-operador-backshift-y-estacionalidad"><i class="fa fa-check"></i><b>1.5</b> Rezago (operador backshift) y estacionalidad</a></li>
 <li class="chapter" data-level="1.6" data-path="enunciado.html"><a href="enunciado.html#descomposición"><i class="fa fa-check"></i><b>1.6</b> Descomposición</a></li>
@@ -95,8 +159,7 @@
 <ul>
 <li class="chapter" data-level="2.1" data-path="definición-de-modelos.html"><a href="definición-de-modelos.html#modelo-arima"><i class="fa fa-check"></i><b>2.1</b> Modelo Arima</a></li>
 <li class="chapter" data-level="2.2" data-path="definición-de-modelos.html"><a href="definición-de-modelos.html#algoritmo-de-holt-winter"><i class="fa fa-check"></i><b>2.2</b> Algoritmo de Holt Winter</a></li>
-<li class="chapter" data-level="2.3" data-path="definición-de-modelos.html"><a href="definición-de-modelos.html#modelo-holt-winter"><i class="fa fa-check"></i><b>2.3</b> Modelo Holt-Winter</a></li>
-<li class="chapter" data-level="2.4" data-path="definición-de-modelos.html"><a href="definición-de-modelos.html#conclusión"><i class="fa fa-check"></i><b>2.4</b> Conclusión</a></li>
+<li class="chapter" data-level="2.3" data-path="definición-de-modelos.html"><a href="definición-de-modelos.html#modelo-holt-winter"><i class="fa fa-check"></i><b>2.3</b> <strong>Modelo Holt-Winter</strong></a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Publicado con bookdown</a></li>
@@ -122,12 +185,18 @@
 <h1><span class="header-section-number">Capítulo: 2</span> <strong>Definición de Modelos</strong><a href="definición-de-modelos.html#definición-de-modelos" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="modelo-arima" class="section level2 hasAnchor" number="2.1">
 <h2><span class="header-section-number">2.1</span> Modelo Arima<a href="definición-de-modelos.html#modelo-arima" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A continuación se probarán dos alternativas de modelo ARIMA, de acuerdo con los análisis realizados previamente, a fin de elegir aquel que se acomode mejor a la serie.</p>
+<p><strong>Alternativa 1 - c(1, 2, 3) (1, 1, 1):</strong></p>
 <ul>
 <li><p>Diferenciación no estacional (d): Dado que ya se aplicó una primera diferenciación en los datos y todavía no es completamente estacionaria, es posible considerar incrementar el parámetro de a 2.</p></li>
 <li><p>Estacionalidad (seasonal): Como existe un patrón estacional claro en la serie, conviene incluir una diferenciación estacional (D = 1) y ajustar los parámetros P y Q para capturar las dependencias estacionales. Se probará el modelo con un seasonal = c(1, 1, 1) para incluir un término autoregresivo y uno de promedio móvil estacional.</p></li>
-<li><p>Componentes AR y MA (p y q): Dado que p y q determinan la cantidad de términos autoregresivos y de promedio móvil, se recomienda probar con valores más altos para q (como 3) y ajustar p a 1 o 2 si observas que hay correlación en los residuos. Esto puede ayudar a mejorar la precisión del modelo y su capacidad predictiva.</p></li>
+<li><p>Componentes AR y MA (p y q): Dado que p y q determinan la cantidad de términos autoregresivos y de promedio móvil, conviene probar con valores más altos para q y ajustar p de acuerdo con la correlación en los residuos. Esto puede ayudar a mejorar la precisión del modelo y su capacidad predictiva.</p></li>
 </ul>
-<p><strong>Modelo 1</strong></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="definición-de-modelos.html#cb13-1" tabindex="-1"></a><span class="co"># Ajuste del modelo ARIMA - ALTERNATIVA 1</span></span>
+<span id="cb13-2"><a href="definición-de-modelos.html#cb13-2" tabindex="-1"></a>modelo_arima <span class="ot">&lt;-</span> <span class="fu">Arima</span>(differenced_data, <span class="at">order =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>), <span class="at">seasonal =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb13-3"><a href="definición-de-modelos.html#cb13-3" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="definición-de-modelos.html#cb13-4" tabindex="-1"></a><span class="co"># Resumen del modelo ajustado</span></span>
+<span id="cb13-5"><a href="definición-de-modelos.html#cb13-5" tabindex="-1"></a><span class="fu">summary</span>(modelo_arima)</span></code></pre></div>
 <pre><code>## Series: differenced_data 
 ## ARIMA(1,2,3)(1,1,1)[12] 
 ## 
@@ -142,7 +211,9 @@
 ## Training set error measures:
 ##                       ME      RMSE       MAE MPE MAPE      MASE        ACF1
 ## Training set -0.02662351 0.3862772 0.2369913 NaN  Inf 0.6820726 -0.02211654</code></pre>
-<p><img src="index_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="definición-de-modelos.html#cb15-1" tabindex="-1"></a><span class="co"># Graficar los residuos para verificar la aleatoriedad</span></span>
+<span id="cb15-2"><a href="definición-de-modelos.html#cb15-2" tabindex="-1"></a><span class="fu">checkresiduals</span>(modelo_arima)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 <pre><code>## 
 ##  Ljung-Box test
 ## 
@@ -150,13 +221,18 @@
 ## Q* = 24.811, df = 18, p-value = 0.1302
 ## 
 ## Model df: 6.   Total lags used: 24</code></pre>
-<p><img src="index_files/figure-html/unnamed-chunk-20-2.png" width="672" /></p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="definición-de-modelos.html#cb17-1" tabindex="-1"></a><span class="co"># Pronosticar los próximos 72 períodos (6 años)</span></span>
+<span id="cb17-2"><a href="definición-de-modelos.html#cb17-2" tabindex="-1"></a>pronostico <span class="ot">&lt;-</span> <span class="fu">forecast</span>(modelo_arima, <span class="at">h =</span> <span class="dv">72</span>)</span>
+<span id="cb17-3"><a href="definición-de-modelos.html#cb17-3" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="definición-de-modelos.html#cb17-4" tabindex="-1"></a><span class="co"># Graficar el pronóstico con el eje x adecuado</span></span>
+<span id="cb17-5"><a href="definición-de-modelos.html#cb17-5" tabindex="-1"></a><span class="fu">plot</span>(pronostico, <span class="at">xlab =</span> <span class="st">&quot;Año&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Tasa&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Pronóstico de Tasa&quot;</span>)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-22-2.png" width="672" /></p>
 <ul>
 <li><p><strong>Parámetros no estacionales</strong></p></li>
 <li><p>p = 1 (un término autoregresivo),</p></li>
 <li><p>d = 2 (diferenciación de segundo orden para hacer estacionaria la serie en términos de tendencia),</p></li>
 <li><p>q = 3 (tres términos de promedio móvil).</p></li>
-<li><p><strong>parámetros estacionales, donde:</strong></p></li>
+<li><p>**parámetros estacionales*, donde:**</p></li>
 <li><p>P = 1 (un término autoregresivo estacional),</p></li>
 <li><p>D = 1 (diferenciación estacional),</p></li>
 <li><p>Q = 1 (un término de promedio móvil estacional),</p></li>
@@ -165,7 +241,18 @@
 <li><p>Los resultados muestran que el modelo ARIMA(1,2,3)(1,1,1)[12] es probablemente adecuado para la serie.</p></li>
 <li><p>El p-valor del test de Ljung-Box mayor a 0.05 indica que el modelo ha eliminado la mayoría de la autocorrelación en los residuos, lo cual es positivo.</p></li>
 </ul>
-<p><img src="index_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<p><strong>Alternativa 1 - Análisis de Residuos</strong></p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="definición-de-modelos.html#cb18-1" tabindex="-1"></a><span class="co"># Análisis de Residuos Alternativa 1</span></span>
+<span id="cb18-2"><a href="definición-de-modelos.html#cb18-2" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="definición-de-modelos.html#cb18-3" tabindex="-1"></a><span class="co"># Normal QQ Plot de los residuos</span></span>
+<span id="cb18-4"><a href="definición-de-modelos.html#cb18-4" tabindex="-1"></a>residuos_diff <span class="ot">&lt;-</span> <span class="fu">residuals</span>(modelo_arima)</span>
+<span id="cb18-5"><a href="definición-de-modelos.html#cb18-5" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))  </span>
+<span id="cb18-6"><a href="definición-de-modelos.html#cb18-6" tabindex="-1"></a><span class="fu">qqnorm</span>(residuos_diff, <span class="at">main =</span> <span class="st">&quot;Normal QQ Plot de Residuos 1&quot;</span>)</span>
+<span id="cb18-7"><a href="definición-de-modelos.html#cb18-7" tabindex="-1"></a><span class="fu">qqline</span>(residuos_diff, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="definición-de-modelos.html#cb19-1" tabindex="-1"></a><span class="co"># Realizar el test de normalidad de Shapiro-Wilk</span></span>
+<span id="cb19-2"><a href="definición-de-modelos.html#cb19-2" tabindex="-1"></a>shapiro_test <span class="ot">&lt;-</span> <span class="fu">shapiro.test</span>(residuos_diff)</span>
+<span id="cb19-3"><a href="definición-de-modelos.html#cb19-3" tabindex="-1"></a><span class="fu">print</span>(shapiro_test)</span></code></pre></div>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
@@ -173,63 +260,10 @@
 ## W = 0.82525, p-value &lt; 2.2e-16</code></pre>
 <p>Teniendo en cuenta la prueba de normalidad de Shapiro-Wilk, con un valor de 0.82525, siendo relativamente menor a 1, indica que los residuos no siguen una distribución normal.</p>
 <p>En cuanto a p-value &lt; 2.2e-16, al ser una cifra tan pequeña, se confirma que los residuos no son normales.</p>
-<p><strong>Modelo 2</strong></p>
-<pre><code>## Series: differenced_data 
-## ARIMA(1,1,2) 
-## 
-## Coefficients:
-##           ar1      ma1      ma2
-##       -0.5956  -0.1114  -0.4425
-## s.e.   0.7747   0.7650   0.5442
-## 
-## sigma^2 = 0.1556:  log likelihood = -148.41
-## AIC=304.82   AICc=304.95   BIC=319.71</code></pre>
-<p>Teniendo en cuenta el anterior modelo, en donde se cuetan con los parámetros de autorregresivo, diferenciación y media móvil (1, 1, 2) respectivamente. Teniendo en cuenta los resultados en los coeficientes, se determina:</p>
-<p><em>Autorregresivo:</em>
-ar1 = -0.5956: con un valor negativo, indica que hay una relación inversa entre el valor actual de la serie y su valor anterior.
-s.e. = 0.7747: al tener un resultado alto, se determina que la estimación es menos precisa.</p>
-<p><em>Media Móvil:</em>
-ma1 = -0.1114: indica que la predicción fue más alta al valor real en el período inmediatamente anterior, es decir, cuando t=-1, arrojando de esta forma un residuo negativo. Este residuo corresponde a la media del resultado anterior.
-Lo anterior, relacionado con s.e.= 0.7650, indica que la estimación es relativamente imprecisa en comparación con el valor del coeficiente.</p>
-<p>ma2 = -0.4425: este resultado tiene un valor negativo, similar a ma1; sin embargo, este resultado ocurre en el segundo error pasado (dos períodos atrás), es decir cuando t=-2.
-Con s.e. = 0.5442, al ser menor que el de ma1, indica que ma2 es más precisa, aunque continúa teniendo una inexactitud sobre el valor.</p>
-<p><strong>Modelo 3: modelo diferenciado</strong></p>
-<pre><code>## Series: differenced_data 
-## ARIMA(1,1,2)(1,1,0)[12] 
-## 
-## Coefficients:
-##          ar1      ma1     ma2     sar1
-##       0.9274  -1.6115  0.6144  -0.4744
-## s.e.  0.0393   0.0597  0.0583   0.0620
-## 
-## sigma^2 = 0.213:  log likelihood = -190.4
-## AIC=390.8   AICc=391.01   BIC=409.22
-## 
-## Training set error measures:
-##                      ME      RMSE       MAE MPE MAPE      MASE        ACF1
-## Training set 0.04515282 0.4485344 0.2876226 NaN  Inf 0.8277919 -0.08017884</code></pre>
-<p><img src="index_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
-<pre><code>## 
-##  Ljung-Box test
-## 
-## data:  Residuals from ARIMA(1,1,2)(1,1,0)[12]
-## Q* = 62.201, df = 20, p-value = 3.233e-06
-## 
-## Model df: 4.   Total lags used: 24</code></pre>
-<p><img src="index_files/figure-html/unnamed-chunk-23-2.png" width="672" /></p>
-<p><em>Autorregresivo:</em>
-ar1 = 0.9274: Con un valor positivo, indica que existe una relación directa entre el valor actual de la serie y su valor anterior. Es decir, cuando el valor en el periodo t-1 aumenta, el valor en el periodo actual t tiende a aumentar también.</p>
-<p>s.e. = 0.0393: Dado que el error estándar es bajo, indica que la estimación de este coeficiente es muy precisa. Esto sugiere que el modelo tiene una gran confianza en la relación directa entre el valor actual y el valor anterior de la serie temporal.</p>
-<p><em>Media Móvil:</em>
-ma1 = -1.6115: El coeficiente negativo para ma1 indica que hubo un error negativo en la predicción en el periodo inmediatamente anterior (t-1). Es decir, el modelo predijo un valor más alto que el valor real en el periodo t-1, lo que resultó en un residuo negativo. Este residuo se ajusta en el modelo a través del término de media móvil.
-s.e. = 0.0597: El error estándar para ma1 es relativamente bajo, lo que sugiere que esta estimación tiene alta precisión. En otras palabras, el ajuste de la predicción actual basado en el error de la predicción del periodo anterior es bastante confiable.</p>
-<p>ma2 = 0.6144: Este coeficiente positivo para ma2 indica que el error positivo en la predicción de dos periodos atrás (t-2) tiene una relación directa con el valor actual de la serie; es decir, el modelo sobreestimó el valor real dos periodos atrás, lo que resultó en un residuo positivo que ahora ajusta la predicción para el periodo actual.
-s.e. = 0.0583: Al igual que el error estándar de ma1, el error estándar de ma2 es bajo, lo que indica que esta estimación es también relativamente precisa.</p>
-<p><em>Autorregresivo estacional (SAR1):</em>
-sar1 = -0.4744: El coeficiente negativo para sar1 sugiere que existe una relación inversa entre el valor actual de la serie y el valor de la serie con un rezago estacional de un periodo (es decir, el valor de la serie 12 periodos atrás). Si el valor de la serie en el periodo t-12 fue alto, el valor en el periodo actual t tenderá a ser más bajo.
-s.e. = 0.0620: El error estándar para sar1 es relativamente bajo, lo que indica que esta estimación también es bastante precisa y que el modelo tiene una buena confianza en el impacto de la componente estacional.</p>
-<p>el modelo ARIMA(1,1,2)(1,1,0) tiene coeficientes precisos para los diferentes componentes (AR, MA y SAR), lo que sugiere que el modelo está bien ajustado y que las relaciones capturadas por los coeficientes son confiables.</p>
-<p><strong>Análisis de volatilidad utilizando Garch</strong></p>
+<p>Por su parte, en la gráfica se evidencia un patrón en que los residuos tienen colas más gruesas que una distribución normal, lo cual reafirma la posible presencia de outliers o una distribución sesgada en los datos.</p>
+<p><strong>Alternativa 1 - Análisis de volatilidad utilizando Garch</strong></p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="definición-de-modelos.html#cb21-1" tabindex="-1"></a><span class="co"># Análisis de volatilidad utilizando fGarch</span></span>
+<span id="cb21-2"><a href="definición-de-modelos.html#cb21-2" tabindex="-1"></a>garch_model <span class="ot">&lt;-</span> <span class="fu">garch</span>(residuos_diff, <span class="at">order =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div>
 <pre><code>## 
 ##  ***** ESTIMATION WITH ANALYTICAL GRADIENT ***** 
 ## 
@@ -272,6 +306,7 @@ s.e. = 0.0620: El error estándar para sar1 es relativamente bajo, lo que indica
 ##      1    1.304269e-02     1.000e+00     1.376e-01
 ##      2    3.225588e-01     1.000e+00    -8.836e-03
 ##      3    6.542356e-01     1.000e+00    -8.460e-03</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="definición-de-modelos.html#cb23-1" tabindex="-1"></a><span class="fu">summary</span>(garch_model)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## garch(x = residuos_diff, order = c(1, 1))
@@ -302,23 +337,315 @@ s.e. = 0.0620: El error estándar para sar1 es relativamente bajo, lo que indica
 ## 
 ## data:  Squared.Residuals
 ## X-squared = 0.024148, df = 1, p-value = 0.8765</code></pre>
-<p><em>Coeficiente del modelo:</em></p>
-<p>a0 = 0.013043: Este valor es significativo, lo que indica que existe una volatilidad base que es constante y no depende de los errores o la volatilidad pasada.</p>
-<p>a1 = 0.322559: Este coeficiente refleja el impacto de los errores pasados sobre la volatilidad actual. Un valor de a1 = 0.322559 indica que los errores pasados tienen una relación positiva moderada con la volatilidad actual. Además, este coeficiente es altamente significativo (p-value &lt; 0.001), lo que sugiere que el impacto de los errores pasados son importantes en el modelo.</p>
-<p>b1 = 0.654236: Este coeficiente refleja el impacto de la volatilidad pasada sobre la volatilidad actual. Un valor de b1 = 0.654236 indica que la volatilidad pasada tiene una gran influencia en la volatilidad futura. Este coeficiente también es altamente significativo (p-value &lt; 2e-16), lo que sugiere que la persistencia de la volatilidad es fuerte.</p>
-<p><em>Error estándar y significancia:</em>
-Error estándar de a0 = 0.001689, a1 = 0.056827, b1 = 0.038567: Los errores estándar son relativamente bajos en comparación con los coeficientes estimados, lo que sugiere que las estimaciones de los parámetros del modelo son precisas.</p>
-<p>Los valores de t y los p-values asociados a los coeficientes (a0, a1, b1) muestran que todos los coeficientes son estadísticamente significativos. Esto indica que cada uno de estos parámetros tienen un impacto significativo en la volatilidad modelada.</p>
-<p><em>Resultados de los tets diagnósticos:</em></p>
-<p>Jarque-Bera Test: Este test evalúa la normalidad de los residuos. El valor de X-squared = 650.13 y el p-value &lt; 2.2e-16 indican que los residuos no siguen una distribución normal.</p>
-<p>Box-Ljung Test (Squared Residuals): Este test evalúa la autocorrelación en los residuos al cuadrado, lo que en este caso indica si hay dependencias en la volatilidad. El valor X-squared = 0.024148 y p-value = 0.8765 sugieren que no hay autocorrelación significativa en los residuos al cuadrado, lo que implica que el modelo GARCH(1,1) ha capturado adecuadamente la dinámica de la volatilidad y no quedan patrones significativos en los residuos.</p>
+<p>El modelo GARCH(1,1) parece ser adecuado para modelar la volatilidad de residuos_diff, ya que los coeficientes son significativos y el test de Box-Ljung no muestra autocorrelación en los residuos al cuadrado.</p>
+<p>La alta significancia de los coeficientes ARCH (a1) y GARCH (b1) indica que tanto los residuos recientes como la volatilidad pasada influyen en la volatilidad actual.</p>
+<p>La prueba de Jarque-Bera sugiere que los residuos no siguen una distribución normal, lo cual puede indicar la presencia de colas pesadas o asimetría, características típicas en series financieras.</p>
+<p>Este modelo GARCH(1,1) es útil para capturar los cambios en la volatilidad de la serie residuos_diff. La ausencia de autocorrelación en los residuos al cuadrado también sugiere que el modelo ha capturado adecuadamente la heterocedasticidad de la serie.</p>
+<hr />
+<p><strong>Auto Arima para identificar la Alternativa 2</strong></p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="definición-de-modelos.html#cb25-1" tabindex="-1"></a><span class="co"># Aplicar auto.arima para determinar los parámetros adecuados, incluyendo las diferenciaciones</span></span>
+<span id="cb25-2"><a href="definición-de-modelos.html#cb25-2" tabindex="-1"></a>modelo_auto <span class="ot">&lt;-</span> <span class="fu">auto.arima</span>(differenced_data)</span>
+<span id="cb25-3"><a href="definición-de-modelos.html#cb25-3" tabindex="-1"></a><span class="fu">print</span>(modelo_auto)</span></code></pre></div>
+<pre><code>## Series: differenced_data 
+## ARIMA(1,1,2) 
+## 
+## Coefficients:
+##           ar1      ma1      ma2
+##       -0.5956  -0.1114  -0.4425
+## s.e.   0.7747   0.7650   0.5442
+## 
+## sigma^2 = 0.1556:  log likelihood = -148.41
+## AIC=304.82   AICc=304.95   BIC=319.71</code></pre>
+<p>El modelo ARIMA(1,1,2) se seleccionó como el mejor ajuste para differenced_data basado en los valores del AIC, AICc, y BIC. La inclusión de términos AR y MA sugiere que hay dependencias de corto plazo en la serie, pero el ajuste no es perfecto, dado el tamaño de los errores estándar y el valor de sigma^2. Si el objetivo es la predicción, este modelo podría ser una buena base, aunque podrían explorarse otros modelos o ajustes adicionales para mejorar la precisión.</p>
+<hr />
+<p>OJOOOOOOOOOOOOOOOOOOOO:</p>
+<p>SEGUN EL AUTOARIMA DEBERIAMOS ELIMINAR seasonal = c(1, 1, 0) ya que no se especifica una componente estacional en el modelo seleccionado por auto.arima.</p>
+<p>LO MALO ES QUE SI LO CAMBIAMOS, SEGURO CAMBIE EL RESULTADO. Y NOS TOQUE AJUSTAR ANÁLISIS</p>
+<hr />
+<p><strong>Alternativa 2 - c(1, 1, 2) (1, 1, 0):</strong></p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="definición-de-modelos.html#cb27-1" tabindex="-1"></a><span class="co"># Ajuste del modelo ARIMA OPCIÓN 2</span></span>
+<span id="cb27-2"><a href="definición-de-modelos.html#cb27-2" tabindex="-1"></a>modelo_arima2 <span class="ot">&lt;-</span> <span class="fu">Arima</span>(differenced_data, <span class="at">order =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>), <span class="at">seasonal =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span>
+<span id="cb27-3"><a href="definición-de-modelos.html#cb27-3" tabindex="-1"></a><span class="fu">summary</span>(modelo_arima2)</span></code></pre></div>
+<pre><code>## Series: differenced_data 
+## ARIMA(1,1,2)(1,1,0)[12] 
+## 
+## Coefficients:
+##          ar1      ma1     ma2     sar1
+##       0.9274  -1.6115  0.6144  -0.4744
+## s.e.  0.0393   0.0597  0.0583   0.0620
+## 
+## sigma^2 = 0.213:  log likelihood = -190.4
+## AIC=390.8   AICc=391.01   BIC=409.22
+## 
+## Training set error measures:
+##                      ME      RMSE       MAE MPE MAPE      MASE        ACF1
+## Training set 0.04515282 0.4485344 0.2876226 NaN  Inf 0.8277919 -0.08017884</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="definición-de-modelos.html#cb29-1" tabindex="-1"></a><span class="fu">checkresiduals</span>(modelo_arima2)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+<pre><code>## 
+##  Ljung-Box test
+## 
+## data:  Residuals from ARIMA(1,1,2)(1,1,0)[12]
+## Q* = 62.201, df = 20, p-value = 3.233e-06
+## 
+## Model df: 4.   Total lags used: 24</code></pre>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="definición-de-modelos.html#cb31-1" tabindex="-1"></a><span class="co"># Pronosticar los próximos 72 períodos (6 años)</span></span>
+<span id="cb31-2"><a href="definición-de-modelos.html#cb31-2" tabindex="-1"></a>pronostico2 <span class="ot">&lt;-</span> <span class="fu">forecast</span>(modelo_arima2, <span class="at">h =</span> <span class="dv">72</span>)</span>
+<span id="cb31-3"><a href="definición-de-modelos.html#cb31-3" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="definición-de-modelos.html#cb31-4" tabindex="-1"></a><span class="co"># Graficar el pronóstico con el eje x adecuado</span></span>
+<span id="cb31-5"><a href="definición-de-modelos.html#cb31-5" tabindex="-1"></a><span class="fu">plot</span>(pronostico2, <span class="at">xlab =</span> <span class="st">&quot;Año&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Tasa&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Pronóstico de Tasa&quot;</span>)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-26-2.png" width="672" /></p>
+<p><em>Autorregresivo:</em>
+ar1 = 0.9274: Con un valor positivo, indica que existe una relación directa entre el valor actual de la serie y su valor anterior. Es decir, cuando el valor en el periodo t-1 aumenta, el valor en el periodo actual t tiende a aumentar también.</p>
+<p>s.e. = 0.0393: Dado que el error estándar es bajo, indica que la estimación de este coeficiente es muy precisa. Esto sugiere que el modelo tiene una gran confianza en la relación directa entre el valor actual y el valor anterior de la serie temporal.</p>
+<p><em>Media Móvil:</em>
+ma1 = -1.6115: El coeficiente negativo para ma1 indica que hubo un error negativo en la predicción en el periodo inmediatamente anterior (t-1). Es decir, el modelo predijo un valor más alto que el valor real en el periodo t-1, lo que resultó en un residuo negativo. Este residuo se ajusta en el modelo a través del término de media móvil.
+s.e. = 0.0597: El error estándar para ma1 es relativamente bajo, lo que sugiere que esta estimación tiene alta precisión. En otras palabras, el ajuste de la predicción actual basado en el error de la predicción del periodo anterior es bastante confiable.</p>
+<p>ma2 = 0.6144: Este coeficiente positivo para ma2 indica que el error positivo en la predicción de dos periodos atrás (t-2) tiene una relación directa con el valor actual de la serie; es decir, el modelo sobreestimó el valor real dos periodos atrás, lo que resultó en un residuo positivo que ahora ajusta la predicción para el periodo actual.
+s.e. = 0.0583: Al igual que el error estándar de ma1, el error estándar de ma2 es bajo, lo que indica que esta estimación es también relativamente precisa.</p>
+<p><em>Autorregresivo estacional (SAR1):</em>
+sar1 = -0.4744: El coeficiente negativo para sar1 sugiere que existe una relación inversa entre el valor actual de la serie y el valor de la serie con un rezago estacional de un periodo (es decir, el valor de la serie 12 periodos atrás). Si el valor de la serie en el periodo t-12 fue alto, el valor en el periodo actual t tenderá a ser más bajo.
+s.e. = 0.0620: El error estándar para sar1 es relativamente bajo, lo que indica que esta estimación también es bastante precisa y que el modelo tiene una buena confianza en el impacto de la componente estacional.</p>
+<p>el modelo ARIMA(1,1,2)(1,1,0) tiene coeficientes precisos para los diferentes componentes (AR, MA y SAR), lo que sugiere que el modelo está bien ajustado y que las relaciones capturadas por los coeficientes son confiables.</p>
+<p><strong>Alternativa 2 - Análisis de residuos</strong></p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="definición-de-modelos.html#cb32-1" tabindex="-1"></a><span class="co"># Análisis de Residuos Alternativa 2</span></span>
+<span id="cb32-2"><a href="definición-de-modelos.html#cb32-2" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="definición-de-modelos.html#cb32-3" tabindex="-1"></a><span class="co"># Normal QQ Plot de los residuos</span></span>
+<span id="cb32-4"><a href="definición-de-modelos.html#cb32-4" tabindex="-1"></a>residuos_diff2 <span class="ot">&lt;-</span> <span class="fu">residuals</span>(modelo_arima2)</span>
+<span id="cb32-5"><a href="definición-de-modelos.html#cb32-5" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))  </span>
+<span id="cb32-6"><a href="definición-de-modelos.html#cb32-6" tabindex="-1"></a><span class="fu">qqnorm</span>(residuos_diff2, <span class="at">main =</span> <span class="st">&quot;Normal QQ Plot de Residuos 2&quot;</span>)</span>
+<span id="cb32-7"><a href="definición-de-modelos.html#cb32-7" tabindex="-1"></a><span class="fu">qqline</span>(residuos_diff2, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="definición-de-modelos.html#cb33-1" tabindex="-1"></a><span class="co"># Realizar el test de normalidad de Shapiro-Wilk</span></span>
+<span id="cb33-2"><a href="definición-de-modelos.html#cb33-2" tabindex="-1"></a>shapiro_test2 <span class="ot">&lt;-</span> <span class="fu">shapiro.test</span>(residuos_diff2)</span>
+<span id="cb33-3"><a href="definición-de-modelos.html#cb33-3" tabindex="-1"></a><span class="fu">print</span>(shapiro_test)</span></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  residuos_diff
+## W = 0.82525, p-value &lt; 2.2e-16</code></pre>
+<p>Los resultados del test de Shapiro-Wilk indican que los residuos (residuos_diff) no siguen una distribución normal.</p>
+<p>En cuanto a la gráfica también refleja la No normalidad. La desviación de los puntos en los extremos sugiere que los residuos tienen colas más pesadas de lo que se esperaría bajo una distribución normal. Este resultado es coherente con el Shapiro-Wilk test.</p>
+<p><strong>Alternativa 2 - Análisis de volatilidad fGarch</strong></p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="definición-de-modelos.html#cb35-1" tabindex="-1"></a><span class="co"># Análisis de volatilidad utilizando fGarch</span></span>
+<span id="cb35-2"><a href="definición-de-modelos.html#cb35-2" tabindex="-1"></a>garch_model2 <span class="ot">&lt;-</span> <span class="fu">garch</span>(residuos_diff2, <span class="at">order =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div>
+<pre><code>## 
+##  ***** ESTIMATION WITH ANALYTICAL GRADIENT ***** 
+## 
+## 
+##      I     INITIAL X(I)        D(I)
+## 
+##      1     1.798156e-01     1.000e+00
+##      2     5.000000e-02     1.000e+00
+##      3     5.000000e-02     1.000e+00
+## 
+##     IT   NF      F         RELDF    PRELDF    RELDX   STPPAR   D*STEP   NPRELDF
+##      0    1 -9.650e+01
+##      1    3 -1.042e+02  7.44e-02  7.89e-02  2.8e-01  8.2e+02  1.0e-01  3.25e+01
+##      2    4 -1.111e+02  6.20e-02  1.20e-01  3.7e-01  3.4e+00  2.0e-01  4.91e+02
+##      3    6 -1.192e+02  6.76e-02  6.37e-02  7.1e-02  2.6e+00  4.3e-02  3.19e+02
+##      4    8 -1.201e+02  7.73e-03  1.21e-02  2.5e-02  3.9e+00  1.8e-02  2.54e+02
+##      5    9 -1.209e+02  6.63e-03  7.43e-03  1.8e-02  2.0e+00  1.8e-02  1.65e+02
+##      6   10 -1.231e+02  1.80e-02  1.88e-02  3.9e-02  2.0e+00  3.7e-02  1.56e+02
+##      7   13 -1.333e+02  7.61e-02  1.51e-01  2.9e-01  2.0e+00  3.3e-01  1.04e+02
+##      8   17 -1.350e+02  1.25e-02  3.39e-02  8.0e-03  9.6e+00  1.0e-02  4.20e+00
+##      9   21 -1.361e+02  8.41e-03  1.24e-02  1.5e-01  1.9e+00  2.4e-01  2.21e-01
+##     10   26 -1.362e+02  7.32e-04  1.68e-03  2.1e-03  3.1e+00  2.3e-03  2.20e-01
+##     11   27 -1.362e+02  1.75e-04  1.61e-04  1.8e-03  2.0e+00  2.3e-03  1.72e-01
+##     12   31 -1.365e+02  2.15e-03  4.63e-03  9.8e-02  1.9e+00  1.3e-01  1.72e-01
+##     13   32 -1.369e+02  2.60e-03  3.98e-03  7.1e-02  9.1e-01  1.3e-01  8.01e-03
+##     14   34 -1.371e+02  1.88e-03  2.87e-03  1.6e-02  1.3e+00  2.3e-02  5.21e-03
+##     15   36 -1.372e+02  9.16e-05  1.63e-04  5.9e-03  8.2e-01  9.4e-03  2.57e-04
+##     16   37 -1.372e+02  3.19e-05  1.21e-05  3.7e-03  0.0e+00  7.4e-03  1.21e-05
+##     17   60 -1.372e+02  8.29e-16  1.09e-15  1.5e-14  1.7e+09  2.2e-14  6.85e-06
+##     18   62 -1.372e+02 -1.04e-15  4.84e-16  6.9e-15  3.7e+09  9.8e-15  7.42e-06
+## 
+##  ***** FALSE CONVERGENCE *****
+## 
+##  FUNCTION    -1.371593e+02   RELDX        6.878e-15
+##  FUNC. EVALS      62         GRAD. EVALS      18
+##  PRELDF       4.843e-16      NPRELDF      7.420e-06
+## 
+##      I      FINAL X(I)        D(I)          G(I)
+## 
+##      1    1.388353e-02     1.000e+00     6.749e+00
+##      2    2.667688e-01     1.000e+00    -9.784e-04
+##      3    7.154210e-01     1.000e+00    -7.331e-02</code></pre>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="definición-de-modelos.html#cb37-1" tabindex="-1"></a><span class="fu">summary</span>(garch_model2)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## garch(x = residuos_diff2, order = c(1, 1))
+## 
+## Model:
+## GARCH(1,1)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -4.13901 -0.39761  0.08921  0.55154  5.00046 
+## 
+## Coefficient(s):
+##     Estimate  Std. Error  t value Pr(&gt;|t|)    
+## a0   0.01388     0.00307    4.522 6.12e-06 ***
+## a1   0.26677     0.05394    4.946 7.57e-07 ***
+## b1   0.71542     0.04765   15.013  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Diagnostic Tests:
+##  Jarque Bera Test
+## 
+## data:  Residuals
+## X-squared = 262.14, df = 2, p-value &lt; 2.2e-16
+## 
+## 
+##  Box-Ljung test
+## 
+## data:  Squared.Residuals
+## X-squared = 0.0032557, df = 1, p-value = 0.9545</code></pre>
+<ul>
+<li><p>El modelo GARCH(1,1) parece capturar correctamente la volatilidad en los residuos, dado que no hay autocorrelación significativa en los residuos al cuadrado.</p></li>
+<li><p>Aunque los residuos no son normales (como muestra la prueba de Jarque-Bera), el modelo es aún válido, ya que los modelos GARCH no requieren normalidad en los residuos.</p></li>
+</ul>
+<p>*El valor elevado de 𝑏1 (0.71542) indica una alta persistencia en la volatilidad, lo que es característico en este tipo de series de tiempo financieras.</p>
+<p>En resumen, este modelo GARCH(1,1) parece adecuado para modelar la volatilidad de los residuos, aunque los residuos no sean normales.</p>
+<hr />
+<p><strong>Comparación de modelos</strong></p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="definición-de-modelos.html#cb39-1" tabindex="-1"></a><span class="co"># Comparar criterios estadísticos</span></span>
+<span id="cb39-2"><a href="definición-de-modelos.html#cb39-2" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Criterios estadísticos:</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## Criterios estadísticos:</code></pre>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="definición-de-modelos.html#cb41-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Modelo 1:</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## Modelo 1:</code></pre>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="definición-de-modelos.html#cb43-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;AIC:&quot;</span>, <span class="fu">AIC</span>(modelo_arima), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## AIC: 340.703</code></pre>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="definición-de-modelos.html#cb45-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;BIC:&quot;</span>, <span class="fu">BIC</span>(modelo_arima), <span class="st">&quot;</span><span class="sc">\n\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## BIC: 366.4642</code></pre>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="definición-de-modelos.html#cb47-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Modelo 2:</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## Modelo 2:</code></pre>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="definición-de-modelos.html#cb49-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;AIC:&quot;</span>, <span class="fu">AIC</span>(modelo_arima2), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## AIC: 390.7992</code></pre>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="definición-de-modelos.html#cb51-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;BIC:&quot;</span>, <span class="fu">BIC</span>(modelo_arima2), <span class="st">&quot;</span><span class="sc">\n\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## BIC: 409.2171</code></pre>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="definición-de-modelos.html#cb53-1" tabindex="-1"></a><span class="co"># Análisis de residuos para ambos modelos</span></span>
+<span id="cb53-2"><a href="definición-de-modelos.html#cb53-2" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Test de Ljung-Box para autocorrelación de residuos:</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## Test de Ljung-Box para autocorrelación de residuos:</code></pre>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="definición-de-modelos.html#cb55-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Modelo 1:</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## Modelo 1:</code></pre>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="definición-de-modelos.html#cb57-1" tabindex="-1"></a><span class="fu">Box.test</span>(<span class="fu">residuals</span>(modelo_arima), <span class="at">lag =</span> <span class="dv">20</span>, <span class="at">type =</span> <span class="st">&quot;Ljung-Box&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+##  Box-Ljung test
+## 
+## data:  residuals(modelo_arima)
+## X-squared = 20.709, df = 20, p-value = 0.4145</code></pre>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="definición-de-modelos.html#cb59-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">Modelo 2:</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+## Modelo 2:</code></pre>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="definición-de-modelos.html#cb61-1" tabindex="-1"></a><span class="fu">Box.test</span>(<span class="fu">residuals</span>(modelo_arima2), <span class="at">lag =</span> <span class="dv">20</span>, <span class="at">type =</span> <span class="st">&quot;Ljung-Box&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+##  Box-Ljung test
+## 
+## data:  residuals(modelo_arima2)
+## X-squared = 31.586, df = 20, p-value = 0.04791</code></pre>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="definición-de-modelos.html#cb63-1" tabindex="-1"></a><span class="co"># Test de normalidad para residuos</span></span>
+<span id="cb63-2"><a href="definición-de-modelos.html#cb63-2" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">Test de normalidad Shapiro-Wilk:</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+## Test de normalidad Shapiro-Wilk:</code></pre>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="definición-de-modelos.html#cb65-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Modelo 1:</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## Modelo 1:</code></pre>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="definición-de-modelos.html#cb67-1" tabindex="-1"></a><span class="fu">shapiro.test</span>(<span class="fu">residuals</span>(modelo_arima))</span></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  residuals(modelo_arima)
+## W = 0.82525, p-value &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="definición-de-modelos.html#cb69-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">Modelo 2:</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+## Modelo 2:</code></pre>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="definición-de-modelos.html#cb71-1" tabindex="-1"></a><span class="fu">shapiro.test</span>(<span class="fu">residuals</span>(modelo_arima2))</span></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  residuals(modelo_arima2)
+## W = 0.88872, p-value = 3.508e-14</code></pre>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="definición-de-modelos.html#cb73-1" tabindex="-1"></a><span class="co"># Calcular métricas de error (MAE, RMSE)</span></span>
+<span id="cb73-2"><a href="definición-de-modelos.html#cb73-2" tabindex="-1"></a><span class="fu">library</span>(forecast)</span>
+<span id="cb73-3"><a href="definición-de-modelos.html#cb73-3" tabindex="-1"></a></span>
+<span id="cb73-4"><a href="definición-de-modelos.html#cb73-4" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">Métricas de error en datos de entrenamiento:</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+## Métricas de error en datos de entrenamiento:</code></pre>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="definición-de-modelos.html#cb75-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Modelo 1:</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## Modelo 1:</code></pre>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="definición-de-modelos.html#cb77-1" tabindex="-1"></a><span class="fu">accuracy</span>(modelo_arima)</span></code></pre></div>
+<pre><code>##                       ME      RMSE       MAE MPE MAPE      MASE        ACF1
+## Training set -0.02662351 0.3862772 0.2369913 NaN  Inf 0.6820726 -0.02211654</code></pre>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="definición-de-modelos.html#cb79-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">Modelo 2:</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+## Modelo 2:</code></pre>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="definición-de-modelos.html#cb81-1" tabindex="-1"></a><span class="fu">accuracy</span>(modelo_arima2)</span></code></pre></div>
+<pre><code>##                      ME      RMSE       MAE MPE MAPE      MASE        ACF1
+## Training set 0.04515282 0.4485344 0.2876226 NaN  Inf 0.8277919 -0.08017884</code></pre>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="definición-de-modelos.html#cb83-1" tabindex="-1"></a><span class="co"># Graficar residuos</span></span>
+<span id="cb83-2"><a href="definición-de-modelos.html#cb83-2" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))  <span class="co"># Dividir pantalla para gráficos</span></span>
+<span id="cb83-3"><a href="definición-de-modelos.html#cb83-3" tabindex="-1"></a></span>
+<span id="cb83-4"><a href="definición-de-modelos.html#cb83-4" tabindex="-1"></a><span class="co"># Residuos Modelo 1</span></span>
+<span id="cb83-5"><a href="definición-de-modelos.html#cb83-5" tabindex="-1"></a><span class="fu">qqnorm</span>(<span class="fu">residuals</span>(modelo_arima), <span class="at">main =</span> <span class="st">&quot;QQ Plot Residuos Modelo 1&quot;</span>)</span>
+<span id="cb83-6"><a href="definición-de-modelos.html#cb83-6" tabindex="-1"></a><span class="fu">qqline</span>(<span class="fu">residuals</span>(modelo_arima), <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb83-7"><a href="definición-de-modelos.html#cb83-7" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">residuals</span>(modelo_arima), <span class="at">main =</span> <span class="st">&quot;Residuos Modelo 1&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Residuos&quot;</span>)</span>
+<span id="cb83-8"><a href="definición-de-modelos.html#cb83-8" tabindex="-1"></a><span class="fu">acf</span>(<span class="fu">residuals</span>(modelo_arima), <span class="at">main =</span> <span class="st">&quot;ACF Residuos Modelo 1&quot;</span>)</span>
+<span id="cb83-9"><a href="definición-de-modelos.html#cb83-9" tabindex="-1"></a></span>
+<span id="cb83-10"><a href="definición-de-modelos.html#cb83-10" tabindex="-1"></a><span class="co"># Residuos Modelo 2</span></span>
+<span id="cb83-11"><a href="definición-de-modelos.html#cb83-11" tabindex="-1"></a><span class="fu">qqnorm</span>(<span class="fu">residuals</span>(modelo_arima2), <span class="at">main =</span> <span class="st">&quot;QQ Plot Residuos Modelo 2&quot;</span>)</span>
+<span id="cb83-12"><a href="definición-de-modelos.html#cb83-12" tabindex="-1"></a><span class="fu">qqline</span>(<span class="fu">residuals</span>(modelo_arima2), <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="definición-de-modelos.html#cb84-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">residuals</span>(modelo_arima2), <span class="at">main =</span> <span class="st">&quot;Residuos Modelo 2&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Residuos&quot;</span>)</span>
+<span id="cb84-2"><a href="definición-de-modelos.html#cb84-2" tabindex="-1"></a><span class="fu">acf</span>(<span class="fu">residuals</span>(modelo_arima2), <span class="at">main =</span> <span class="st">&quot;ACF Residuos Modelo 2&quot;</span>)</span>
+<span id="cb84-3"><a href="definición-de-modelos.html#cb84-3" tabindex="-1"></a></span>
+<span id="cb84-4"><a href="definición-de-modelos.html#cb84-4" tabindex="-1"></a><span class="co"># Graficar y comparar pronósticos</span></span>
+<span id="cb84-5"><a href="definición-de-modelos.html#cb84-5" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-29-2.png" width="672" /></p>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="definición-de-modelos.html#cb85-1" tabindex="-1"></a><span class="fu">plot</span>(pronostico2, <span class="at">xlab =</span> <span class="st">&quot;Año&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Tasa&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Comparación de Pronósticos&quot;</span>)</span>
+<span id="cb85-2"><a href="definición-de-modelos.html#cb85-2" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">forecast</span>(modelo_arima, <span class="at">h =</span> <span class="dv">72</span>)<span class="sc">$</span>mean, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb85-3"><a href="definición-de-modelos.html#cb85-3" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topleft&quot;</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;Modelo 1&quot;</span>, <span class="st">&quot;Modelo 2&quot;</span>), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;black&quot;</span>), <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>))</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-29-3.png" width="672" /></p>
+<p>A nivel general,</p>
+<ul>
+<li><p>ALTERNATIVA 1: muestra problemas de ajuste. Residuos no normales y autocorrelación presente. Aunque captura la tendencia, su precisión en los pronósticos parece más limitada.</p></li>
+<li><p>ALTERNATIVA 2: ofrece un mejor ajuste. residuos más cercanos a la normalidad, sin autocorrelaciones significativas, y pronósticos con intervalos de confianza más ajustados. Esto lo hace preferible para tomar decisiones basadas en predicciones más consistentes.</p></li>
+</ul>
+<p>En cuanto al análisis de pronótico:</p>
+<p>La Alternativa 1 (línea azul punteada) y la Alternativa 2 (línea negra continua) ofrecen pronósticos similares en cuanto a tendencia, pero ela Alternativa 2 parece ser más conservadora, con menores amplitudes en sus intervalos de confianza.</p>
+<p>Los intervalos de confianza de la Alternativa 1 (zonas azules sombreadas) son más amplios, indicando mayor incertidumbre, mientras que en la 2 (zonas grises sombreadas) son más ajustados, lo que sugiere mayor precisión o menos variabilidad esperada, por tanto la 2 podría ser más confiable si se busca menor variabilidad en los pronósticos a largo plazo.</p>
+<p><strong>En definitiva, </strong> la decisión es entonces optar por la Alternativa 2, ya que presenta un mejor comportamiento tanto en el ajuste a los datos como en la calidad de los pronósticos.</p>
+<hr />
 </div>
 <div id="algoritmo-de-holt-winter" class="section level2 hasAnchor" number="2.2">
 <h2><span class="header-section-number">2.2</span> Algoritmo de Holt Winter<a href="definición-de-modelos.html#algoritmo-de-holt-winter" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Puede manejar la estacionalidad en el conjunto de datos simplemente calculando el valor central y luego sumándolo o multiplicándolo por la pendiente y la estacionalidad. Solo tenemos que asegurarnos de ajustar el conjunto correcto de parámetros, y tenemos el mejor ajuste.</p>
 <p>Recuerde siempre verificar la eficiencia del modelo utilizando el valor MAPE (error porcentual absoluto medio) o el valor RMSE (error cuadrático medio), y la precisión puede depender del problema comercial y el conjunto de datos disponible para entrenar y probar el modelo.</p>
-<p><img src="index_files/figure-html/unnamed-chunk-25-1.png" width="672" />
-<img src="index_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+<p>Se observan la tendencia y los ciclos:</p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="definición-de-modelos.html#cb86-1" tabindex="-1"></a><span class="co"># Graficar solo líneas</span></span>
+<span id="cb86-2"><a href="definición-de-modelos.html#cb86-2" tabindex="-1"></a><span class="fu">plot</span>(data2<span class="sc">$</span>Anio, data2<span class="sc">$</span>Tasa, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Grafico con Regresion&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Anio&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Tasa&quot;</span>)</span>
+<span id="cb86-3"><a href="definición-de-modelos.html#cb86-3" tabindex="-1"></a></span>
+<span id="cb86-4"><a href="definición-de-modelos.html#cb86-4" tabindex="-1"></a><span class="co"># Ajustar el modelo de regresión lineal</span></span>
+<span id="cb86-5"><a href="definición-de-modelos.html#cb86-5" tabindex="-1"></a>modelo <span class="ot">&lt;-</span> <span class="fu">lm</span>(Tasa <span class="sc">~</span> Anio, <span class="at">data =</span> data2)</span>
+<span id="cb86-6"><a href="definición-de-modelos.html#cb86-6" tabindex="-1"></a></span>
+<span id="cb86-7"><a href="definición-de-modelos.html#cb86-7" tabindex="-1"></a><span class="co"># Agregar la línea de regresión al gráfico</span></span>
+<span id="cb86-8"><a href="definición-de-modelos.html#cb86-8" tabindex="-1"></a><span class="fu">abline</span>(modelo, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="definición-de-modelos.html#cb87-1" tabindex="-1"></a><span class="co"># Graficar </span></span>
+<span id="cb87-2"><a href="definición-de-modelos.html#cb87-2" tabindex="-1"></a><span class="fu">ggplot</span>(data2, <span class="fu">aes</span>(<span class="at">x =</span> Mes, <span class="at">y =</span> Anio, <span class="at">fill =</span> Tasa)) <span class="sc">+</span></span>
+<span id="cb87-3"><a href="definición-de-modelos.html#cb87-3" tabindex="-1"></a>  <span class="fu">geom_tile</span>() <span class="sc">+</span>  <span class="co"># Usar geom_tile para crear un gráfico de calor</span></span>
+<span id="cb87-4"><a href="definición-de-modelos.html#cb87-4" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">&quot;white&quot;</span>, <span class="at">high =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span>  <span class="co"># Colores del llenado</span></span>
+<span id="cb87-5"><a href="definición-de-modelos.html#cb87-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Tasa por Año y Mes&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Mes&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Año&quot;</span>) <span class="sc">+</span></span>
+<span id="cb87-6"><a href="definición-de-modelos.html#cb87-6" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+<p>La gráfica sugiere una disminución en la tasa a lo largo del tiempo, con una estabilización en niveles bajos en los años recientes. Esto podría indicar una mejora en el fenómeno que se está midiendo con la “Tasa”, aunque el contexto específico dependerá de qué represente exactamente esa variable en el análisis.</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="definición-de-modelos.html#cb88-1" tabindex="-1"></a><span class="co"># serie_temporal &lt;- ts(data2[[&quot;Tasa&quot;]], start = c(min(data2$Anio), 1), frequency = 12)</span></span>
+<span id="cb88-2"><a href="definición-de-modelos.html#cb88-2" tabindex="-1"></a></span>
+<span id="cb88-3"><a href="definición-de-modelos.html#cb88-3" tabindex="-1"></a><span class="co"># Extraer el ciclo de la serie temporal</span></span>
+<span id="cb88-4"><a href="definición-de-modelos.html#cb88-4" tabindex="-1"></a>cicle <span class="ot">&lt;-</span> <span class="fu">cycle</span>(ts_data)</span>
+<span id="cb88-5"><a href="definición-de-modelos.html#cb88-5" tabindex="-1"></a></span>
+<span id="cb88-6"><a href="definición-de-modelos.html#cb88-6" tabindex="-1"></a><span class="co"># Ver los ciclos</span></span>
+<span id="cb88-7"><a href="definición-de-modelos.html#cb88-7" tabindex="-1"></a><span class="fu">print</span>(cicle)</span></code></pre></div>
 <pre><code>##      Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
 ## 1999                   5   6   7   8   9  10  11  12
 ## 2000   1   2   3   4   5   6   7   8   9  10  11  12
@@ -346,11 +673,33 @@ Error estándar de a0 = 0.001689, a1 = 0.056827, b1 = 0.038567: Los errores est�
 ## 2022   1   2   3   4   5   6   7   8   9  10  11  12
 ## 2023   1   2   3   4   5   6   7   8   9  10  11  12
 ## 2024   1   2   3   4   5   6   7   8   9  10  11  12</code></pre>
-<p><img src="index_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
-<p><img src="index_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="definición-de-modelos.html#cb90-1" tabindex="-1"></a><span class="co"># boxplot(data2~cycle(data2))</span></span>
+<span id="cb90-2"><a href="definición-de-modelos.html#cb90-2" tabindex="-1"></a></span>
+<span id="cb90-3"><a href="definición-de-modelos.html#cb90-3" tabindex="-1"></a><span class="co"># Crear el boxplot por ciclo (mes) para observar la estacionalidad</span></span>
+<span id="cb90-4"><a href="definición-de-modelos.html#cb90-4" tabindex="-1"></a><span class="fu">boxplot</span>(ts_data <span class="sc">~</span> <span class="fu">cycle</span>(ts_data), </span>
+<span id="cb90-5"><a href="definición-de-modelos.html#cb90-5" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">&quot;Mes&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Tasa&quot;</span>, </span>
+<span id="cb90-6"><a href="definición-de-modelos.html#cb90-6" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Boxplot de Tasa por Mes&quot;</span>)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
+<p>Aunque hay consistencia en la mediana y el rango intercuartílico de la tasa a lo largo de los meses, existen valores atípicos en la segunda mitad del año. Esto sugiere que, aunque la tasa general se mantiene estable, en algunos meses específicos ocurren eventos o circunstancias que resultan en tasas inusualmente altas.</p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="definición-de-modelos.html#cb91-1" tabindex="-1"></a><span class="co"># plot(log(airmiles), ylab=&#39;log(airmiles)&#39;, xlab=&#39;Anio&#39;, main=&#39;Logaritmo de la tasa&#39;)</span></span>
+<span id="cb91-2"><a href="definición-de-modelos.html#cb91-2" tabindex="-1"></a></span>
+<span id="cb91-3"><a href="definición-de-modelos.html#cb91-3" tabindex="-1"></a><span class="fu">plot</span>(data2<span class="sc">$</span>Anio, <span class="fu">log</span>(data2<span class="sc">$</span>Tasa), <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, </span>
+<span id="cb91-4"><a href="definición-de-modelos.html#cb91-4" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Log(Tasa)&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Año&quot;</span>, </span>
+<span id="cb91-5"><a href="definición-de-modelos.html#cb91-5" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Logaritmo de la Tasa a lo largo del Tiempo&quot;</span>)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
+<p>La gráfica sugiere que la tasa ha sido volátil a lo largo de los años, con periodos de estabilidad relativa intercalados con cambios bruscos.</p>
+<p>La caída alrededor de 2020 y el rápido aumento posterior podrían reflejar eventos económicos o circunstancias externas que afectaron la tasa en ese periodo.</p>
+<p>Esto fue evidenciado en el ANÁLISIS EXPLORATORIO.</p>
 </div>
 <div id="modelo-holt-winter" class="section level2 hasAnchor" number="2.3">
-<h2><span class="header-section-number">2.3</span> Modelo Holt-Winter<a href="definición-de-modelos.html#modelo-holt-winter" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2><span class="header-section-number">2.3</span> <strong>Modelo Holt-Winter</strong><a href="definición-de-modelos.html#modelo-holt-winter" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="definición-de-modelos.html#cb92-1" tabindex="-1"></a><span class="co"># modelo_HW = HoltWinters(log(airmiles), seasonal = &quot;additive&quot;)</span></span>
+<span id="cb92-2"><a href="definición-de-modelos.html#cb92-2" tabindex="-1"></a><span class="co"># plot(modelo_HW, main = &#39;Ajuste con Holt-Winters&#39;, xlab = &#39;Anio&#39;, ylab=&#39;log(airmiles)&#39;)</span></span>
+<span id="cb92-3"><a href="definición-de-modelos.html#cb92-3" tabindex="-1"></a></span>
+<span id="cb92-4"><a href="definición-de-modelos.html#cb92-4" tabindex="-1"></a></span>
+<span id="cb92-5"><a href="definición-de-modelos.html#cb92-5" tabindex="-1"></a><span class="co"># Aplicar el modelo Holt-Winters a la serie temporal</span></span>
+<span id="cb92-6"><a href="definición-de-modelos.html#cb92-6" tabindex="-1"></a>modelo_HW <span class="ot">&lt;-</span> <span class="fu">HoltWinters</span>(ts_data)</span>
+<span id="cb92-7"><a href="definición-de-modelos.html#cb92-7" tabindex="-1"></a><span class="fu">print</span>(modelo_HW)</span></code></pre></div>
 <pre><code>## Holt-Winters exponential smoothing with trend and additive seasonal component.
 ## 
 ## Call:
@@ -377,25 +726,34 @@ Error estándar de a0 = 0.001689, a1 = 0.056827, b1 = 0.038567: Los errores est�
 ## s10  0.501395118
 ## s11  0.266415988
 ## s12 -0.078382560</code></pre>
-<p><img src="index_files/figure-html/unnamed-chunk-30-1.png" width="672" /><img src="index_files/figure-html/unnamed-chunk-30-2.png" width="672" /></p>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="definición-de-modelos.html#cb94-1" tabindex="-1"></a><span class="co"># Graficar el ajuste del modelo a los datos históricos</span></span>
+<span id="cb94-2"><a href="definición-de-modelos.html#cb94-2" tabindex="-1"></a><span class="fu">plot</span>(modelo_HW, <span class="at">main =</span> <span class="st">&quot;Ajuste del Modelo Holt-Winters&quot;</span>)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="definición-de-modelos.html#cb95-1" tabindex="-1"></a><span class="co"># Pronóstico con Holt-Winters para los próximos 12 meses</span></span>
+<span id="cb95-2"><a href="definición-de-modelos.html#cb95-2" tabindex="-1"></a>pronostico_hw <span class="ot">&lt;-</span> <span class="fu">forecast</span>(modelo_HW, <span class="at">h =</span> <span class="dv">12</span>)</span>
+<span id="cb95-3"><a href="definición-de-modelos.html#cb95-3" tabindex="-1"></a></span>
+<span id="cb95-4"><a href="definición-de-modelos.html#cb95-4" tabindex="-1"></a><span class="co"># Graficar el pronóstico</span></span>
+<span id="cb95-5"><a href="definición-de-modelos.html#cb95-5" tabindex="-1"></a><span class="fu">plot</span>(pronostico_hw, <span class="at">main =</span> <span class="st">&quot;Pronostico Holt-Winters para Tasa&quot;</span>)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-35-2.png" width="672" /></p>
 <p><em>Parámetro suavizado:</em></p>
 <p>Alpha (α = 0.9409767): Este es el parámetro de suavizado para el componente de nivel. Un valor cercano a 1, como el que está arrojando el resultado, indica que el modelo le da gran peso a los datos recientes para estimar el nivel actual de la serie. Esto significa que las observaciones recientes tienen un impacto significativo en la estimación del nivel.</p>
 <p>Beta (β = 0.2941339): Este es el parámetro de suavizado para el componente de tendencia en el modelo de Holt-Winters. Un valor de β moderadamente bajo, como 0.2941339, sugiere que el modelo da un peso relativamente moderado a los cambios en la tendencia. Es decir, el modelo no es extremadamente sensible a las variaciones en la tendencia, pero sigue siendo capaz de capturarlas de manera significativa. Con este valor, el modelo ajusta la tendencia de forma más suave y gradual, lo que implica que no tiene una sobrereacción ante cambios recientes en la dirección de los datos.</p>
 <p>Gamma (γ = 1): Este es el parámetro de suavizado para el componente estacional. Un valor de γ = 1 sugiere que el modelo da completo peso a los componentes estacionales previos en la serie.</p>
-<p><img src="index_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
-<p>Se predice el método Holt Winters</p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="definición-de-modelos.html#cb96-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">fitted</span>(modelo_HW), <span class="at">main=</span><span class="st">&#39;Descomposicion con HW&#39;</span>, <span class="at">xlab=</span><span class="st">&#39;Anio&#39;</span>, <span class="at">ylab=</span><span class="st">&#39;log(airmiles)&#39;</span>)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+<p>La tendencia ascendente en el nivel y la tendencia hacia el final del período (2025) sugiere que LA TASA está experimentando un crecimiento continuo.</p>
+<p>La componente estacional muestra ciclos regulares bien definidos, lo que puede ser útil para predicciones estacionales precisas.</p>
+<p>El modelo Holt-Winters parece ajustarse adecuadamente a la serie, capturando tanto las fluctuaciones estacionales como la tendencia de largo plazo.</p>
+<p><strong>Se predice el método Holt Winters</strong></p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="definición-de-modelos.html#cb97-1" tabindex="-1"></a>pred <span class="ot">=</span> <span class="fu">predict</span>(modelo_HW, <span class="dv">4</span>, <span class="at">prediction.interval =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb97-2"><a href="definición-de-modelos.html#cb97-2" tabindex="-1"></a>pred</span></code></pre></div>
 <pre><code>##               fit      upr      lwr
 ## Jan 2025 27.44299 28.23593 26.65006
 ## Feb 2025 28.82328 30.07272 27.57383
 ## Mar 2025 30.04718 31.76924 28.32513
 ## Apr 2025 31.36194 33.58414 29.13975</code></pre>
-<p><img src="index_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
-</div>
-<div id="conclusión" class="section level2 hasAnchor" number="2.4">
-<h2><span class="header-section-number">2.4</span> Conclusión<a href="definición-de-modelos.html#conclusión" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>El Modelo 1 tiene un ajuste adecuado, con coeficientes significativos y un p-valor del test de Ljung-Box de 0.1302, lo que indica que los residuos no presentan autocorrelación significativa. Sin embargo, los residuos no siguen una distribución normal, lo que podría ser un inconveniente. Este modelo captura bien la dinámica de la serie, pero la falta de normalidad en los residuos sugiere una ligera desviación en el ajuste.</p>
-<p>El Modelo 2, aunque tiene un ajuste aceptable, presenta estimaciones imprecisas, especialmente en el término autorregresivo (AR) y en los términos de media móvil (MA), como lo indican sus errores estándar relativamente altos. Este modelo, con un p-valor bajo en los coeficientes, puede no ser tan confiable debido a la imprecisión en algunas de las estimaciones, lo que puede generar predicciones menos robustas.</p>
-<p>Por otro lado, el Modelo 3 resulta ser el más adecuado, con coeficientes más precisos y errores estándar bajos en términos de AR y MA. La relación directa en el término autorregresivo (AR) y la buena precisión en los términos de media móvil (MA) sugieren que el modelo captura adecuadamente la dinámica de la serie temporal. Además, el término estacional SAR1 también tiene un ajuste adecuado, con un coeficiente significativo y un error estándar bajo, lo que implica que el modelo está considerando correctamente la estacionalidad de la serie. El p-valor de los residuos también es adecuado, indicando que el modelo ajusta bien la serie y presenta una buena generalización.</p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="definición-de-modelos.html#cb99-1" tabindex="-1"></a><span class="fu">plot</span>(modelo_HW, pred)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
 </div>
 </div>
             </section>

@@ -23,20 +23,22 @@ En este momento deberemos retomar la Unidad 1 en la cual se creó un minilibro q
 
 
 
-
+library(TSA)
+library(kableExtra)
+library(tidyr)
+library(zoo)
 library(readxl)
 library(forecast) # Recomendada profesora
 library(ggplot2)
 library(tseries) # Recomendada profesora
 library(timsac)
 library(changepoint)
+library(ggplot2)
 library(dplyr)
 library(lubridate)
-library(tidyr)
-library(kableExtra)
-library(knitr)
-library(zoo)
-library(scales)
+library(stats)
+
+
 
 
 
@@ -47,7 +49,6 @@ library(scales)
 ```{r echo=FALSE}
 data <- read_excel("1.2.TIP_Serie historica diaria.xlsx")
 ```
-
 
 ```{r echo=FALSE, warning=FALSE}
 str(data)
@@ -103,10 +104,11 @@ head(data2)
 
 ```
 
-## Gráficos de visualización
+## Gráficos de visualización:
 
 
 ```{r echo=FALSE, warning=FALSE}
+
 ggplot(data2, aes(x = Fecha, y = Tasa)) +
   geom_point(color = "blue", size = 2) + 
   geom_smooth(method = "loess", color = "red", se = FALSE) +  
@@ -122,7 +124,10 @@ ggplot(data2, aes(x = Fecha, y = Tasa)) +
     panel.grid.minor = element_blank()
   )
 
+
 ```
+
+
 
 * **Puntos Azules:** Los puntos azules indican los valores de "Tasa" en momentos específicos. Hay una dispersión considerable, sugiriendo que la tasa ha experimentado fluctuaciones a lo largo del tiempo.
 
@@ -134,9 +139,7 @@ ggplot(data2, aes(x = Fecha, y = Tasa)) +
 
 ```{r echo=FALSE, warning=FALSE}
 
-
-data2 <- data2 %>%
-  mutate(Fecha = as.Date(Fecha))
+# 3. Gráfico de Puntos y Línea de Tendencia
 
 ggplot(data2, aes(x = Anio, y = Tasa)) +
   geom_point(color = "blue", size = 2) +  # Puntos en azul
@@ -157,6 +160,8 @@ ggplot(data2, aes(x = Anio, y = Tasa)) +
 ```
 
 
+  
+  
 Esta gráfica permite ver con más detalle los cambios de tendencia:
 
 * Desde 1999, se confirma la disminución significativa en la tasa, que empieza muy alta (cerca de 25) y cae rápidamente hasta estabilizarse alrededor de los años 2007-2008 en un valor muy inferior (por debajo de 10).
@@ -172,16 +177,6 @@ Esta gráfica permite ver con más detalle los cambios de tendencia:
 
 
 ```{r echo=FALSE, warning=FALSE}
-
-data2 <- data2 %>%
-  mutate(Fecha = as.Date(Fecha)) 
-
-# Agregar las columnas Año y Mes
-data2 <- data2 %>%
-  mutate(
-    Anio = year(Fecha),
-    Mes = month(Fecha, label = TRUE, abbr = TRUE)  
-  )
 
 # Crear la tabla de tasas por Año y Mes
 tabla_tasas <- data2 %>%
@@ -199,9 +194,17 @@ kable(tabla_tasas, format = "html") %>%
  A partir de la tabla se pueden confirmar las tendencias mencionadas anteriormente, con un comportamiento descendente en los 12 primeros años (1999 a 2010), una estabilización en los 5 años siguientes (2011-2015) y un incremento significativo en años recientes (2021 en adelante).
 
 
-  
 
-## Análisis de serie de tiempo
+```{r}
+
+plot(data2$Anio, data2$Tasa, main = "Grafico del dataset", xlab = "Tiempo", ylab = "Tasa")
+
+```
+  
+El **gráfico de dispersión temporal**, presenta una tendencia decreciente al inicio (antes de 2005), seguida por un período de estabilización y una ligera recuperación hacia 2020. Después de 2020, la tasa muestra un aumento significativo. La caída inicial y el posterior aumento alrededor de 2020 son destacables. 
+
+
+## Análisis de serie de tiempo:
 
 ## Promedio o media móvil
 
@@ -273,62 +276,52 @@ lag.plot(data2, lags = 3, do.lines = FALSE, main = "Grafico de Rezago")
 La gráfica visualiza la correlación entre una variable y sus valores rezagados (delayed values). Este gráfico es útil para detectar patrones en series temporales y evaluar la autocorrelación en los datos.
 
 
-* **1. Año vs Rezagos (lag 1, 2, 3)**
+* **Año vs Rezagos (lag 1, 2, 3)**
 
 Las gráficas entre Año y sus diferentes rezagos muestran una relación lineal perfecta, lo que era de esperarse, ya que el valor de un año en un rezago anterior está directamente relacionado con los años consecutivos. Esto sugiere que el "Año" no aporta una variabilidad significativa en términos de cambios bruscos, es decir, la serie avanza sin saltos.
 
 
-* **2. Mes vs Rezagos (lag 1, 2, 3)**
+* **Mes vs Rezagos (lag 1, 2, 3)**
 
-Las gráficas entre Mes y sus rezagos muestran una estructura cíclica, con puntos que siguen un patrón predecible. Esto tiene sentido, ya que los meses siguen un ciclo repetitivo de 12 unidades (de enero a diciembre).
+Las gráficas entre "Mes" y sus rezagos muestran una estructura cíclica, con puntos que siguen un patrón predecible. Esto tiene sentido, ya que los meses siguen un ciclo repetitivo de 12 unidades (de enero a diciembre).
 
-los meses correlacionan bien con sus rezagos inmediatos, pero a medida que aumenta el número de rezagos (lag 2, lag 3), el ciclo es más visible, lo que indica que la periodicidad estacional en los datos está bien representada.
+Los meses correlacionan bien con sus rezagos inmediatos, pero a medida que aumenta el número de rezagos (lag 2, lag 3), el ciclo es más visible, lo que indica que la periodicidad estacional en los datos está bien representada.
 
 
-* **3. Fecha vs Rezagos (lag 1, 2, 3)**
+* **Fecha vs Rezagos (lag 1, 2, 3)**
 
-Similar al año, la relación entre Fecha y sus rezagos también muestra una estructura lineal. Esto era previsible, ya que las fechas están organizadas de manera continua. No se observan cambios abruptos o interrupciones que puedan señalar eventos singulares en la serie temporal.
+Similar al año, la relación entre "Fecha" y sus rezagos también muestra una estructura lineal. Esto era previsible, ya que las fechas están organizadas de manera continua. No se observan cambios abruptos o interrupciones que puedan señalar eventos singulares en la serie temporal.
 
-* **4. Tasa vs Rezagos (lag 1, 2, 3)**
+* **Tasa vs Rezagos (lag 1, 2, 3)**
 
-En las gráficas entre Tasa y sus rezagos, especialmente en el rezago 1 (lag 1), se aprecia una clara correlación positiva, lo que significa que la tasa en un mes está fuertemente relacionada con la tasa del mes anterior. Esta relación indica una persistencia en la tasa, es decir, no hay cambios abruptos entre periodos consecutivos.
+En las gráficas entre "Tasa" y sus rezagos, especialmente en el rezago 1 (lag 1), se aprecia una clara correlación positiva, lo que significa que la tasa en un mes está fuertemente relacionada con la tasa del mes anterior. Esta relación indica una persistencia en la tasa, es decir, no hay cambios abruptos entre periodos consecutivos.
 
 A medida que el rezago aumenta (lag 2 y lag 3), la relación sigue siendo positiva pero disminuye levemente, lo cual es normal: los valores más distantes en el tiempo tienen menos influencia directa entre sí, aunque todavía se observa cierta correlación.
 
 Esto sugiere que la serie de tasas no presenta grandes fluctuaciones a corto plazo y que los valores siguen un comportamiento más estable, lo que puede indicar una tendencia suave sin variaciones abruptas.
 
 
-* **5. Promedio Movil vs Rezagos (lag 1, 2, 3)**
+* **Promedio Movil vs Rezagos (lag 1, 2, 3)**
 
-Similar a la "Tasa", las gráficas entre el Promedio Móvil y sus rezagos muestran una alta correlación, especialmente para lag 1. Esto sugiere que los promedios móviles no cambian drásticamente de un mes a otro, y los valores del promedio móvil están fuertemente ligados a los meses anteriores.
+Similar a la "Tasa", las gráficas entre el "Promedio Móvil" y sus rezagos muestran una alta correlación, especialmente para lag 1. Esto sugiere que los promedios móviles no cambian drásticamente de un mes a otro, y los valores del promedio móvil están fuertemente ligados a los meses anteriores.
 A medida que aumenta el rezago (lag 2, lag 3), la correlación disminuye ligeramente, lo que indica que los valores anteriores siguen teniendo una influencia pero con una menor magnitud.
 
 
-* **6. Tasa Lag1 vs Rezagos**
+* **Tasa Lag1 vs Rezagos**
 
-Las gráficas entre Tasa_lag1 y sus rezagos también muestran una alta correlación. Esto es de esperar, ya que los valores rezagados de una variable tienden a mostrar correlación fuerte con rezagos cercanos.
+Las gráficas entre "Tasa_lag1" y sus rezagos también muestran una alta correlación. Esto es de esperar, ya que los valores rezagados de una variable tienden a mostrar correlación fuerte con rezagos cercanos.
 
-
-
-Los gráficos de rezago muestran una clara autocorrelación tanto en las variables de Tasa como en el Promedio Móvil, lo que sugiere que los valores actuales están muy influenciados por sus valores anteriores.
+Los gráficos de rezago muestran una clara autocorrelación tanto en las variables de "Tas"a" como en el "Promedio Móvil", lo que sugiere que los valores actuales están muy influenciados por sus valores anteriores.
 
 No se observan grandes fluctuaciones o cambios abruptos en la serie temporal, lo que implica que los datos de tasa y promedio móvil siguen una evolución suave a lo largo del tiempo.
 
 La estructura cíclica en los meses sugiere que existe un patrón estacional predecible, lo cual es clave para definir modelos de predicción de series temporales con componentes estacionales, como modelos ARIMA/SARIMA o de descomposición estacional.
 
-**Descomposición:** 
-Con la función stl(), se descompone la serie en tendencia, estacionalidad y componente residual.
-
-**Estacionariedad:** 
-La prueba ADF indica si la serie tiene una raíz unitaria (es decir, si no es estacionaria).
-
-**Diferenciación:** 
-Si la serie no es estacionaria, la diferenciación la ayuda a volverse estacionaria.
 
 
 ## Descomposición
 
-
+Con la función stl(), se descompone la serie en tendencia, estacionalidad y componente residual.
 
 ```{r echo=FALSE, warning=FALSE}
 
@@ -372,15 +365,18 @@ Se observan varios picos de volatilidad, como por ejemplo, alrededor del 2002, 2
 La volatilidad hacia el final del gráfico es más alta, lo que podría indicar periodos de mayor incertidumbre económica o choques en los últimos años.
 
 
-
 * **Tendencia de tasas crecientes:** El reciente aumento de las tasas de interés refleja probablemente un intento del Banco de la República de controlar la inflación y mantener la estabilidad macroeconómica en medio de un entorno de incertidumbre global.
 
+
 * **Estacionalidad significativa:** El componente estacional muestra que la política monetaria sigue patrones regulares, lo cual puede estar vinculado con las necesidades cíclicas de liquidez en el mercado. Estos ciclos estacionales parecen estar bien definidos, lo que permite un ajuste más predecible de las tasas en el corto plazo.
+
 
 * **Impacto de choques económicos:** El componente residual sugiere que eventos económicos inesperados han afectado la política monetaria, especialmente en periodos de crisis como 2008 y 2020. Estos choques pueden generar fluctuaciones a corto plazo que no son fácilmente predecibles.
 
 
 ## Estacionariedad
+
+La prueba ADF indica si la serie tiene una raíz unitaria (es decir, si no es estacionaria).
 
 ```{r echo=FALSE, warning=FALSE}
 
@@ -397,6 +393,8 @@ El resultado del test muestra un valor de -1.15, con un p-valor de 0.9133. Dado 
 
 ## Diferenciación
 
+Si una serie no es estacionaria, la diferenciación la ayuda a volverse estacionaria.
+
 ```{r echo=FALSE, warning=FALSE}
 # Diferenciación de la serie
 differenced_data <- diff(ts_data)
@@ -411,7 +409,7 @@ Al diferenciar la serie de tiempo, se observa en el gráfico  una serie fluctuan
 ## Volver a verificar la Estacionariedad tras la Diferenciación
 
 
-Realizar nuevamente el test de Dickey-Fuller sobre la serie diferenciada permite confirmar la estacionariedad alcanzad:
+Realizar nuevamente el test de Dickey-Fuller sobre la serie diferenciada permite confirmar la estacionariedad alcanzada:
  
  
 ```{r echo=FALSE, warning=FALSE}
@@ -431,18 +429,10 @@ El resultado del test de Dickey-Fuller aplicado a la serie diferenciada muestra 
 
 ```{r echo=FALSE, warning=FALSE}
 
-
-# Graficar ACF y PACF directamente en la ventana gráfica
+# ACF y PACF de la Serie Diferenciada
 par(mfrow = c(1, 2))  
-
-# Graficar ACF de la serie diferenciada
 acf(differenced_data, main = "ACF de la Serie Diferenciada")
-
-# Graficar PACF de la serie diferenciada
 pacf(differenced_data, main = "PACF de la Serie Diferenciada")
-
-
-
 
 ```
 
@@ -450,23 +440,49 @@ pacf(differenced_data, main = "PACF de la Serie Diferenciada")
 
 * **PACF:**  muestra una caída rápida después del primer rezago, lo cual sugiere que un modelo ARIMA de bajo orden podría ser adecuado para capturar la dinámica de la serie diferenciada.
 
+
+
+```{r echo=FALSE, warning=FALSE}
+
+# Descomposición de la serie de tiempo
+descomposicion2 <- stl(differenced_data, s.window = "periodic")
+
+# Graficar la descomposición
+plot(descomposicion2, main = "Descomposición TS DIFERENCIADA")
+
+```
+
+* **Data:** Se observa que a lo largo de la serie, existen varios picos, y la variabilidad parece aumentar en ciertos puntos. Esto indica que hay períodos con comportamiento anómalo o ruido.
+
+* **Seasonal (Estacional):** La componente estacional muestra una clara periodicidad, con patrones que se repiten consistentemente en intervalos regulares. Esto indica que la serie tiene un comportamiento cíclico fuerte. Este componente estacional es útil para capturar patrones que se repiten cada cierto tiempo.
+
+* **Trend (Tendencia):** La tendencia parece ser suave y muestra algunos cambios a lo largo del tiempo. Aunque la serie fue diferenciada, la tendencia residual indica que aún existen fluctuaciones de largo plazo, como un ligero aumento hacia el final de la serie. Esto sugiere que, aunque se haya eliminado una parte de la tendencia inicial mediante la diferenciación, todavía hay un componente de tendencia en los datos.
+
+* **Remainder (Residuo):** Este componente representa la variabilidad no explicada por la estacionalidad ni la tendencia. Se observan varios picos y una dispersión más amplia en ciertos puntos de la serie. Esto sugiere que puede haber variaciones aleatorias o anomalías en ciertos periodos, especialmente al final, donde los residuos son más grandes. La presencia de valores residuales grandes refuerza la idea de que hay eventos impredecibles o ruido en la serie.
+
+En resumen, la serie de tiempo diferenciada aún conserva una componente estacional significativa, y la tendencia residual es pequeña pero sigue presente. Los residuos presentan variaciones irregulares, especialmente al final, lo cual podría indicar la necesidad de modelar con más precisión estos picos o variabilidad.
+
+
+--------------------------------------------------------------------------------------
+
 # **Definición de Modelos**
 
 ## Modelo Arima
+
+A continuación se probarán dos alternativas de modelo ARIMA, de acuerdo con los análisis realizados previamente, a fin de elegir aquel que se acomode mejor a la serie. 
+
+
+**Alternativa 1 - c(1, 2, 3) (1, 1, 1):**
 
 * Diferenciación no estacional (d): Dado que ya se aplicó una primera diferenciación en los datos y todavía no es completamente estacionaria, es posible considerar incrementar el parámetro de a 2. 
 
 * Estacionalidad (seasonal): Como existe un patrón estacional claro en la serie, conviene incluir una diferenciación estacional (D = 1) y ajustar los parámetros P y Q para capturar las dependencias estacionales. Se probará el modelo con un seasonal = c(1, 1, 1) para incluir un término autoregresivo y uno de promedio móvil estacional.
 
-* Componentes AR y MA (p y q): Dado que p y q determinan la cantidad de términos autoregresivos y de promedio móvil, se recomienda probar con valores más altos para q (como 3) y ajustar p a 1 o 2 si observas que hay correlación en los residuos. Esto puede ayudar a mejorar la precisión del modelo y su capacidad predictiva.
+* Componentes AR y MA (p y q): Dado que p y q determinan la cantidad de términos autoregresivos y de promedio móvil, conviene probar con valores más altos para q y ajustar p de acuerdo con la correlación en los residuos. Esto puede ayudar a mejorar la precisión del modelo y su capacidad predictiva.
 
-**Modelo 1**
+```{r}
 
-```{r echo=FALSE, warning=FALSE}
-
-#par(mfrow = c(3, 3))
-
-# Ajuste del modelo ARIMA
+# Ajuste del modelo ARIMA - ALTERNATIVA 1
 modelo_arima <- Arima(differenced_data, order = c(1, 2, 3), seasonal = c(1, 1, 1))
 
 # Resumen del modelo ajustado
@@ -489,7 +505,7 @@ plot(pronostico, xlab = "Año", ylab = "Tasa", main = "Pronóstico de Tasa")
 * d = 2 (diferenciación de segundo orden para hacer estacionaria la serie en términos de tendencia),
 * q = 3 (tres términos de promedio móvil).
 
-* **parámetros estacionales, donde:**
+* **parámetros estacionales*, donde:**
 
 * P = 1 (un término autoregresivo estacional),
 * D = 1 (diferenciación estacional),
@@ -505,14 +521,16 @@ plot(pronostico, xlab = "Año", ylab = "Tasa", main = "Pronóstico de Tasa")
 * El p-valor del test de Ljung-Box mayor a 0.05 indica que el modelo ha eliminado la mayoría de la autocorrelación en los residuos, lo cual es positivo.
 
 
-```{r echo=FALSE, warning=FALSE}
+**Alternativa 1 - Análisis de Residuos**
 
-# Análisis de Residuos
+```{r}
+
+# Análisis de Residuos Alternativa 1
 
 # Normal QQ Plot de los residuos
 residuos_diff <- residuals(modelo_arima)
-par(mfrow = c(1, 1))  # Asegúrate de que solo hay un gráfico en la ventana
-qqnorm(residuos_diff, main = "Normal QQ Plot de Residuos")
+par(mfrow = c(1, 1))  
+qqnorm(residuos_diff, main = "Normal QQ Plot de Residuos 1")
 qqline(residuos_diff, col = "red")
 
 # Realizar el test de normalidad de Shapiro-Wilk
@@ -526,10 +544,36 @@ Teniendo en cuenta la prueba de normalidad de Shapiro-Wilk, con un valor de 0.82
 
 En cuanto a p-value < 2.2e-16, al ser una cifra tan pequeña, se confirma que los residuos no son normales.
 
-**Modelo 2**
+Por su parte, en la gráfica se evidencia un patrón en que los residuos tienen colas más gruesas que una distribución normal, lo cual reafirma la posible presencia de outliers o una distribución sesgada en los datos.
 
 
-```{r echo=FALSE, warning=FALSE}
+**Alternativa 1 - Análisis de volatilidad utilizando Garch**
+
+```{r}
+
+# Análisis de volatilidad utilizando fGarch
+garch_model <- garch(residuos_diff, order = c(1, 1))
+summary(garch_model)
+
+
+```
+
+El modelo GARCH(1,1) parece ser adecuado para modelar la volatilidad de residuos_diff, ya que los coeficientes son significativos y el test de Box-Ljung no muestra autocorrelación en los residuos al cuadrado.
+
+La alta significancia de los coeficientes ARCH (a1) y GARCH (b1) indica que tanto los residuos recientes como la volatilidad pasada influyen en la volatilidad actual.
+
+La prueba de Jarque-Bera sugiere que los residuos no siguen una distribución normal, lo cual puede indicar la presencia de colas pesadas o asimetría, características típicas en series financieras.
+
+Este modelo GARCH(1,1) es útil para capturar los cambios en la volatilidad de la serie residuos_diff. La ausencia de autocorrelación en los residuos al cuadrado también sugiere que el modelo ha capturado adecuadamente la heterocedasticidad de la serie.
+
+
+--------------------------------------------------------
+
+
+
+**Auto Arima para identificar la Alternativa 2**
+
+```{r}
 
 # Aplicar auto.arima para determinar los parámetros adecuados, incluyendo las diferenciaciones
 modelo_auto <- auto.arima(differenced_data)
@@ -537,25 +581,26 @@ print(modelo_auto)
 
 ```
 
-Teniendo en cuenta el anterior modelo, en donde se cuetan con los parámetros de autorregresivo, diferenciación y media móvil (1, 1, 2) respectivamente. Teniendo en cuenta los resultados en los coeficientes, se determina:
+El modelo ARIMA(1,1,2) se seleccionó como el mejor ajuste para differenced_data basado en los valores del AIC, AICc, y BIC. La inclusión de términos AR y MA sugiere que hay dependencias de corto plazo en la serie, pero el ajuste no es perfecto, dado el tamaño de los errores estándar y el valor de sigma^2. Si el objetivo es la predicción, este modelo podría ser una buena base, aunque podrían explorarse otros modelos o ajustes adicionales para mejorar la precisión.
 
-*Autorregresivo:*
-ar1 = -0.5956: con un valor negativo, indica que hay una relación inversa entre el valor actual de la serie y su valor anterior.
-s.e. = 0.7747: al tener un resultado alto, se determina que la estimación es menos precisa.
-
-*Media Móvil:*
-ma1 = -0.1114: indica que la predicción fue más alta al valor real en el período inmediatamente anterior, es decir, cuando t=-1, arrojando de esta forma un residuo negativo. Este residuo corresponde a la media del resultado anterior.
-Lo anterior, relacionado con s.e.= 0.7650, indica que la estimación es relativamente imprecisa en comparación con el valor del coeficiente.
+--------------------------------------------------------
 
 
-ma2 = -0.4425: este resultado tiene un valor negativo, similar a ma1; sin embargo, este resultado ocurre en el segundo error pasado (dos períodos atrás), es decir cuando t=-2.
-Con s.e. = 0.5442, al ser menor que el de ma1, indica que ma2 es más precisa, aunque continúa teniendo una inexactitud sobre el valor.
+OJOOOOOOOOOOOOOOOOOOOO: 
 
-**Modelo 3: modelo diferenciado**
+SEGUN EL AUTOARIMA DEBERIAMOS ELIMINAR seasonal = c(1, 1, 0) ya que no se especifica una componente estacional en el modelo seleccionado por auto.arima.
 
-```{r echo=FALSE, warning=FALSE}
+LO MALO ES QUE SI LO CAMBIAMOS, SEGURO CAMBIE EL RESULTADO. Y NOS TOQUE AJUSTAR ANÁLISIS
 
-# Ajuste del modelo ARIMA
+
+--------------------
+
+**Alternativa 2 - c(1, 1, 2) (1, 1, 0):**
+
+
+```{r}
+
+# Ajuste del modelo ARIMA OPCIÓN 2
 modelo_arima2 <- Arima(differenced_data, order = c(1, 1, 2), seasonal = c(1, 1, 0))
 summary(modelo_arima2)
 checkresiduals(modelo_arima2)
@@ -586,35 +631,140 @@ s.e. = 0.0620: El error estándar para sar1 es relativamente bajo, lo que indica
 
 el modelo ARIMA(1,1,2)(1,1,0) tiene coeficientes precisos para los diferentes componentes (AR, MA y SAR), lo que sugiere que el modelo está bien ajustado y que las relaciones capturadas por los coeficientes son confiables.
 
-**Análisis de volatilidad utilizando Garch**
 
-```{r echo=FALSE, warning=FALSE}
+**Alternativa 2 - Análisis de residuos**
 
-# Análisis de volatilidad utilizando fGarch
-garch_model <- garch(residuos_diff, order = c(1, 1))
-summary(garch_model)
+```{r}
+
+# Análisis de Residuos Alternativa 2
+
+# Normal QQ Plot de los residuos
+residuos_diff2 <- residuals(modelo_arima2)
+par(mfrow = c(1, 1))  
+qqnorm(residuos_diff2, main = "Normal QQ Plot de Residuos 2")
+qqline(residuos_diff2, col = "red")
+
+# Realizar el test de normalidad de Shapiro-Wilk
+shapiro_test2 <- shapiro.test(residuos_diff2)
+print(shapiro_test)
 
 
 ```
 
-*Coeficiente del modelo:*
 
-a0 = 0.013043: Este valor es significativo, lo que indica que existe una volatilidad base que es constante y no depende de los errores o la volatilidad pasada.
+Los resultados del test de Shapiro-Wilk indican que los residuos (residuos_diff) no siguen una distribución normal.
 
-a1 = 0.322559: Este coeficiente refleja el impacto de los errores pasados sobre la volatilidad actual. Un valor de a1 = 0.322559 indica que los errores pasados tienen una relación positiva moderada con la volatilidad actual. Además, este coeficiente es altamente significativo (p-value < 0.001), lo que sugiere que el impacto de los errores pasados son importantes en el modelo.
+En cuanto a la gráfica también refleja la No normalidad. La desviación de los puntos en los extremos sugiere que los residuos tienen colas más pesadas de lo que se esperaría bajo una distribución normal. Este resultado es coherente con el Shapiro-Wilk test.
 
-b1 = 0.654236: Este coeficiente refleja el impacto de la volatilidad pasada sobre la volatilidad actual. Un valor de b1 = 0.654236 indica que la volatilidad pasada tiene una gran influencia en la volatilidad futura. Este coeficiente también es altamente significativo (p-value < 2e-16), lo que sugiere que la persistencia de la volatilidad es fuerte.
 
-*Error estándar y significancia:*
-Error estándar de a0 = 0.001689, a1 = 0.056827, b1 = 0.038567: Los errores estándar son relativamente bajos en comparación con los coeficientes estimados, lo que sugiere que las estimaciones de los parámetros del modelo son precisas.
+**Alternativa 2 - Análisis de volatilidad fGarch**
 
-Los valores de t y los p-values asociados a los coeficientes (a0, a1, b1) muestran que todos los coeficientes son estadísticamente significativos. Esto indica que cada uno de estos parámetros tienen un impacto significativo en la volatilidad modelada.
+```{r}
 
-*Resultados de los tets diagnósticos:*
+# Análisis de volatilidad utilizando fGarch
+garch_model2 <- garch(residuos_diff2, order = c(1, 1))
+summary(garch_model2)
 
-Jarque-Bera Test: Este test evalúa la normalidad de los residuos. El valor de X-squared = 650.13 y el p-value < 2.2e-16 indican que los residuos no siguen una distribución normal.
 
-Box-Ljung Test (Squared Residuals): Este test evalúa la autocorrelación en los residuos al cuadrado, lo que en este caso indica si hay dependencias en la volatilidad. El valor X-squared = 0.024148 y p-value = 0.8765 sugieren que no hay autocorrelación significativa en los residuos al cuadrado, lo que implica que el modelo GARCH(1,1) ha capturado adecuadamente la dinámica de la volatilidad y no quedan patrones significativos en los residuos.
+```
+
+* El modelo GARCH(1,1) parece capturar correctamente la volatilidad en los residuos, dado que no hay autocorrelación significativa en los residuos al cuadrado.
+
+* Aunque los residuos no son normales (como muestra la prueba de Jarque-Bera), el modelo es aún válido, ya que los modelos GARCH no requieren normalidad en los residuos.
+
+*El valor elevado de 𝑏1 (0.71542) indica una alta persistencia en la volatilidad, lo que es característico en este tipo de series de tiempo financieras.
+
+En resumen, este modelo GARCH(1,1) parece adecuado para modelar la volatilidad de los residuos, aunque los residuos no sean normales.
+
+
+-------------------------------------------------------------------
+
+**Comparación de modelos**
+
+
+```{r}
+
+# Comparar criterios estadísticos
+cat("Criterios estadísticos:\n")
+cat("Modelo 1:\n")
+cat("AIC:", AIC(modelo_arima), "\n")
+cat("BIC:", BIC(modelo_arima), "\n\n")
+
+cat("Modelo 2:\n")
+cat("AIC:", AIC(modelo_arima2), "\n")
+cat("BIC:", BIC(modelo_arima2), "\n\n")
+
+# Análisis de residuos para ambos modelos
+cat("Test de Ljung-Box para autocorrelación de residuos:\n")
+cat("Modelo 1:\n")
+Box.test(residuals(modelo_arima), lag = 20, type = "Ljung-Box")
+
+cat("\nModelo 2:\n")
+Box.test(residuals(modelo_arima2), lag = 20, type = "Ljung-Box")
+
+# Test de normalidad para residuos
+cat("\nTest de normalidad Shapiro-Wilk:\n")
+cat("Modelo 1:\n")
+shapiro.test(residuals(modelo_arima))
+
+cat("\nModelo 2:\n")
+shapiro.test(residuals(modelo_arima2))
+
+# Calcular métricas de error (MAE, RMSE)
+library(forecast)
+
+cat("\nMétricas de error en datos de entrenamiento:\n")
+cat("Modelo 1:\n")
+accuracy(modelo_arima)
+
+cat("\nModelo 2:\n")
+accuracy(modelo_arima2)
+
+# Graficar residuos
+par(mfrow = c(2, 2))  # Dividir pantalla para gráficos
+
+# Residuos Modelo 1
+qqnorm(residuals(modelo_arima), main = "QQ Plot Residuos Modelo 1")
+qqline(residuals(modelo_arima), col = "red")
+plot(residuals(modelo_arima), main = "Residuos Modelo 1", ylab = "Residuos")
+acf(residuals(modelo_arima), main = "ACF Residuos Modelo 1")
+
+# Residuos Modelo 2
+qqnorm(residuals(modelo_arima2), main = "QQ Plot Residuos Modelo 2")
+qqline(residuals(modelo_arima2), col = "red")
+plot(residuals(modelo_arima2), main = "Residuos Modelo 2", ylab = "Residuos")
+acf(residuals(modelo_arima2), main = "ACF Residuos Modelo 2")
+
+# Graficar y comparar pronósticos
+par(mfrow = c(1, 1))
+plot(pronostico2, xlab = "Año", ylab = "Tasa", main = "Comparación de Pronósticos")
+lines(forecast(modelo_arima, h = 72)$mean, col = "blue", lty = 2)
+legend("topleft", legend = c("Modelo 1", "Modelo 2"), col = c("blue", "black"), lty = c(2, 1))
+
+
+
+```
+
+
+A nivel general, 
+
+* ALTERNATIVA  1:  muestra problemas de ajuste. Residuos no normales y autocorrelación presente. Aunque captura la tendencia, su precisión en los pronósticos parece más limitada.
+
+* ALTERNATIVA  2:  ofrece un mejor ajuste. residuos más cercanos a la normalidad, sin autocorrelaciones significativas, y pronósticos con intervalos de confianza más ajustados. Esto lo hace preferible para tomar decisiones basadas en predicciones más consistentes.
+
+
+En cuanto al análisis de pronótico:
+
+La Alternativa 1 (línea azul punteada) y la Alternativa 2 (línea negra continua) ofrecen pronósticos similares en cuanto a tendencia, pero ela Alternativa 2 parece ser más conservadora, con menores amplitudes en sus intervalos de confianza.
+
+Los intervalos de confianza de la  Alternativa 1  (zonas azules sombreadas) son más amplios, indicando mayor incertidumbre, mientras que en la 2 (zonas grises sombreadas) son más ajustados, lo que sugiere mayor precisión o menos variabilidad esperada, por tanto la 2 podría ser más confiable si se busca menor variabilidad en los pronósticos a largo plazo.
+
+
+**En definitiva, ** la decisión es entonces optar por la Alternativa 2, ya que presenta un mejor comportamiento tanto en el ajuste a los datos como en la calidad de los pronósticos.
+
+
+---------------------------------------------------------------------
+
 
 ## Algoritmo de Holt Winter 
 
@@ -623,8 +773,9 @@ Puede manejar la estacionalidad en el conjunto de datos simplemente calculando e
 Recuerde siempre verificar la eficiencia del modelo utilizando el valor MAPE (error porcentual absoluto medio) o el valor RMSE (error cuadrático medio), y la precisión puede depender del problema comercial y el conjunto de datos disponible para entrenar y probar el modelo.
 
 
+Se observan la tendencia y los ciclos:
 
-```{r echo=FALSE, warning=FALSE}
+```{r}
 # Graficar solo líneas
 plot(data2$Anio, data2$Tasa, type = "l", main = "Grafico con Regresion", xlab = "Anio", ylab = "Tasa")
 
@@ -636,9 +787,9 @@ abline(modelo, col = "red")
 
 
 ```
-```{r echo=FALSE, warning=FALSE}
+```{r}
 
-# Graficar
+# Graficar 
 ggplot(data2, aes(x = Mes, y = Anio, fill = Tasa)) +
   geom_tile() +  # Usar geom_tile para crear un gráfico de calor
   scale_fill_gradient(low = "white", high = "blue") +  # Colores del llenado
@@ -649,9 +800,9 @@ ggplot(data2, aes(x = Mes, y = Anio, fill = Tasa)) +
 
 ```
 
+La gráfica sugiere una disminución en la tasa a lo largo del tiempo, con una estabilización en niveles bajos en los años recientes. Esto podría indicar una mejora en el fenómeno que se está midiendo con la "Tasa", aunque el contexto específico dependerá de qué represente exactamente esa variable en el análisis.
 
-
-```{r echo=FALSE, warning=FALSE}
+```{r}
 
 # serie_temporal <- ts(data2[["Tasa"]], start = c(min(data2$Anio), 1), frequency = 12)
 
@@ -665,9 +816,7 @@ print(cicle)
 
 
 
-
-
-```{r echo=FALSE, warning=FALSE}
+```{r}
 # boxplot(data2~cycle(data2))
 
 # Crear el boxplot por ciclo (mes) para observar la estacionalidad
@@ -677,7 +826,10 @@ boxplot(ts_data ~ cycle(ts_data),
 
 ```
 
-```{r echo=FALSE, warning=FALSE}
+Aunque hay consistencia en la mediana y el rango intercuartílico de la tasa a lo largo de los meses, existen valores atípicos en la segunda mitad del año. Esto sugiere que, aunque la tasa general se mantiene estable, en algunos meses específicos ocurren eventos o circunstancias que resultan en tasas inusualmente altas.
+
+
+```{r}
 # plot(log(airmiles), ylab='log(airmiles)', xlab='Anio', main='Logaritmo de la tasa')
 
 plot(data2$Anio, log(data2$Tasa), type = "l", 
@@ -685,9 +837,16 @@ plot(data2$Anio, log(data2$Tasa), type = "l",
      main = "Logaritmo de la Tasa a lo largo del Tiempo")
 ```
 
-## Modelo Holt-Winter
+La gráfica sugiere que la tasa ha sido volátil a lo largo de los años, con periodos de estabilidad relativa intercalados con cambios bruscos.
 
-```{r echo=FALSE, warning=FALSE}
+La caída alrededor de 2020 y el rápido aumento posterior podrían reflejar eventos económicos o circunstancias externas que afectaron la tasa en ese periodo.
+
+Esto fue evidenciado en el ANÁLISIS EXPLORATORIO.
+
+
+## **Modelo Holt-Winter**
+
+```{r}
 # modelo_HW = HoltWinters(log(airmiles), seasonal = "additive")
 # plot(modelo_HW, main = 'Ajuste con Holt-Winters', xlab = 'Anio', ylab='log(airmiles)')
 
@@ -708,6 +867,8 @@ plot(pronostico_hw, main = "Pronostico Holt-Winters para Tasa")
 
 ```
 
+
+
 *Parámetro suavizado:*
 
 Alpha (α = 0.9409767): Este es el parámetro de suavizado para el componente de nivel. Un valor cercano a 1, como el que está arrojando el resultado, indica que el modelo le da gran peso a los datos recientes para estimar el nivel actual de la serie. Esto significa que las observaciones recientes tienen un impacto significativo en la estimación del nivel.
@@ -716,25 +877,32 @@ Beta (β = 0.2941339): Este es el parámetro de suavizado para el componente de 
 
 Gamma (γ = 1): Este es el parámetro de suavizado para el componente estacional. Un valor de γ = 1 sugiere que el modelo da completo peso a los componentes estacionales previos en la serie.
 
-```{r echo=FALSE, warning=FALSE}
+
+```{r}
 plot(fitted(modelo_HW), main='Descomposicion con HW', xlab='Anio', ylab='log(airmiles)')
 ```
 
-Se predice el método Holt Winters
 
-```{r echo=FALSE, warning=FALSE}
+La tendencia ascendente en el nivel y la tendencia hacia el final del período (2025) sugiere que LA TASA está experimentando un crecimiento continuo.
+
+La componente estacional muestra ciclos regulares bien definidos, lo que puede ser útil para predicciones estacionales precisas.
+
+El modelo Holt-Winters parece ajustarse adecuadamente a la serie, capturando tanto las fluctuaciones estacionales como la tendencia de largo plazo.
+
+
+
+**Se predice el método Holt Winters**
+
+```{r}
 pred = predict(modelo_HW, 4, prediction.interval = TRUE)
 pred
 ```
 
-```{r echo=FALSE, warning=FALSE}
+```{r}
 plot(modelo_HW, pred)
 ```
 
-## Conclusión
 
-El Modelo 1 tiene un ajuste adecuado, con coeficientes significativos y un p-valor del test de Ljung-Box de 0.1302, lo que indica que los residuos no presentan autocorrelación significativa. Sin embargo, los residuos no siguen una distribución normal, lo que podría ser un inconveniente. Este modelo captura bien la dinámica de la serie, pero la falta de normalidad en los residuos sugiere una ligera desviación en el ajuste.
 
-El Modelo 2, aunque tiene un ajuste aceptable, presenta estimaciones imprecisas, especialmente en el término autorregresivo (AR) y en los términos de media móvil (MA), como lo indican sus errores estándar relativamente altos. Este modelo, con un p-valor bajo en los coeficientes, puede no ser tan confiable debido a la imprecisión en algunas de las estimaciones, lo que puede generar predicciones menos robustas.
 
-Por otro lado, el Modelo 3 resulta ser el más adecuado, con coeficientes más precisos y errores estándar bajos en términos de AR y MA. La relación directa en el término autorregresivo (AR) y la buena precisión en los términos de media móvil (MA) sugieren que el modelo captura adecuadamente la dinámica de la serie temporal. Además, el término estacional SAR1 también tiene un ajuste adecuado, con un coeficiente significativo y un error estándar bajo, lo que implica que el modelo está considerando correctamente la estacionalidad de la serie. El p-valor de los residuos también es adecuado, indicando que el modelo ajusta bien la serie y presenta una buena generalización.
+
