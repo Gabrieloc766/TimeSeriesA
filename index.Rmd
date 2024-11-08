@@ -214,7 +214,7 @@ Permite analizar el mercado a través de las tendencias. La media móvil es una 
 Se conoce como media móvil ya que el valor se calcula constantemente a medida que pasa el tiempo; de esta forma, la media cambia cada vez que los valores presentan alguna modificación.
 
 
-```{r echo=FALSE, warning=FALSE}
+```{r echo=FALSE}
 # Calcular el promedio móvil
 data2$PromedioMovil <- rollmean(data2$Tasa, k = 3, fill = NA, align = "right")
 
@@ -323,7 +323,7 @@ La estructura cíclica en los meses sugiere que existe un patrón estacional pre
 
 Con la función stl(), se descompone la serie en tendencia, estacionalidad y componente residual.
 
-```{r echo=FALSE, warning=FALSE}
+```{r echo=FALSE}
 
 data2 <- as.data.frame(data2)
 
@@ -334,7 +334,7 @@ ts_data <- ts(data2[["Tasa"]], start = c(1999, 5), frequency = 12)
 descomposicion <- stl(ts_data, s.window = "periodic")
 
 # Graficar la descomposición
-plot(descomposicion, main = "Descomposición de la Serie de Tiempo")
+plot(descomposicion, main = "Descomposicion de la Serie de Tiempo")
 
 ```
 
@@ -448,7 +448,7 @@ pacf(differenced_data, main = "PACF de la Serie Diferenciada")
 descomposicion2 <- stl(differenced_data, s.window = "periodic")
 
 # Graficar la descomposición
-plot(descomposicion2, main = "Descomposición TS DIFERENCIADA")
+plot(descomposicion2, main = "Descomposicion TS DIFERENCIADA")
 
 ```
 
@@ -493,7 +493,7 @@ checkresiduals(modelo_arima)
 pronostico <- forecast(modelo_arima, h = 72)
 
 # Graficar el pronóstico con el eje x adecuado
-plot(pronostico, xlab = "Año", ylab = "Tasa", main = "Pronóstico de Tasa")
+plot(pronostico, xlab = "Anio", ylab = "Tasa", main = "Pronostico de Tasa")
 
 ```
 
@@ -565,10 +565,6 @@ La prueba de Jarque-Bera sugiere que los residuos no siguen una distribución no
 Este modelo GARCH(1,1) es útil para capturar los cambios en la volatilidad de la serie residuos_diff. La ausencia de autocorrelación en los residuos al cuadrado también sugiere que el modelo ha capturado adecuadamente la heterocedasticidad de la serie.
 
 
---------------------------------------------------------
-
-
-
 **Auto Arima para identificar la Alternativa 2**
 
 ```{r}
@@ -585,7 +581,7 @@ El modelo ARIMA(1,1,2) se seleccionó como el mejor ajuste para differenced_data
 **Alternativa 2 - c(1, 1, 2) (1, 1, 0):**
 
 
-```{r}
+```{r echo=FALSE}
 
 # Ajuste del modelo ARIMA OPCIÓN 2
 modelo_arima2 <- Arima(differenced_data, order = c(1, 1, 2), seasonal = c(1, 1, 0))
@@ -596,7 +592,7 @@ checkresiduals(modelo_arima2)
 pronostico2 <- forecast(modelo_arima2, h = 72)
 
 # Graficar el pronóstico con el eje x adecuado
-plot(pronostico2, xlab = "Año", ylab = "Tasa", main = "Pronóstico de Tasa")
+plot(pronostico2, xlab = "Anio", ylab = "Tasa", main = "Pronostico de Tasa")
 
 ```
 
@@ -621,7 +617,7 @@ el modelo ARIMA(1,1,2)(1,1,0) tiene coeficientes precisos para los diferentes co
 
 **Alternativa 2 - Análisis de residuos**
 
-```{r}
+```{r echo=FALSE}
 
 # Análisis de Residuos Alternativa 2
 
@@ -722,7 +718,7 @@ acf(residuals(modelo_arima2), main = "ACF Residuos Modelo 2")
 
 # Graficar y comparar pronósticos
 par(mfrow = c(1, 1))
-plot(pronostico2, xlab = "Año", ylab = "Tasa", main = "Comparación de Pronósticos")
+plot(pronostico2, xlab = "Anio", ylab = "Tasa", main = "Comparacion de Pronosticos")
 lines(forecast(modelo_arima, h = 72)$mean, col = "blue", lty = 2)
 legend("topleft", legend = c("Modelo 1", "Modelo 2"), col = c("blue", "black"), lty = c(2, 1))
 
@@ -775,7 +771,7 @@ abline(modelo, col = "red")
 ggplot(data2, aes(x = Mes, y = Anio, fill = Tasa)) +
   geom_tile() +  # Usar geom_tile para crear un gráfico de calor
   scale_fill_gradient(low = "white", high = "blue") +  # Colores del llenado
-  labs(title = "Tasa por Año y Mes", x = "Mes", y = "Año") +
+  labs(title = "Tasa por Anio y Mes", x = "Mes", y = "Anio") +
   theme_minimal()
 
 
@@ -815,7 +811,7 @@ Aunque hay consistencia en la mediana y el rango intercuartílico de la tasa a l
 # plot(log(airmiles), ylab='log(airmiles)', xlab='Anio', main='Logaritmo de la tasa')
 
 plot(data2$Anio, log(data2$Tasa), type = "l", 
-     ylab = "Log(Tasa)", xlab = "Año", 
+     ylab = "Log(Tasa)", xlab = "Anio", 
      main = "Logaritmo de la Tasa a lo largo del Tiempo")
 ```
 

@@ -316,11 +316,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>La alta significancia de los coeficientes ARCH (a1) y GARCH (b1) indica que tanto los residuos recientes como la volatilidad pasada influyen en la volatilidad actual.</p>
 <p>La prueba de Jarque-Bera sugiere que los residuos no siguen una distribución normal, lo cual puede indicar la presencia de colas pesadas o asimetría, características típicas en series financieras.</p>
 <p>Este modelo GARCH(1,1) es útil para capturar los cambios en la volatilidad de la serie residuos_diff. La ausencia de autocorrelación en los residuos al cuadrado también sugiere que el modelo ha capturado adecuadamente la heterocedasticidad de la serie.</p>
-<hr />
 <p><strong>Auto Arima para identificar la Alternativa 2</strong></p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="definición-de-modelos.html#cb17-1" tabindex="-1"></a><span class="co"># Aplicar auto.arima para determinar los parámetros adecuados, incluyendo las diferenciaciones</span></span>
-<span id="cb17-2"><a href="definición-de-modelos.html#cb17-2" tabindex="-1"></a>modelo_auto <span class="ot">&lt;-</span> <span class="fu">auto.arima</span>(differenced_data)</span>
-<span id="cb17-3"><a href="definición-de-modelos.html#cb17-3" tabindex="-1"></a><span class="fu">print</span>(modelo_auto)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="definición-de-modelos.html#cb18-1" tabindex="-1"></a><span class="co"># Aplicar auto.arima para determinar los parámetros adecuados, incluyendo las diferenciaciones</span></span>
+<span id="cb18-2"><a href="definición-de-modelos.html#cb18-2" tabindex="-1"></a>modelo_auto <span class="ot">&lt;-</span> <span class="fu">auto.arima</span>(differenced_data)</span>
+<span id="cb18-3"><a href="definición-de-modelos.html#cb18-3" tabindex="-1"></a><span class="fu">print</span>(modelo_auto)</span></code></pre></div>
 <pre><code>## Series: differenced_data 
 ## ARIMA(1,1,2) 
 ## 
@@ -333,9 +332,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## AIC=304.82   AICc=304.95   BIC=319.71</code></pre>
 <p>El modelo ARIMA(1,1,2) se seleccionó como el mejor ajuste para differenced_data basado en los valores del AIC, AICc, y BIC. La inclusión de términos AR y MA sugiere que hay dependencias de corto plazo en la serie, pero el ajuste no es perfecto, dado el tamaño de los errores estándar y el valor de sigma^2. Si el objetivo es la predicción, este modelo podría ser una buena base, aunque podrían explorarse otros modelos o ajustes adicionales para mejorar la precisión.</p>
 <p><strong>Alternativa 2 - c(1, 1, 2) (1, 1, 0):</strong></p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="definición-de-modelos.html#cb19-1" tabindex="-1"></a><span class="co"># Ajuste del modelo ARIMA OPCIÓN 2</span></span>
-<span id="cb19-2"><a href="definición-de-modelos.html#cb19-2" tabindex="-1"></a>modelo_arima2 <span class="ot">&lt;-</span> <span class="fu">Arima</span>(differenced_data, <span class="at">order =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>), <span class="at">seasonal =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span>
-<span id="cb19-3"><a href="definición-de-modelos.html#cb19-3" tabindex="-1"></a><span class="fu">summary</span>(modelo_arima2)</span></code></pre></div>
 <pre><code>## Series: differenced_data 
 ## ARIMA(1,1,2)(1,1,0)[12] 
 ## 
@@ -350,7 +346,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Training set error measures:
 ##                      ME      RMSE       MAE MPE MAPE      MASE        ACF1
 ## Training set 0.04515282 0.4485344 0.2876226 NaN  Inf 0.8277919 -0.08017884</code></pre>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="definición-de-modelos.html#cb21-1" tabindex="-1"></a><span class="fu">checkresiduals</span>(modelo_arima2)</span></code></pre></div>
 <p><img src="index_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
 <pre><code>## 
 ##  Ljung-Box test
@@ -359,11 +354,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Q* = 62.201, df = 20, p-value = 3.233e-06
 ## 
 ## Model df: 4.   Total lags used: 24</code></pre>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="definición-de-modelos.html#cb23-1" tabindex="-1"></a><span class="co"># Pronosticar los próximos 72 períodos (6 años)</span></span>
-<span id="cb23-2"><a href="definición-de-modelos.html#cb23-2" tabindex="-1"></a>pronostico2 <span class="ot">&lt;-</span> <span class="fu">forecast</span>(modelo_arima2, <span class="at">h =</span> <span class="dv">72</span>)</span>
-<span id="cb23-3"><a href="definición-de-modelos.html#cb23-3" tabindex="-1"></a></span>
-<span id="cb23-4"><a href="definición-de-modelos.html#cb23-4" tabindex="-1"></a><span class="co"># Graficar el pronóstico con el eje x adecuado</span></span>
-<span id="cb23-5"><a href="definición-de-modelos.html#cb23-5" tabindex="-1"></a><span class="fu">plot</span>(pronostico2, <span class="at">xlab =</span> <span class="st">&quot;Año&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Tasa&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Pronóstico de Tasa&quot;</span>)</span></code></pre></div>
 <p><img src="index_files/figure-html/unnamed-chunk-26-2.png" width="672" /></p>
 <p><em>Autorregresivo:</em>
 ar1 = 0.9274: Con un valor positivo, indica que existe una relación directa entre el valor actual de la serie y su valor anterior. Es decir, cuando el valor en el periodo t-1 aumenta, el valor en el periodo actual t tiende a aumentar también.</p>
@@ -378,17 +368,7 @@ sar1 = -0.4744: El coeficiente negativo para sar1 sugiere que existe una relaci�
 s.e. = 0.0620: El error estándar para sar1 es relativamente bajo, lo que indica que esta estimación también es bastante precisa y que el modelo tiene una buena confianza en el impacto de la componente estacional.</p>
 <p>el modelo ARIMA(1,1,2)(1,1,0) tiene coeficientes precisos para los diferentes componentes (AR, MA y SAR), lo que sugiere que el modelo está bien ajustado y que las relaciones capturadas por los coeficientes son confiables.</p>
 <p><strong>Alternativa 2 - Análisis de residuos</strong></p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="definición-de-modelos.html#cb24-1" tabindex="-1"></a><span class="co"># Análisis de Residuos Alternativa 2</span></span>
-<span id="cb24-2"><a href="definición-de-modelos.html#cb24-2" tabindex="-1"></a></span>
-<span id="cb24-3"><a href="definición-de-modelos.html#cb24-3" tabindex="-1"></a><span class="co"># Normal QQ Plot de los residuos</span></span>
-<span id="cb24-4"><a href="definición-de-modelos.html#cb24-4" tabindex="-1"></a>residuos_diff2 <span class="ot">&lt;-</span> <span class="fu">residuals</span>(modelo_arima2)</span>
-<span id="cb24-5"><a href="definición-de-modelos.html#cb24-5" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))  </span>
-<span id="cb24-6"><a href="definición-de-modelos.html#cb24-6" tabindex="-1"></a><span class="fu">qqnorm</span>(residuos_diff2, <span class="at">main =</span> <span class="st">&quot;Normal QQ Plot de Residuos 2&quot;</span>)</span>
-<span id="cb24-7"><a href="definición-de-modelos.html#cb24-7" tabindex="-1"></a><span class="fu">qqline</span>(residuos_diff2, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
 <p><img src="index_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="definición-de-modelos.html#cb25-1" tabindex="-1"></a><span class="co"># Realizar el test de normalidad de Shapiro-Wilk</span></span>
-<span id="cb25-2"><a href="definición-de-modelos.html#cb25-2" tabindex="-1"></a>shapiro_test2 <span class="ot">&lt;-</span> <span class="fu">shapiro.test</span>(residuos_diff2)</span>
-<span id="cb25-3"><a href="definición-de-modelos.html#cb25-3" tabindex="-1"></a><span class="fu">print</span>(shapiro_test)</span></code></pre></div>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
@@ -397,8 +377,8 @@ s.e. = 0.0620: El error estándar para sar1 es relativamente bajo, lo que indica
 <p>Los resultados del test de Shapiro-Wilk indican que los residuos (residuos_diff) no siguen una distribución normal.</p>
 <p>En cuanto a la gráfica también refleja la No normalidad. La desviación de los puntos en los extremos sugiere que los residuos tienen colas más pesadas de lo que se esperaría bajo una distribución normal. Este resultado es coherente con el Shapiro-Wilk test.</p>
 <p><strong>Alternativa 2 - Análisis de volatilidad fGarch</strong></p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="definición-de-modelos.html#cb27-1" tabindex="-1"></a><span class="co"># Análisis de volatilidad utilizando fGarch</span></span>
-<span id="cb27-2"><a href="definición-de-modelos.html#cb27-2" tabindex="-1"></a>garch_model2 <span class="ot">&lt;-</span> <span class="fu">garch</span>(residuos_diff2, <span class="at">order =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="definición-de-modelos.html#cb23-1" tabindex="-1"></a><span class="co"># Análisis de volatilidad utilizando fGarch</span></span>
+<span id="cb23-2"><a href="definición-de-modelos.html#cb23-2" tabindex="-1"></a>garch_model2 <span class="ot">&lt;-</span> <span class="fu">garch</span>(residuos_diff2, <span class="at">order =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div>
 <pre><code>## 
 ##  ***** ESTIMATION WITH ANALYTICAL GRADIENT ***** 
 ## 
@@ -441,7 +421,7 @@ s.e. = 0.0620: El error estándar para sar1 es relativamente bajo, lo que indica
 ##      1    1.388353e-02     1.000e+00     6.749e+00
 ##      2    2.667688e-01     1.000e+00    -9.784e-04
 ##      3    7.154210e-01     1.000e+00    -7.331e-02</code></pre>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="definición-de-modelos.html#cb29-1" tabindex="-1"></a><span class="fu">summary</span>(garch_model2)</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="definición-de-modelos.html#cb25-1" tabindex="-1"></a><span class="fu">summary</span>(garch_model2)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## garch(x = residuos_diff2, order = c(1, 1))
