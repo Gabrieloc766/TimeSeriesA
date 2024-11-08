@@ -195,7 +195,7 @@ kable(tabla_tasas, format = "html") %>%
 
 
 
-```{r}
+```{r echo=FALSE}
 
 plot(data2$Anio, data2$Tasa, main = "Grafico del dataset", xlab = "Tiempo", ylab = "Tasa")
 
@@ -463,8 +463,6 @@ plot(descomposicion2, main = "Descomposición TS DIFERENCIADA")
 En resumen, la serie de tiempo diferenciada aún conserva una componente estacional significativa, y la tendencia residual es pequeña pero sigue presente. Los residuos presentan variaciones irregulares, especialmente al final, lo cual podría indicar la necesidad de modelar con más precisión estos picos o variabilidad.
 
 
---------------------------------------------------------------------------------------
-
 # **Definición de Modelos**
 
 ## Modelo Arima
@@ -480,7 +478,7 @@ A continuación se probarán dos alternativas de modelo ARIMA, de acuerdo con lo
 
 * Componentes AR y MA (p y q): Dado que p y q determinan la cantidad de términos autoregresivos y de promedio móvil, conviene probar con valores más altos para q y ajustar p de acuerdo con la correlación en los residuos. Esto puede ayudar a mejorar la precisión del modelo y su capacidad predictiva.
 
-```{r}
+```{r echo=FALSE}
 
 # Ajuste del modelo ARIMA - ALTERNATIVA 1
 modelo_arima <- Arima(differenced_data, order = c(1, 2, 3), seasonal = c(1, 1, 1))
@@ -523,7 +521,7 @@ plot(pronostico, xlab = "Año", ylab = "Tasa", main = "Pronóstico de Tasa")
 
 **Alternativa 1 - Análisis de Residuos**
 
-```{r}
+```{r echo=FALSE}
 
 # Análisis de Residuos Alternativa 1
 
@@ -549,7 +547,7 @@ Por su parte, en la gráfica se evidencia un patrón en que los residuos tienen 
 
 **Alternativa 1 - Análisis de volatilidad utilizando Garch**
 
-```{r}
+```{r echo=FALSE}
 
 # Análisis de volatilidad utilizando fGarch
 garch_model <- garch(residuos_diff, order = c(1, 1))
@@ -583,17 +581,6 @@ print(modelo_auto)
 
 El modelo ARIMA(1,1,2) se seleccionó como el mejor ajuste para differenced_data basado en los valores del AIC, AICc, y BIC. La inclusión de términos AR y MA sugiere que hay dependencias de corto plazo en la serie, pero el ajuste no es perfecto, dado el tamaño de los errores estándar y el valor de sigma^2. Si el objetivo es la predicción, este modelo podría ser una buena base, aunque podrían explorarse otros modelos o ajustes adicionales para mejorar la precisión.
 
---------------------------------------------------------
-
-
-OJOOOOOOOOOOOOOOOOOOOO: 
-
-SEGUN EL AUTOARIMA DEBERIAMOS ELIMINAR seasonal = c(1, 1, 0) ya que no se especifica una componente estacional en el modelo seleccionado por auto.arima.
-
-LO MALO ES QUE SI LO CAMBIAMOS, SEGURO CAMBIE EL RESULTADO. Y NOS TOQUE AJUSTAR ANÁLISIS
-
-
---------------------
 
 **Alternativa 2 - c(1, 1, 2) (1, 1, 0):**
 
@@ -677,12 +664,10 @@ summary(garch_model2)
 En resumen, este modelo GARCH(1,1) parece adecuado para modelar la volatilidad de los residuos, aunque los residuos no sean normales.
 
 
--------------------------------------------------------------------
-
 **Comparación de modelos**
 
 
-```{r}
+```{r echo=FALSE}
 
 # Comparar criterios estadísticos
 cat("Criterios estadísticos:\n")
@@ -763,9 +748,6 @@ Los intervalos de confianza de la  Alternativa 1  (zonas azules sombreadas) son 
 **En definitiva, ** la decisión es entonces optar por la Alternativa 2, ya que presenta un mejor comportamiento tanto en el ajuste a los datos como en la calidad de los pronósticos.
 
 
----------------------------------------------------------------------
-
-
 ## Algoritmo de Holt Winter 
 
 Puede manejar la estacionalidad en el conjunto de datos simplemente calculando el valor central y luego sumándolo o multiplicándolo por la pendiente y la estacionalidad. Solo tenemos que asegurarnos de ajustar el conjunto correcto de parámetros, y tenemos el mejor ajuste. 
@@ -775,7 +757,7 @@ Recuerde siempre verificar la eficiencia del modelo utilizando el valor MAPE (er
 
 Se observan la tendencia y los ciclos:
 
-```{r}
+```{r echo=FALSE}
 # Graficar solo líneas
 plot(data2$Anio, data2$Tasa, type = "l", main = "Grafico con Regresion", xlab = "Anio", ylab = "Tasa")
 
@@ -787,7 +769,7 @@ abline(modelo, col = "red")
 
 
 ```
-```{r}
+```{r echo=FALSE}
 
 # Graficar 
 ggplot(data2, aes(x = Mes, y = Anio, fill = Tasa)) +
@@ -802,7 +784,7 @@ ggplot(data2, aes(x = Mes, y = Anio, fill = Tasa)) +
 
 La gráfica sugiere una disminución en la tasa a lo largo del tiempo, con una estabilización en niveles bajos en los años recientes. Esto podría indicar una mejora en el fenómeno que se está midiendo con la "Tasa", aunque el contexto específico dependerá de qué represente exactamente esa variable en el análisis.
 
-```{r}
+```{r echo=FALSE}
 
 # serie_temporal <- ts(data2[["Tasa"]], start = c(min(data2$Anio), 1), frequency = 12)
 
@@ -816,7 +798,7 @@ print(cicle)
 
 
 
-```{r}
+```{r echo=FALSE}
 # boxplot(data2~cycle(data2))
 
 # Crear el boxplot por ciclo (mes) para observar la estacionalidad
@@ -829,7 +811,7 @@ boxplot(ts_data ~ cycle(ts_data),
 Aunque hay consistencia en la mediana y el rango intercuartílico de la tasa a lo largo de los meses, existen valores atípicos en la segunda mitad del año. Esto sugiere que, aunque la tasa general se mantiene estable, en algunos meses específicos ocurren eventos o circunstancias que resultan en tasas inusualmente altas.
 
 
-```{r}
+```{r echo=FALSE}
 # plot(log(airmiles), ylab='log(airmiles)', xlab='Anio', main='Logaritmo de la tasa')
 
 plot(data2$Anio, log(data2$Tasa), type = "l", 
@@ -846,7 +828,7 @@ Esto fue evidenciado en el ANÁLISIS EXPLORATORIO.
 
 ## **Modelo Holt-Winter**
 
-```{r}
+```{r echo=FALSE}
 # modelo_HW = HoltWinters(log(airmiles), seasonal = "additive")
 # plot(modelo_HW, main = 'Ajuste con Holt-Winters', xlab = 'Anio', ylab='log(airmiles)')
 
@@ -878,7 +860,7 @@ Beta (β = 0.2941339): Este es el parámetro de suavizado para el componente de 
 Gamma (γ = 1): Este es el parámetro de suavizado para el componente estacional. Un valor de γ = 1 sugiere que el modelo da completo peso a los componentes estacionales previos en la serie.
 
 
-```{r}
+```{r echo=FALSE}
 plot(fitted(modelo_HW), main='Descomposicion con HW', xlab='Anio', ylab='log(airmiles)')
 ```
 
@@ -893,12 +875,12 @@ El modelo Holt-Winters parece ajustarse adecuadamente a la serie, capturando tan
 
 **Se predice el método Holt Winters**
 
-```{r}
+```{r echo=FALSE}
 pred = predict(modelo_HW, 4, prediction.interval = TRUE)
 pred
 ```
 
-```{r}
+```{r echo=FALSE}
 plot(modelo_HW, pred)
 ```
 

@@ -1361,7 +1361,6 @@ NA
 </tbody>
 </table>
 <p>A partir de la tabla se pueden confirmar las tendencias mencionadas anteriormente, con un comportamiento descendente en los 12 primeros años (1999 a 2010), una estabilización en los 5 años siguientes (2011-2015) y un incremento significativo en años recientes (2021 en adelante).</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="enunciado.html#cb9-1" tabindex="-1"></a><span class="fu">plot</span>(data2<span class="sc">$</span>Anio, data2<span class="sc">$</span>Tasa, <span class="at">main =</span> <span class="st">&quot;Grafico del dataset&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Tiempo&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Tasa&quot;</span>)</span></code></pre></div>
 <p><img src="index_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <p>El <strong>gráfico de dispersión temporal</strong>, presenta una tendencia decreciente al inicio (antes de 2005), seguida por un período de estabilización y una ligera recuperación hacia 2020. Después de 2020, la tasa muestra un aumento significativo. La caída inicial y el posterior aumento alrededor de 2020 son destacables.</p>
 </div>
@@ -1497,7 +1496,6 @@ Se observan varios picos de volatilidad, como por ejemplo, alrededor del 2002, 2
 <li><p><strong>Remainder (Residuo):</strong> Este componente representa la variabilidad no explicada por la estacionalidad ni la tendencia. Se observan varios picos y una dispersión más amplia en ciertos puntos de la serie. Esto sugiere que puede haber variaciones aleatorias o anomalías en ciertos periodos, especialmente al final, donde los residuos son más grandes. La presencia de valores residuales grandes refuerza la idea de que hay eventos impredecibles o ruido en la serie.</p></li>
 </ul>
 <p>En resumen, la serie de tiempo diferenciada aún conserva una componente estacional significativa, y la tendencia residual es pequeña pero sigue presente. Los residuos presentan variaciones irregulares, especialmente al final, lo cual podría indicar la necesidad de modelar con más precisión estos picos o variabilidad.</p>
-<hr />
 </div>
 </div>
             </section>
